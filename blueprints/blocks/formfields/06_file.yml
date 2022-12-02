@@ -1,0 +1,31 @@
+name: form.block.fromfields.file
+icon: file
+
+fields:
+    accept:
+      label: form.block.fromfields.file.accept
+      type: tags
+      width: 2/4
+      help: form.block.fromfields.file.accept.help
+    maxsize:
+      label: form.block.fromfields.file.maxsize
+      type: number
+      width: 1/4
+      help: form.block.fromfields.file.maxsize.help
+      after: MB
+      default: 10
+    maxnumber:
+      label: form.block.fromfields.file.maxnumber
+      type: number
+      width: 1/4
+      min: 1
+      default: 1
+    file_accept:
+      label: form.block.fromfields.file.accept.fail
+      type: text
+      help: form.block.default.help
+    info:
+      label: form.block.fromfields.file.warning.label
+      type: info
+      text: form.block.fromfields.file.warning.text
+      theme: negative

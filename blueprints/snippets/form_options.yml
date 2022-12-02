@@ -1,0 +1,22 @@
+redirect:
+  type: toggle
+  label: form.block.options.redirect
+  width: 1/3
+  text:
+    - form.block.options.redirect.on
+    - form.block.options.redirect.off
+
+success_message:
+  label: form.block.options.success_text
+  type: writer
+  help: form.block.default.help
+  width: 2/3
+  when:
+    redirect: false
+
+success_url:
+  label: form.block.options.success_url
+  type: url
+  width: 2/3
+  when:
+    redirect: true
