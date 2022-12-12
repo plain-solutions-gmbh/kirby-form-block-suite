@@ -480,7 +480,7 @@ class Form extends Block
             
             $emailData = [
                 'from' => option('microman.formblock.from_email'),
-                'to' => $recipient,
+                'to' => explode(';', $recipient),
                 'subject' => $this->message('notify_subject'),
                 'body' => [
                     'text' => Str::unhtml($body),
@@ -528,7 +528,7 @@ class Form extends Block
             $emailData = [
                 'from' => option('microman.formblock.from_email'),
                 'to' => $this->field('email', 'value'),
-                'replyTo' => $reply,
+                'replyTo' => explode(';', $reply),
                 'subject' => $this->message('confirm_subject'),
                 'attachments' => $this->fields()->files('tmp_name'),
                 'body' => [

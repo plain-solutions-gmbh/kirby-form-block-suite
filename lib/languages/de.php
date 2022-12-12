@@ -99,6 +99,7 @@ return [
 
 
 	'form.block.options'   					=> 'Sendeoptionen',
+	'form.block.options.email.help'   		=> 'Mehrere Empfänger möglich. Getrennt mit `;`',
 	'form.block.options.info'   			=> "**Mit *\{\{  \}\}* können Sie eingehende Werte mittels Bezeichner einfügen.**\n",
 	'form.block.options.enable_notify'   	=> "Benachrichtigung senden",
 	'form.block.options.notify_email'		=> "Empfängeradresse",

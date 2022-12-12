@@ -98,6 +98,7 @@ return [
 	'form.block.fromfields.file.warning.text'  			=> 'Be careful with executable file types (e.g. application/zip, application/msword). These may contain malware.',
 
 	'form.block.options' 						=> 'Options',
+	'form.block.options.email.help'				=> 'Multiple recipients possible. Separated with `;`',
 	'form.block.options.enable_notify' 			=> "Send notification",
 	'form.block.options.notify_email' 			=> "Recipient address",
 	'form.block.options.notify_subject' 		=> "Subject",
