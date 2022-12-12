@@ -313,7 +313,7 @@ class Form extends Block
 
         $text = $this->__call($key)
                 ->or(option('microman.formblock.translations.' . $this->getLang() . '.' .$key))
-                ->or(I18n::translate('form.block.' . $key, $locale = $this->getLang()));
+                ->or(I18n::translate('form.block.' . $key, $this->content()->$key(), $this->getLang()));
 
         return Str::template($text, A::merge($this->fieldsWithPlaceholder('value'), $replaceArray));
 
@@ -523,6 +523,7 @@ class Form extends Block
             $reply = $this->message('confirm_email');
         }
 
+
         try {
 
             $emailData = [
@@ -583,12 +584,12 @@ class Form extends Block
             }
 
             // Send notification mail
-            if (!option('microman.formblock.disable_notify') && !$this->isFatal()) {
+            if (!option('microman.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
                 $this->sendNotification();
             }
 
-            // Send notification mail
-            if (!option('microman.formblock.disable_confirmation') && !$this->isFatal()) {
+            // Send confirmation mail
+            if (!option('microman.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
                 $this->sendConfirmation();
             }
 

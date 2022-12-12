@@ -42,6 +42,8 @@
 				<div class="form-block-button form-block-submit column">
 					<input type="submit" value="<?= $form->message('send_button') ?>">
 				</div>
+
+				<input type="hidden" name="id" value="<?= $form->id() ?>">
 		</form>
 	<?php endif ?>
 
