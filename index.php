@@ -11,7 +11,7 @@ use microman\Form;
 use microman\FormBlueprint;
 use Kirby\Cms\App as Kirby;
 
-Kirby::plugin('microman/kirby-form-block-suite', [
+Kirby::plugin('microman/formblock', [
     'options' => [ 
         'from_email' => 'no-reply@' . Kirby::instance()->environment()->host(),
         'placeholders' => FormBlueprint::getPlaceholders(),

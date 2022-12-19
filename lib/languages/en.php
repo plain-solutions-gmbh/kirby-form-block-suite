@@ -30,7 +30,7 @@ return [
 	'form.block.fromfields.required' 					=> 'Required',
 	'form.block.fromfields.required_fail' 				=> 'Error text',
 	'form.block.fromfields.display'						=> 'Display title',
-	'form.block.fromfields.display.help'				=> 'Needed to display the emails in the panel. You can use the unique identifier of the fields as placeholder (e.g. {{name}})',
+	'form.block.fromfields.display.help'				=> 'Needed to display the emails in the panel. You can use the unique identifier of the fields as placeholder (e.g. \{\{name\}\})',
 
 	'form.block.fromfields.input' 						=> 'Textfield',
 	'form.block.fromfields.input.inputtype' 			=> 'Input type',

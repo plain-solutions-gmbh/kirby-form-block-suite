@@ -3,7 +3,7 @@ import MailList from './components/MailList.vue'
 import MailView from "./components/fields/MailView.vue";
 
 
-window.panel.plugin("microman/form-blocks", {
+window.panel.plugin("microman/formblock", {
     fields: {
         mailview: MailView,
     },

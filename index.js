@@ -212,9 +212,9 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm._l(_vm.data, function(group) {
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.data ? _vm._l(_vm.data, function(group) {
       return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", attrs: { "value": group, "showuuid": !_vm.isUnique }, on: { "open": _vm.openMail, "setRead": _vm.setRead, "deleteMail": _vm.deleteMail, "setAccordion": _vm.setAccordion } });
-    }), _vm.loading ? _c("k-info-field", { attrs: { "text": _vm.$t("form.block.inbox.loading") } }) : _vm._e(), _c("k-dialog", { ref: "dialog", staticClass: "k-field-type-page-dialog", attrs: { "size": "large" } }, [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
+    }) : _vm._e(), _vm.loading ? _c("k-info-field", { attrs: { "text": _vm.$t("form.block.inbox.loading") } }) : _vm._e(), _c("k-dialog", { ref: "dialog", staticClass: "k-field-type-page-dialog", attrs: { "size": "large" } }, [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
       return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
         return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
       }), 0)]) : _c("td", [_vm._v(" " + _vm._s(_vm.current.formdata[key]) + " ")])]);
@@ -384,7 +384,7 @@
   var MailView = /* @__PURE__ */ function() {
     return __component__.exports;
   }();
-  window.panel.plugin("microman/form-blocks", {
+  window.panel.plugin("microman/formblock", {
     fields: {
       mailview: MailView
     },
