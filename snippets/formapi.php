@@ -11,7 +11,7 @@
       const formData = new FormData(event.target);
 
       formData.append("id", e.target.id );
-      formData.append("page", '<?= $page->slug() ?>' );
+      formData.append("page", '<?= $page->id() ?>' );
       formData.append("lang", '<?= $form->getLang(); ?>' );
 
       const request = new XMLHttpRequest();
