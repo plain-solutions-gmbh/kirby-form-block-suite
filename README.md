@@ -49,11 +49,16 @@ This repository is the successor of the popular Kirby Form Block with a lot of n
 >
 > **You can test this plugin for 14 days and then purchase a license key [here](https://license.microman.ch/?product=801346).**
 
-A license key can be used for one Kirby instance. Enter your license key into the config file:
+A license key can be used for one Kirby instance. Enter your license key into the config file **on your live site**:
 
 ```php
 'microman.formblock.license' => "[your-key]",
 ```
+
+And then reload the panel. 
+
+> Once the license key is assigned to a site, it can only be released for another site by [support](https://microman.ch/en/microman) request.
+
 
 
 ### Migration information
@@ -413,10 +418,30 @@ For a clearly overview name your form blocks:
 
 > ☝️ Be carefull! Deleting form blocks will also deleting all requests of this form block without promting!
 
+## Troubleshooting
 
+---
 
-## Conclusion
+**Problem:** Got an error by saving the form:
 
-If you have any questions or something is not working properly, [please let me know](https://github.com/youngcut/kirby-form-block-suite/issues).
+![errorfields](./.github/error_fields.png)
 
-Hope you will enjoy this plugin. Stay tuned!
+**Solution:** Make sure all your form fields has an unique identifier. (Klick the wizard icon for autofill from display name)
+
+---
+
+**Problem:** Error validate license key
+
+**Solutions:**
+- If you havent got a license yet? Get a [single site license](https://license.microman.ch/?product=801346) or a [infinite site license](https://license.microman.ch/?product=803284).
+- Set the license key in your `config.php` like this `'microman.formblock.license' => "[your-key]",`
+- Reload the Panel
+- Your server needs a connection to the licence-server: [https://license.mircroman.ch](https://license.mircroman.ch)
+- Delete the cache folder: `/site/cache/microman/`
+- Your license key was already validate by another host: Contact the [support](https://microman.ch/en/microman) to release the linkage.
+
+---
+
+If you have any questions or something is not working properly, [make an issue request on github](https://github.com/youngcut/kirby-form-block-suite/issues) or send me a [private message](https://microman.ch/en/microman).
+
+**Hope you will enjoy this plugin. Stay tuned!**
