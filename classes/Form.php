@@ -66,11 +66,11 @@ class Form extends Block
     public function getLang($force = true): string
     {
 
-        if (site()->kirby()->multilang()) {
+        if (kirby()->session()->get('languages.detect', false)) {
             return site()->kirby()->language()->code();
         }
 
-        return $force ? option('microman.formblock.default_language') : "";
+        return $force ? option('microman.formblock.default_language') : "en";
 
     }
 
@@ -323,8 +323,9 @@ class Form extends Block
      * Returns error message
      *
      * @return string
+     * @param array $fieldSeparator Separator for the ErrorFields
      */
-    public function errorMessage(): string
+    public function errorMessage($fieldSeparator = ', '): string
     {
 
         //Return fatal-error if there is one
@@ -333,7 +334,7 @@ class Form extends Block
 
         //Return invalid-message if form invalid
         if (!$this->isValid())
-            return $this->message('invalid_message', ['fields' => $this->errorFields(', ')]);
+            return $this->message('invalid_message', ['fields' => $this->errorFields($fieldSeparator)]);
     }
 
     /**

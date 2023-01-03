@@ -50,7 +50,7 @@ Kirby::plugin('microman/formblock', [
 	            'file_maxsize' 				=> 'Dateien dürfen nicht grösser als {{ maxsize }}MB sein.',
 	            'file_maxnumber' 			=> 'Es dürfen nicht mehr als {{maxnumber}} hochgeladen werden.',
                 'file_required' 			=> 'Wähle mindestens eine Datei zum Hochladen aus.',
-	            'invalid_message'			=> 'Bitte überprüfen Sie diese Felder: {{ fields }}.',
+	            'invalid_message'			=> '<p>Bitte überprüfen Sie diese Felder: {{ fields }}.</p>',
 	            'notify_body'				=> '<p>{{ name }} hat eine Anfrage gesendet:</p><p>{{ summary }}</p>',
 	            'notify_subject'			=> 'Anfrage aus der Webseite.',
 	            'send_button'			 	=> 'Senden',
