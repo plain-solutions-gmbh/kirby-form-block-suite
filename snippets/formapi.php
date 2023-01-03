@@ -5,7 +5,7 @@
   <script>
 
   document.addEventListener("submit", function(e){
-    if (e.target.id == '<?= $form->id() ?>') {
+    if (e.target.id.value == '<?= $form->id() ?>') {
       
       const output = document.getElementById("form_"+e.target.id);
       const formData = new FormData(event.target);
