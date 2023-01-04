@@ -17,11 +17,9 @@ Kirby::plugin('microman/formblock', [
         'placeholders' => FormBlueprint::getPlaceholders(),
         'honeypot_variants' => ["email", "name", "url", "tel", "given-name", "family-name", "street-address", "postal-code", "address-line2", "address-line1", "country-name", "language", "bday"],
         'default_language' => 'en',
-        'disable_inbox' => false,
         'disable_confirm' => false,
         'disable_notify' => false,
         'dynamic_validation' => true,
-        'verify_content' => false,
         'translations' => [
             'en' => [
                 'confirm_body'				=> '<p>Thank you for your request, we will get back to you as soon as possible.</p>',

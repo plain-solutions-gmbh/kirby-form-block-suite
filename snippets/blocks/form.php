@@ -44,6 +44,7 @@
 				</div>
 
 				<input type="hidden" name="id" value="<?= $form->id() ?>">
+				<input type="hidden" name="hash" value="<?= $form->hash() ?>">
 		</form>
 	<?php endif ?>
 

@@ -337,11 +337,10 @@ For example, to determine the IP address of the sender:
 
 ### Disable Functions
 
-Functions like _request saving_, _notification email_ or _confirmation email_ can be disabled:
+Functions like _notification email_ or _confirmation email_ can be disabled:
 
 ```php
 'microman.formblock' => [
-  'disable_inbox' => true,
   'disable_confirm' => true,
   'disable_notify' => true,
 ],
@@ -356,18 +355,6 @@ Since Version 3.0 the form is validate dynamicly (No reload of the page on submi
 ```php
 'microman.formblock' => [
   'dynamic_validation' => false,
-],
-```
-
-### Verify Content
-
-To ensure that the visitor does not submit the form more than once (for example by refreshing the page), this Plugin checks whether a form with the same content has been submitted already. In this case, an error message is shown to the visitor.
-
-By default this function is disabled. To activate it use following syntax:
-
-```php
-'microman.formblock' => [
-  'verify_content' => false,
 ],
 ```
 

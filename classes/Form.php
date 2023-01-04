@@ -34,6 +34,13 @@ class Form extends Block
     protected $requestPage;
 
     /**
+     * Contains an unique id
+     *
+     * @var string
+     */
+    protected $hash;
+
+    /**
      * Creates new form block
      *
      * @param array $params
@@ -42,11 +49,12 @@ class Form extends Block
     {
         parent::__construct($this->setDefault($params));
 
-
         //Hands away from panel!
         if (preg_match('(api|panel)', $_SERVER['REQUEST_URI']) > 0) {
             return false;
-        } 
+        }
+
+        $this->hash = bin2hex(random_bytes(18));
 
         $this->fields = new FormFields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
 
@@ -72,6 +80,16 @@ class Form extends Block
 
         return $force ? option('microman.formblock.default_language') : "en";
 
+    }
+
+    /**
+     * Get generated hash
+     * 
+     * @return string
+     */
+    public function hash(): string
+    {
+        return get("hash") ?? $this->hash;
     }
 
     /**
@@ -404,22 +422,21 @@ class Form extends Block
      */
     private function saveRequest(): string
     {
-        if (option('microman.formblock.disable_inbox')) {
-            return "";
-        }
 
         $container = $this->getRequestContainer();
         $formdata = json_encode($this->fieldsWithPlaceholder());
 
-        $requestId = md5($formdata . (option('microman.formblock.verify_content') ? '' : date('YmdHis', time())));
+        $requestId = $this->hash();
 
         //The request with that values already exists
-        if ($container->drafts()->find($requestId))
-            return $this->message('exists_message');
+        if ($container->drafts()->find($requestId)) {
+            $this->error = $this->message('exists_message');
+            return false;
+        }
 
         try {
-            site()->kirby()->impersonate('kirby');
 
+            site()->kirby()->impersonate('kirby');
 
             $this->requestPage = $container->createChild([
                 'slug' => $requestId,
@@ -450,7 +467,7 @@ class Form extends Block
             $this->setError("Error saving request: " . $error->getMessage());
         
         }
-        return "";
+        return true;
     }
 
     /******************/
@@ -579,21 +596,19 @@ class Form extends Block
         if ($this->isFilled() && $this->isValid()) {
 
             //Save request
-            $saveRequest = $this->saveRequest();
-            if ($saveRequest != "") {
-                $this->error = $saveRequest;
+            if ($this->saveRequest()) {
+                
+                // Send notification mail
+                if (!option('microman.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
+                    $this->sendNotification();
+                }
+                
+                // Send confirmation mail
+                if (!option('microman.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
+                    $this->sendConfirmation();
+                }
+                
             }
-
-            // Send notification mail
-            if (!option('microman.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
-                $this->sendNotification();
-            }
-
-            // Send confirmation mail
-            if (!option('microman.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
-                $this->sendConfirmation();
-            }
-
         }
     }
 

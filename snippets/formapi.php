@@ -5,12 +5,12 @@
   <script>
 
   document.addEventListener("submit", function(e){
-    if (e.target.id.value == '<?= $form->id() ?>') {
+    const id = e.target.id.value;
+    if (id == '<?= $form->id() ?>') {
       
-      const output = document.getElementById("form_"+e.target.id);
+      const output = document.getElementById("form_"+id);
       const formData = new FormData(event.target);
 
-      formData.append("id", e.target.id );
       formData.append("page", '<?= $page->id() ?>' );
       formData.append("lang", '<?= $form->getLang(); ?>' );
 
