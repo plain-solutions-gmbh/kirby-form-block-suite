@@ -48,6 +48,7 @@ return [
 	'form.block.fromfields.input.validate.msg'			=> 'Fehlermeldung',
 	'form.block.fromfields.input.fields'				=> 'Validierungstyp',
 	'form.block.fromfields.input.fields.alpha'			=> 'Nur Text',
+	'form.block.fromfields.input.fields.alpha.text'		=> 'Wenn Sie Leerzeichen erlauben wollen. Wählen Sie <i>match</i> und geben Sie als <i>Regulärer Ausdruck</i> <strong>/^[a-zA-Z ]*$/</strong> ein.',
 	'form.block.fromfields.input.fields.num'			=> 'Nur Zahlen',
 	'form.block.fromfields.input.fields.minLength'		=> 'Min. Anzahl Zeichen',
 	'form.block.fromfields.input.fields.maxLength'		=> 'Max. Anzahl Zeichen',
@@ -97,7 +98,6 @@ return [
 	'form.block.fromfields.file.warning.label'  		=> 'Warnung!',
 	'form.block.fromfields.file.warning.text'  			=> 'Vorsicht bei ausführbaren Dateimimes (z.B. application/zip, application/msword). Diese können Schadprogramme enthalten.',
 
-
 	'form.block.options'   					=> 'Sendeoptionen',
 	'form.block.options.email.help'   		=> 'Mehrere Empfänger möglich. Getrennt mit `;`',
 	'form.block.options.info'   			=> "**Mit *\{\{  \}\}* können Sie eingehende Werte mittels Bezeichner einfügen.**\n",
@@ -114,11 +114,25 @@ return [
 	'form.block.options.redirect.off'  		=> "Besucher weiterleiten",
 	'form.block.options.success_text'  		=> "Bestätigungstext",
 	'form.block.options.success_url'  		=> "Weiterleitung",
-	'form.block.options.invalid_message'	=> "Bei Validierungsfehler",
-	'form.block.options.fatal_message' 		=> "Bei schwerwiegendem Fehler ",
-	'form.block.options.send_button'  		=> "Sendenbutton",
 
 	'form.block.placeholdes.summary' 		=> "Zusammenfassung",
+
+	'form.block.message.confirm_body'				=> 'Danke {{ name }}. Wir werden uns schnellst möglich bei dir melden.',
+	'form.block.message.confirm_subject'			=> 'Deine Anfrage',
+	'form.block.message.exists_message'				=> 'Das Formular wurde bereits ausgefüllt.',
+	'form.block.message.fatal_message'				=> 'Es ist etwas schief gelaufen. Kontaktieren Sie den Administrator oder versuchen Sie es später noch einmal.',
+	'form.block.message.required_fail'				=> 'Dieses Feld ist erforderlich.',
+	'form.block.message.file_accept' 				=> 'Nur folgende Dateitypen werden akzeptiert: {{ accept }}.',
+	'form.block.message.file_maxsize' 				=> 'Dateien dürfen nicht grösser als {{ maxsize }}MB sein.',
+	'form.block.message.file_maxnumber' 			=> 'Es dürfen nicht mehr als {{maxnumber}} hochgeladen werden.',
+	'form.block.message.file_required' 				=> 'Wähle mindestens eine Datei zum Hochladen aus.',
+	'form.block.message.file_fatal'     			=> 'Mit dem Upload ist etwas schiefgelaufen. Fehler Nr. {{ error }}.',
+	'form.block.message.invalid_message'			=> '<p>Bitte überprüfen Sie diese Felder:</p>',
+	'form.block.message.notify_body'				=> '<p>{{ name }} hat eine Anfrage gesendet:</p><p>{{ summary }}</p>',
+	'form.block.message.notify_subject'				=> 'Anfrage aus der Webseite.',
+	'form.block.message.send_button'			 	=> 'Senden',
+	'form.block.message.loading'                    => 'Hochladen ({{percent}})',
+	'form.block.message.success_message'			=> 'Danke {{ name }}. Wir werden uns schnellst möglich bei dir melden.',
 
 
 

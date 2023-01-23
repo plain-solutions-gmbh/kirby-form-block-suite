@@ -157,8 +157,12 @@ export default {
         },
         updateList () {
             let $this = this
-            this.$api.get("form/get-requests", {page: this.thisPage, form: ((this.parent) ? this.parent : "")})
-            .then( (data) => {
+            this.$api.get("formblock", {
+                action: 'requestsArray',
+                page_id: this.thisPage,
+                form_id: ((this.parent) ? this.parent : ""),
+                params: JSON.stringify({hideheader: this.parent != "" })
+            }).then( (data) => {
 
                 this.data = Object.keys(data).map(function (key) {
 
@@ -184,12 +188,31 @@ export default {
             this.$refs.dialog.open();
 
         },
+        getDate () {
+
+            var date = new Date();
+
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+
+            return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        },
         setRead (state, request = false) {
 
             if (!request) 
                 request = this.current;
 
-            this.$api.get("form/set-read", { form: request.parent, request: request.slug , state: state }).then((data) => {
+            this.$api.get("formblock", { 
+                action: "update", 
+                form_id: request.parent, 
+                request_id: request.slug,
+                params: JSON.stringify({ read: ((state == false) ? "" : this.getDate()) })
+
+            }).then((data) => {
 
                 if (data){
                     this.$events.$emit("form.update");
@@ -199,13 +222,21 @@ export default {
             })
         },
         setAccordion (form, value) {
-            this.$api.get("form/setAccodion", { form: (form), value: value }).then(() => {
+            this.$api.get("formblock", {
+                action: "updateContainer", 
+                form_id: (form), 
+                params: JSON.stringify({ openaccordion: value })
+            }).then(() => {
                 this.$events.$emit("form.update");
             })
         },
         deleteMail (request) {
             
-            this.$api.get("form/delete-request", { form: request.parent, request: request.slug }).then(() => {
+            this.$api.get("formblock", {
+                action: "delete",
+                form_id: request.parent,
+                request_id: request.slug
+            }).then(() => {
                 this.$events.$emit("form.update");
             })
         },

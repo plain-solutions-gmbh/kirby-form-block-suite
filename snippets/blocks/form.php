@@ -1,79 +1,37 @@
-<?php $form = $block; ?>
+<?php 
+    /*
+    *
+    * DO NOT MODIFY THE FILES IN THE PLUGIN FOLDER. COPY FILE TO 'SITE/SNIPPETS/BLOCKS' AND EDIT THERE. (EXCEPT THE FORMCORE FOLDER!)
+    *
+    * ALLOW:
+    * - Modify and add attributes of each element (except id, data-form, data-id or the attributes of the form element)
+    * - Add elements
+    *
+    * DISALLOW:
+    * - Change or remove the attributes id, data-form, data-id of any templates
+    * - Modify or change the calls of the templates: hidden, script and validation 
+    * - Copy the templates files hidden.php, script.php or validation.php into your site folder! (May break the plugin after updates)
+    *
+    */
+?>
 
-<div class="form-block" id="form_<?= $form->id() ?>">
-<!-- Startform:<?= $form->id() ?> -->
+<?php if($block->showForm()): ?>
+  
+    <form class="formblock" method="post" id="<?= $block->id() ?>" novalidate enctype="multipart/form-data">
 
-	<?php if ($form->showForm()) : ?>
+        <?= $block->template('fields') ?>
+        
+        <?= $block->template('form_error') ?>
 
-		<form method="post" id="<?= $form->id() ?>" novalidate enctype="multipart/form-data">
+        <?= $block->template('hidden') ?>
+        <?= $block->template('submit') ?>
 
+    </form>
 
-				<?php foreach ($form->fields() as $field) : ?>
+    <?= $block->template('script') ?>
 
-					<<?= $field->getTag('container') ?> class="form-block-field form-block-field-<?= $field->type(true) ?>" data-id="<?= $field->slug() ?>">
-						<<?= $field->getTag('label') ?> for="<?= $field->slug() ?>">
+<?php else: ?>
 
-							<span class="form-block-field-label-text"><?= $field->label() ?></span>
-							<span class="form-block-field-label-required" aria-hidden="true"><?= $field->required('asterisk') ?></span>
+    <?= $block->template('validation') ?>
 
-						</<?= $field->getTag('label') ?>>
-
-						<?php if (!$field->isValid()) : ?>
-							<span id="<?= $field->id() ?>-error-message" class="form-block-message form-block-field-invalid"><?= $field->errorMessage() ?></span>
-						<?php endif ?>
-
-						<?= $field->toHtml() ?>
-
-					</<?= $field->getTag('container') ?>>
-					
-				<?php endforeach ?>
-
-				<div class="form-block-field form-block-field-hpot">
-					<label for="<?= $form->honeypotId() ?>" aria-hidden="true"> <?= ucfirst($form->honeypotId()) ?></label>
-					<input type="search" id="<?= $form->honeypotId() ?>" name="<?= $form->honeypotId() ?>" value="" autocomplete="off" tabindex="1000" required />
-				</div>
-
-				<?php if (!$form->isValid()) : ?>
-					<div class="form-block-message form-block-invalid column">
-						<?= $form->errorMessage() ?>
-					</div>
-				<?php endif ?>
-
-				<div class="form-block-button form-block-submit column">
-					<input type="submit" value="<?= $form->message('send_button') ?>">
-				</div>
-
-				<input type="hidden" name="id" value="<?= $form->id() ?>">
-				<input type="hidden" name="hash" value="<?= $form->hash() ?>">
-		</form>
-	<?php endif ?>
-
-	<?php if ($form->isFatal()) : ?>
-		<div class="form-block-message form-block-fatal column">
-			<?= $form->errorMessage() ?>
-		</div>
-	<?php endif ?>
-
-	<?php if ($form->isSuccess()) : ?>
-
-		<?= ($form->redirect()->isTrue()) ? '<!-- Redirect: '.$form->success_url().' -->'  :'' ?>
-		
-		<div class="form-block-message form-block-success column">
-			<?= $form->successMessage() ?>
-		</div>
-	<?php endif ?>
-
-<!-- Endform -->
-
-</div>
-
-<style>
-	.form-block-field-hpot {
-		opacity: 0.001;
-		position: absolute;
-		z-index: -1;
-	}
-</style>
-
-
-<?= snippet('formapi', ['form' => $form, 'url' => page()->url()]) ?>
+<?php endif ?>

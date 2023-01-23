@@ -53,6 +53,14 @@ fields:
           url: url
           match: match
 
+      alpha:
+        label: form.block.fromfields.input.fields.alpha
+        text: form.block.fromfields.input.fields.alpha.text
+        type: info
+        width: 1/2
+        when:
+          validate: alpha
+
       match:
         label: form.block.fromfields.input.fields.match
         type: text

@@ -3,14 +3,16 @@
 namespace microman;
 
 use Kirby\Cms\Block;
+use Kirby\Cms\Structure;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\Escape;
-use Kirby\Cms\Structure;
+use Kirby\Http\Request\Files;
 use Kirby\Filesystem\Mime;
+use microman\Form;
 
 class FormField extends Block
 {
@@ -29,6 +31,13 @@ class FormField extends Block
      * @var Bool
      */
     protected $errors;
+
+    /**
+     * Fileobject if it's Field
+     *
+     * @var Array
+     */
+    protected $files;
 
     /**
      * Creates a field
@@ -51,6 +60,11 @@ class FormField extends Block
         
         $this->isFilled = $params['isFilled'];
         parent::__construct($params);
+
+        if ($this->type(true) == "file") {
+            $file_obj = new Files();
+            $this->files = $file_obj->get($this->slug());
+        }
 
         $this->errors = $this->getErrorMessages();
 
@@ -130,8 +144,10 @@ class FormField extends Block
         if ($this->hasOptions()) 
             return A::join($this->selectedOptions($raw ? 'slug' : 'label'), ', ');
 
-        if ($this->type(true) == "file" and !is_null($files = $this->files()))
-            return implode(', ', array_map(fn($f) => f::safeName($f), $files));
+        
+        if (!is_null($this->files))
+            return implode(', ', array_map(fn($f) => f::safeName($f['name']), $this->files));
+        
 
         return $raw ? $this->content()->value() : Escape::html($this->content()->value());
     }
@@ -161,9 +177,7 @@ class FormField extends Block
      */
     public function ariaAttr()
     {
-        if ($this->isValid()) return "";
-        return 'invalid aria-describedby="' . $this->id() . '-error-message"';
-
+        return 'aria-describedby="' . $this->id() . '-error-message"';
     }
 
     /**
@@ -277,14 +291,6 @@ class FormField extends Block
     }
 
     /**
-     * Get Errormessage from translation
-     * 
-     * @param string 
-     * @return string
-     */
-
-
-    /**
      * Get Messages
      *
      * @param string $key 
@@ -294,12 +300,8 @@ class FormField extends Block
      */
     public function message($key, $replaceArray = []): string
     {
-
-        $text = $this->__call($key)
-                ->or(option('microman.formblock.translations.' . I18n::locale() . '.' .$key))
-                ->or(I18n::translate('form.block.' . $key));
-
-        return Str::template($text, $replaceArray);
+        
+        return Form::translate($key, $this->__call($key), $replaceArray);
 
     }
 
@@ -308,7 +310,7 @@ class FormField extends Block
      * 
      * @return array
      */
-    private function getErrorMessages(): array
+    public function getErrorMessages(): array
     {
         $rules = [];
         $messages = [];
@@ -317,51 +319,22 @@ class FormField extends Block
             return [];            
 
         //Validate File
-        if ($this->type(true) == "file")
+        if (!is_null($this->files) )
             return $this->validateFile();
 
         //Validate Requirement
         $validator = $this->validate()->toStructure()->toArray();
 
         if ($this->required()) 
-            array_push($validator, ['validate' => 'different', 'different' => '', 'msg' => $this->message('field_message')]);
+            array_push($validator, ['validate' => 'different', 'different' => '', 'msg' => $this->message('required_fail')]);
 
-        foreach ($validator  as $v) {
+        foreach ($validator as $v) {
             $rule = Str::lower($v['validate']);
             $rules[$rule] = [isset($v[$rule]) ? $v[$rule] : "" ];
             $messages[$rule] = $v['msg'] ?: NULL;
         }
 
         return V::errors($this->value(), $rules, $messages);
-
-    }
-
-    /**
-     * Show Files
-     * 
-     * @return 
-     */
-
-    public function files($key = "name", $item = NULL) {
-
-        if ($this->type(true) != "file") 
-            return NULL;
-    
-        if (!array_key_exists($this->slug()->value(), $_FILES))
-            return NULL;
-        
-        $files = $_FILES[$this->slug()->value()][$key];
-
-        if (!is_array($files))
-            $files = [$files];
-    
-        if ( empty($files[0]))
-            return NULL;
-
-        if ( is_null($item) )
-            return $files;
-
-        return $files[$item];
 
     }
 
@@ -381,35 +354,36 @@ class FormField extends Block
             Str::toBytes($this->maxsize()."M")
         );
 
-        $filesize = $this->files('size');
 
-        if (is_null($filesize)) {
-
-            if ($this->required()) 
-                return ['require' => $this->message('file_required')];
-
-            return [];
+        //Max Number of files
+        if (count($this->files) > $this->maxnumber()->value()) {
+            $errors['maxnumber'] = $this->message('file_maxnumber', ['maxnumber' => $this->maxnumber()->value()]);
+        }     
             
-        } 
-        
-        $maxnumber = $this->maxnumber()->value();
+        foreach ($this->files as $f) {
 
-        //Check number of files
-        if (count($filesize) > $maxnumber)
-            $errors['maxnumber'] = $this->message('file_maxnumber', ['maxnumber' => $maxnumber]);
+            //No files
+            if ($f['error'] == 4) {
+                if ($this->required()){
+                    $errors['require'] = $this->message('file_required');
+                }
+                return [];
+            } 
             
-        foreach ($filesize as $i => $value) {
-
             //Check file size
-            if ( $value > $maxsize )
+            if ( $f['size'] > $maxsize)
                 $errors["filesize"] = $this->message('file_maxsize', ['maxsize' => ($maxsize / 1024 / 1024 )]);
 
             //Check MIME Types
-            $mime = Mime::fromMimeContentType($this->files('tmp_name', $i));
+            $mime = Mime::fromMimeContentType($f['tmp_name']);
             $accept = $this->accept()->value();
 
             if(!Mime::isAccepted($mime, $accept) and $this->accept()->isNotEmpty())
-                $errors["filesize"] = $this->message('file_accept', ['accept' => $accept]);
+                $errors["mime"] = $this->message('file_accept', ['accept' => $accept]);
+
+            if ($f['error'] > 0) {
+                $errors["fatal"] = $this->message('file_fatal', ['error' => $f['error']]);
+            }
             
         }
             
@@ -437,16 +411,6 @@ class FormField extends Block
     public function isValid(): bool
     {
         return count($this->errors) == 0;
-    }
-
-    /**
-     * Get true if everything failed
-     * 
-     * @return bool
-     */
-    public function isInvalid(): bool
-    {
-        return !$this->isValid();
     }
 
     /**

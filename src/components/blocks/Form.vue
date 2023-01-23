@@ -56,20 +56,18 @@ export default {
     updateCount() {
 
       const $this = this;
-      this.$api.get("form/get-requests-count", {form: (this.thisPage + "/" + this.$attrs.id), name: this.content.name})
-        .then( (data) => $this.status = data,)
+      this.$api.get("formblock", {
+        action: "info",
+        page_id: this.thisPage,
+        form_id:this.$attrs.id,
+        form_name: this.content.name
+      }).then( (data) => $this.status = data,)
         .catch(function () {
           $this.error = $this.$t('form.block.inbox.error');
         }
       )
 
     },
-
-		confirmToRemove() {
-      
-			this.$refs.removeDialog.open();
-
-		},
     onInput (value) {
 
       this.$emit("update", value);

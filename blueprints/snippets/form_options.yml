@@ -16,7 +16,8 @@ success_message:
 
 success_url:
   label: form.block.options.success_url
-  type: url
+  type: pages
+  min: 1
   width: 2/3
   when:
     redirect: true

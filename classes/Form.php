@@ -7,6 +7,7 @@ use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use Kirby\Filesystem\F;
+use Kirby\Filesystem\Dir;
 use Kirby\Exception\Exception;
 
 class Form extends Block
@@ -27,11 +28,19 @@ class Form extends Block
     protected $error;
 
     /**
-     * Page that stores the formdata
+     * RequestHandler
      *
      * @var \Kirby\Cms\Page
      */
-    protected $requestPage;
+    protected $request;
+
+    /**
+     * Files to transfer
+     *
+     * @var Array
+     */
+    protected $attachments;
+
 
     /**
      * Contains an unique id
@@ -47,14 +56,16 @@ class Form extends Block
      */
     public function __construct(array $params)
     {
+
         parent::__construct($this->setDefault($params));
+
 
         //Hands away from panel!
         if (preg_match('(api|panel)', $_SERVER['REQUEST_URI']) > 0) {
             return false;
-        }
+        } 
 
-        $this->hash = bin2hex(random_bytes(18));
+
 
         $this->fields = new FormFields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
 
@@ -62,7 +73,7 @@ class Form extends Block
         if (!$this->fields->checkHoneypot($this->honeypotId())) {
             $this->setError("Trapped into honeypot");
         };
-        
+
         $this->runProcess();
     }
 
@@ -71,14 +82,13 @@ class Form extends Block
      * 
      * @return string
      */
-    public function getLang($force = true): string
+    static function getLang(): string
     {
 
-        if (kirby()->session()->get('languages.detect', false)) {
-            return site()->kirby()->language()->code();
-        }
+        if ($lang = kirby()->language()) 
+            return $lang->code();
 
-        return $force ? option('microman.formblock.default_language') : "en";
+        return option('microman.formblock.default_language');
 
     }
 
@@ -87,8 +97,11 @@ class Form extends Block
      * 
      * @return string
      */
-    public function hash(): string
+    public function hash($renew = false): string
     {
+        if (!$this->hash or $renew)
+            $this->hash = bin2hex(random_bytes(18));
+
         return get("hash") ?? $this->hash;
     }
 
@@ -125,14 +138,14 @@ class Form extends Block
     {
         if (!isset($params['id'])) {
 
-            $postfix = "_" . $this->getLang() . ".json";
+            $postfix = "_" . self::getLang() . ".json";
 
             if(count($defaults = $this->getDefault(site()->kirby()->root('config') . "/", $postfix)) == 0){
                 $defaults = $this->getDefault(__DIR__ . "/../config/", $postfix);
             };
         
             if (!isset($defaults[0]['content'])) {
-                throw new Exception("Getting defaults failed. Check formblock_default_".$this->getLang().".json in config folder.");
+                throw new Exception("Getting defaults failed. Check formblock_default_".self::getLang().".json in config folder.");
             }
 
             $params['content'] =  $defaults[0]['content'];
@@ -211,6 +224,26 @@ class Form extends Block
     }
 
     /**
+     * Formfields as Array
+     * 
+     * @param string|null $attrs Set attribute in array (instead field object)
+     *
+     * @return array|object
+     */
+    public function attachmentFields()
+    {
+        $fields = [];
+
+        foreach ($this->fields() as $field) {
+            if ($field->type(true) == "file") {
+                array_push($fields, $field->slug()->toString());
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
      * Get formdata with custom Placeholder
      * 
      * @param string $attr Defines which atribute (value/label) of the placeholder should returned
@@ -252,6 +285,7 @@ class Form extends Block
     /** Validation Methods **/
     /************************/
 
+
     /**
      * Check if form is filled
      * 
@@ -259,7 +293,7 @@ class Form extends Block
      */
     public function isFilled(): bool
     {
-        return $this->fields->isFilled();
+        return $this->fields->isFilled() || array_key_exists('HTTP_PAGE', $_SERVER);
     }
 
     /**
@@ -291,17 +325,6 @@ class Form extends Block
     {
         return $this->isFilled() && $this->isValid() && !$this->isFatal();
     }
-
-    /**
-     * Get error fields
-     * 
-     * @param string|NULL $separator Unset returns Array
-     * @return string|array
-     */
-    public function errorFields($separator = NULL)
-    {
-        return $this->fields->errorFields($separator);
-    }
     
     /**
      * Check if form could shown
@@ -310,7 +333,10 @@ class Form extends Block
      */
     public function showForm(): bool
     {
-        return (!$this->isFilled() || !$this->isValid()) && !$this->isFatal();
+        if(!option('microman.formblock.dynamic_validation'))
+            return (!$this->isFilled() || !$this->isValid()) && !$this->isFatal();
+
+        return (!$this->isFilled());
     }
 
 
@@ -329,11 +355,29 @@ class Form extends Block
     public function message($key, $replaceArray = []): string
     {
 
-        $text = $this->__call($key)
-                ->or(option('microman.formblock.translations.' . $this->getLang() . '.' .$key))
-                ->or(I18n::translate('form.block.' . $key, $this->content()->$key(), $this->getLang()));
+        return self::translate($key, $this->__call($key), A::merge($this->fieldsWithPlaceholder('value'), $replaceArray));
 
-        return Str::template($text, A::merge($this->fieldsWithPlaceholder('value'), $replaceArray));
+    }
+
+    /**
+     * Get translatin from options or translation files.
+     *
+     * @param string $key 
+     * @param string $default if set, return it. 
+     * @param array $replaceArray Additional array for replacing
+     * 
+     * @return string
+     */
+
+    static function translate($key, $default, $replace = []) {
+
+        return Str::template(
+            $default
+                ->or(option(
+                    'microman.formblock.translations.' . self::getLang() . '.' . $key,
+                    I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", self::getLang())
+                )
+            ), $replace);
 
     }
 
@@ -341,9 +385,8 @@ class Form extends Block
      * Returns error message
      *
      * @return string
-     * @param array $fieldSeparator Separator for the ErrorFields
      */
-    public function errorMessage($fieldSeparator = ', '): string
+    public function errorMessage(): string
     {
 
         //Return fatal-error if there is one
@@ -352,7 +395,10 @@ class Form extends Block
 
         //Return invalid-message if form invalid
         if (!$this->isValid())
-            return $this->message('invalid_message', ['fields' => $this->errorFields($fieldSeparator)]);
+            return $this->message('invalid_message');
+
+        return $this->message('fatal_message');
+
     }
 
     /**
@@ -363,112 +409,12 @@ class Form extends Block
     public function successMessage(): string
     {
         if ($this->isSuccess()) {
-
-            //Redirect if set in panel
-            if ($this->redirect()->isTrue())
-                return go($this->success_url());
-            
             return $this->message('success_message');
         }
+        return "";
 
     }
 
-    /**************************/
-    /** Request Page Methods **/
-    /**************************/
-
-    /**
-     * Get Page that is used for saving requests
-     *
-     * @return \Kirby\Cms\Page
-     */
-    public function getRequestContainer(): \Kirby\Cms\Page
-    {
-        $blockId = ($this->id());
-        $container = $this->parent()->drafts()->find($blockId);
-        
-        if (!is_null($container))
-            return $container;
-        
-        $this->kirby()->impersonate('kirby');
-
-        return $this->parent()->createChild([
-            'slug' => $blockId,
-            'template' => 'formcontainer',
-            'content' => ['name' => $this->message('name')]
-        ]);
-    }
-
-    /**
-     * Update the request as page
-     *
-     * @param array $input Changes
-     */
-    private function updateRequest(array $input = [])
-    {
-
-        if (is_a($this->requestPage, '\Kirby\Cms\Page')) 
-            try {
-                $this->requestPage = $this->requestPage->update($input);
-            } catch (\Throwable $error) {
-                $this->setError("Error updating request: " . $error);
-            }
-    }
-
-    /**
-     * Save the request as page (get error if failed)
-     *
-     * @return string
-     */
-    private function saveRequest(): string
-    {
-
-        $container = $this->getRequestContainer();
-        $formdata = json_encode($this->fieldsWithPlaceholder());
-
-        $requestId = $this->hash();
-
-        //The request with that values already exists
-        if ($container->drafts()->find($requestId)) {
-            $this->error = $this->message('exists_message');
-            return false;
-        }
-
-        try {
-
-            site()->kirby()->impersonate('kirby');
-
-            $this->requestPage = $container->createChild([
-                'slug' => $requestId,
-                'template' => 'formrequest',
-                'content' => [
-                    'received' => date('Y-m-d H:i:s', time()),
-                    'formdata' => $formdata,
-                    'formfields' => json_encode($this->fieldsWithPlaceholder('label')),
-                    'read' => "",
-                    'display' => $this->message('display')
-                ]
-            ]);
-
-            //Save Files
-            try {
-
-                $files = $this->fields()->uploadFiles($this->requestPage);
-                $this->updateRequest([ 'attachment' => json_encode($files) ]);
-                
-            } catch (\Throwable $error) {
-
-                $this->setError("Error saving files: " . $error);
-
-            }
-
-        } catch (\Throwable $error) {
-
-            $this->setError("Error saving request: " . $error->getMessage());
-        
-        }
-        return true;
-    }
 
     /******************/
     /** Send Methods **/
@@ -500,6 +446,7 @@ class Form extends Block
                 'from' => option('microman.formblock.from_email'),
                 'to' => explode(';', $recipient),
                 'subject' => $this->message('notify_subject'),
+                'attachments' => $this->attachments,
                 'body' => [
                     'text' => Str::unhtml($body),
                     'html' => $body
@@ -512,7 +459,7 @@ class Form extends Block
 
             site()->kirby()->email($emailData);
 
-            $this->updateRequest(['notify-send' => date('Y-m-d H:i:s', time())]);
+            $this->request->update(['notify-send' => date('Y-m-d H:i:s', time())]);
 
         } catch (\Throwable $error) {
             $this->setError("Error sending notification: " . $error->getMessage());
@@ -526,7 +473,7 @@ class Form extends Block
      * @param string|NULL $body Mailtext - set custom notification body if not set
      * @param string|NULL $reply Reply - set custom reply email if not set
      */
-    public function sendConfirmation($body = NULL, $reply =NULL)
+    public function sendConfirmation($body = NULL, $reply = NULL)
     {
 
         if (option('microman.formblock.disable_confirm')) {
@@ -541,7 +488,6 @@ class Form extends Block
             $reply = $this->message('confirm_email');
         }
 
-
         try {
 
             $emailData = [
@@ -549,7 +495,6 @@ class Form extends Block
                 'to' => $this->field('email', 'value'),
                 'replyTo' => explode(';', $reply),
                 'subject' => $this->message('confirm_subject'),
-                'attachments' => $this->fields()->files('tmp_name'),
                 'body' => [
                     'text' => Str::unhtml($body),
                     'html' => $body
@@ -558,7 +503,7 @@ class Form extends Block
 
             site()->kirby()->email($emailData);
 
-            $this->updateRequest(['confirm-send' => date('Y-m-d H:i:s', time())]);
+            $this->request->update(['confirm-send' => date('Y-m-d H:i:s', time())]);
             
         } catch (\Throwable $error) {
 
@@ -577,12 +522,89 @@ class Form extends Block
      */
     public function setError($error = "An error occured", $save = true): string
     {
-        if ($save) {
-            $this->updateRequest(['error' => $error]);
+        if ($save && !is_null($this->request)) {
+            $this->request->update(['error' => $error]);
         }
         return $this->error = option('debug') ? $error : $this->message('fatal_message');
     }
 
+
+    /**
+     * Return Form template
+     *
+     * @param string $template Name of the template
+     * @param array $params Name of the template
+     * 
+     * @return string
+     */
+    public function template($template, $props = []): string
+    {
+        if ($template == 'field_error' && $props["field"]->isValid())
+            return '<div class="formblock__message--hidden" data-form="fields_error" data-field="' . $props["field"]->slug() . '" id="' . $props["field"]->id() . '-error-message"></div>';
+
+        if ($template == 'form_error' && ($this->isValid() && !$this->isFatal() || !$this->isFilled()))
+            return '<div class="formblock__message--hidden" data-form="form_error"></div>';
+
+        if ($template == 'form_success' && !$this->isSuccess())
+            return '<div class="formblock__message--hidden" data-form="form_success"></div>';
+                
+        if(!option('microman.formblock.dynamic_validation')) {
+            
+            if ($template == "script")
+                return "";
+        
+            if ($template == "validation") {
+
+                if ($this->isSuccess() ) {
+
+                    if ($this->redirect()->isTrue()) {
+                        go($this->success_url()->toPage()->url());
+                    }
+
+                    $template = 'form_success';
+
+                } elseif ($this->isFatal()) {
+
+                    $template = 'form_error';
+
+                }
+
+            }
+        }
+
+        $templatefolder = (in_array($template, ['hidden', 'validation', 'script', 'styles'])) ? 'formcore/' : 'formtemplates/'; 
+
+        return kirby()->snippet("blocks/".$templatefolder.$template, array_merge($props, [
+            'form' => $this,
+            'fields' => $this->fields()
+        ]));
+
+    }
+
+
+    /**
+     * Formblock Snippets
+     * 
+     * $param string $root 
+     * 
+     * @return array
+     */
+    static function snippets($root): array
+    {
+        $dirs = array_merge(
+            Dir::index($root . '/snippets/blocks/formtemplates', false, ["/formtemplates"], "blocks/formtemplates"),
+            Dir::index($root . '/snippets/blocks/formfields', false, ["/formtemplates"], 'blocks/formfields'),
+            Dir::index($root . '/snippets/blocks/formcore', false, ["/formcore"], 'blocks/formcore'),
+            ['blocks/form.php'],
+        );
+
+        $out = array();
+
+        foreach ($dirs as $dir) {
+            $out[substr($dir, 0, -4)] = $root . '/snippets/' . $dir;
+        }
+        return $out;
+    }
 
     /***************************/
     /** Let the magic happen! **/
@@ -593,10 +615,34 @@ class Form extends Block
      */
     private function runProcess()
     {
-        if ($this->isFilled() && $this->isValid()) {
+        if ($this->hash() == 0) {
+            return;
+        }
+        
+        if ($this->isFilled() && $this->isValid() && is_null(get('field_validation'))) {
+            
+            $this->request = new FormRequest([
+                'page_id' => $this->parent()->id(),
+                'form_id' => $this->id(),
+                'form_name' => $this->message('name')
+            ]);
+            
+            $request = $this->request->create( [
+                'received' => date('Y-m-d H:i:s', time()),
+                'formdata' => json_encode($this->fieldsWithPlaceholder()),
+                'formfields' => json_encode($this->fieldsWithPlaceholder('label')),
+                'read' => "",
+                'display' => $this->message('display')
+            ], $this->hash());
 
-            //Save request
-            if ($this->saveRequest()) {
+            //Reqeust already exists
+            if(is_null($request)) {
+
+                $this->setError($this->message('exists_message'));
+
+            } else {
+
+                $this->attachments = $this->request->uploadFiles($this->attachmentFields());
                 
                 // Send notification mail
                 if (!option('microman.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
@@ -608,7 +654,10 @@ class Form extends Block
                     $this->sendConfirmation();
                 }
                 
+                $this->hash = 0;
+
             }
+
         }
     }
 

@@ -48,6 +48,7 @@ return [
 	'form.block.fromfields.input.validate.msg' 			=> 'Error message',
 	'form.block.fromfields.input.fields' 				=> 'Validation type',
 	'form.block.fromfields.input.fields.alpha' 			=> 'Text only',
+	'form.block.fromfields.input.fields.alpha.text'		=> 'If you want to allow spaces. Select <i>match</i> and enter as <i>regular expression</i> <strong>/^[a-zA-Z ]*$/</strong>.',
 	'form.block.fromfields.input.fields.num' 			=> 'Numbers only',
 	'form.block.fromfields.input.fields.minLength' 		=> 'Min. simbolių kiekis',
 	'form.block.fromfields.input.fields.maxLength' 		=> 'Maks. simbolių kiekis',
@@ -114,8 +115,24 @@ return [
 	'form.block.options.success_url' 			=> "Redirect",
 	'form.block.options.invalid_message'		=> "On validation error",
 	'form.block.options.fatal_message'			=> "On fatal error ",
-	'form.block.options.send_button' 			=> "Send button",
 
 	'form.block.placeholdes.summary' 			=> "Summary",
+
+	'form.block.message.confirm_body'			=> '<p>Thank you for your request, we will get back to you as soon as possible.</p>',
+	'form.block.message.confirm_subject'		=> 'Your request',
+	'form.block.message.exists_message'			=> '<p>The form has already been filled in.</p>',
+	'form.block.message.fatal_message'			=> '<p>Something went wrong.<br>Contact the administrator or try again later.</p>',
+	'form.block.message.required_fail'			=> 'This field is required.',
+	'form.block.message.file_accept' 			=> 'Only following file types are accepted: {{accept}}.',
+	'form.block.message.file_maxsize' 			=> 'File(s) must not be larger than {{ maxsize }}MB',
+	'form.block.message.file_maxnumber'         => 'No more than {{maxnumber}} may be uploaded.',
+	'form.block.message.file_required' 			=> 'Choose at least one File to upload.',
+	'form.block.message.file_fatal'     		=> 'Something went wrong with the upload. Error no.  {{ error }}.',
+	'form.block.message.invalid_message'		=> '<p>Please check these fields:</p>',
+	'form.block.message.notify_body'			=> '<p>{{ name }} send a request:</p><p>{{ summary }}</p>',
+	'form.block.message.notify_subject'			=> 'Request from website.',
+	'form.block.message.send_button'			=> 'Siųsti',
+	'form.block.message.loading'                => 'Uploading ({{percent}})',
+	'form.block.message.success_message'		=> '<p>Thank you {{ name }}. We will get back to you as soon as possible.</p>',
 
 ];

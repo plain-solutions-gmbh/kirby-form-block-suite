@@ -1,0 +1,363 @@
+/* Colors */
+
+:root {
+    --formblock-color: #0d47a1;
+    --formblock-color-invert: #fff;
+    --formblock-color-error: #CC0000;
+    --formblock-color-success: #007E33;
+}
+
+
+/* Form */
+
+.formblock {
+    display: grid;
+    gap: 30px 50px;
+    margin: 40px auto;
+    max-width: 500px;
+}
+
+.formfield__container {
+    width: 100%;
+}
+
+
+/* Label */
+
+.formblock_field__label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+
+/* Messages */
+
+.formblock__message--error,
+.formblock__message--success {
+    margin-top: 10px;
+}
+
+.formblock__message--error {
+    color: var(--formblock-color-error);
+    width: 100%;
+}
+
+.formblock__message--success {
+    color: var(--formblock-color-success);
+}
+
+.formblock__message--error ul>li,
+.formblock__message--success ul>li {
+    list-style-position: inside;
+}
+
+.formblock__message--error[data-form="form_error"],
+.formblock__message--success[data-form="form_success"] {
+    padding: 20px;
+    color: var(--formblock-color-invert);
+}
+
+.formblock__message--error[data-form="form_error"] {
+    background-color: var(--formblock-color-error);
+}
+
+.formblock__message--success[data-form="form_success"] {
+    background-color: var(--formblock-color-success);
+}
+
+
+/* Fields */
+
+.formfield__input,
+.formfield__select,
+.formfield__radio,
+.formfield__textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 20px;
+    border: 1px solid #ebebeb;
+    outline: none;
+    font-size: .9em;
+    font-weight: 500;
+    appearance: unset!important;
+    -moz-appearance: unset!important;
+    -webkit-appearance: unset!important;
+    -o-appearance: unset!important;
+    -ms-appearance: unset!important;
+}
+
+.formfield__container[data-valid="false"] .formfield__input,
+.formfield__container[data-valid="false"] .formfield__select,
+.formfield__container[data-valid="false"] .formfield__radio,
+.formfield__container[data-valid="false"] .formfield__file,
+.formfield__container[data-valid="false"] .formblock__option__container,
+.formfield__container[data-valid="false"] .formfield__textarea {
+    border: 1px solid var(--formblock-color-error);
+}
+
+.formfield__container[data-valid="true"] .formfield__input,
+.formfield__container[data-valid="true"] .formfield__select,
+.formfield__container[data-valid="true"] .formfield__radio,
+.formfield__container[data-valid="true"] .formfield__file,
+.formfield__container[data-valid="true"] .formblock__option__container,
+.formfield__container[data-valid="true"] .formfield__textarea {
+    border: 1px solid var(--formblock-color-success);
+}
+
+.formfield__container[data-valid] .formblock__option__container {
+    padding: 0px 15px 15px;
+}
+
+.formfield__container[data-valid] .formfield__file {
+    padding: 15px;
+}
+
+.formfield__input::-webkit-outer-spin-button,
+.formfield__input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none!important;
+    -moz-appearance: none!important;
+    -webkit-appearance: none!important;
+    -o-appearance: none!important;
+    -ms-appearance: none!important;
+}
+
+.formfield__input:focus,
+.formfield__select:focus,
+.formfield__textarea:focus {
+    border: 1px solid var(--formblock-color);
+    outline: none;
+    box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    -o-box-shadow: none!important;
+    -ms-box-shadow: none!important;
+}
+
+
+/* Input Fields */
+
+.formfield__input[type=number] {
+    box-shadow: 0 0 0 30px transparent inset;
+    -moz-box-shadow: 0 0 0 30px transparent inset;
+    -webkit-box-shadow: 0 0 0 30px transparent inset;
+    -o-box-shadow: 0 0 0 30px transparent inset;
+    -ms-box-shadow: 0 0 0 30px transparent inset;
+    -moz-appearance: textfield!important;
+    appearance: none!important;
+    -webkit-appearance: none!important;
+}
+
+.formfield__textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+
+/* Optionfields Fields */
+
+.formblock__option__container {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: none;
+}
+
+.formfield__checkbox {
+    appearance: checkbox!important;
+    -moz-appearance: checkbox!important;
+    -webkit-appearance: checkbox!important;
+    -o-appearance: checkbox!important;
+    -ms-appearance: checkbox!important
+}
+
+.formfield__radio {
+    appearance: radio!important;
+    -moz-appearance: radio!important;
+    -webkit-appearance: radio!important;
+    -o-appearance: radio!important;
+    -ms-appearance: radio!important
+}
+
+.formfield__radio,
+.formfield__checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.formfield__option__label {
+    position: relative;
+    display: block;
+    padding-left: 25px;
+    font-weight: 500;
+    line-height: 24px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.formfield__radio__check,
+.formfield__checkbox__check {
+    display: inline-block;
+    position: absolute;
+    border: 1px solid #ebebeb;
+    height: 13px;
+    width: 13px;
+    top: 4px;
+    left: 0;
+    z-index: 5;
+    transition: border .25s linear;
+    -webkit-transition: border .25s linear;
+}
+
+.formfield__radio__check:before,
+.formfield__checkbox__check:before {
+    content: '';
+    position: absolute;
+    display: block;
+    margin: auto;
+    color: #fff;
+}
+
+.formfield__radio__check,
+.formfield__radio__check:before {
+    border-radius: 50%;
+    transition: background .25s linear;
+    -webkit-transition: background .25s linear;
+}
+
+.formfield__radio__check:before {
+    width: 9px;
+    height: 9px;
+    top: 2px;
+    left: 2px;
+}
+
+.formfield__checkbox__check::before {
+    content: '\2713';
+    width: 13px;
+    line-height: 13px;
+    font-size: .8em;
+    text-align: center;
+    transition: color .25s linear;
+    -webkit-transition: color .25s linear;
+}
+
+.formfield__radio:checked~.formfield__radio__check,
+.formfield__radio:hover~.formfield__radio__check,
+.formfield__checkbox:checked~.formfield__checkbox__check,
+.formfield__checkbox:hover~.formfield__checkbox__check {
+    border: 1px solid var(--formblock-color);
+}
+
+.formfield__radio:checked~.formfield__radio__check::before {
+    background: var(--formblock-color);
+}
+
+.formfield__checkbox:checked~.formfield__checkbox__check::before {
+    color: var(--formblock-color);
+}
+
+.formfield__option {
+    position: relative;
+    margin-right: 45px;
+}
+
+
+/* Select Field */
+
+.formfield__select__wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.formfield__select {
+    position: relative;
+    background: 0 0;
+    appearance: none!important;
+    -moz-appearance: none!important;
+    -webkit-appearance: none!important;
+    -o-appearance: none!important;
+    -ms-appearance: none!important;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.formfield__select__chevron {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.formfield__select__chevron:before {
+    content: '\2304';
+    display: block;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 30px;
+    color: #999;
+    transform: scaleX(1.5);
+}
+
+.formfield__select:hover~.formfield__select__chevron:before {
+    color: var(--formblock-color);
+}
+
+.formfield__select:hover {
+    border: 1px solid var(--formblock-color);
+}
+
+
+/* Buttons */
+
+.formblock__submit {
+    position: relative;
+    width: 140px;
+    text-align: right;
+    margin-left: auto;
+}
+
+.formblock__submit>input {
+    width: 100%;
+}
+
+.formblock__submit>input,
+.formfield__file::file-selector-button {
+    display: inline-block;
+    border: none;
+    background: var(--formblock-color);
+    color: var(--formblock-color-invert);
+    line-height: 40px;
+    font-weight: 400;
+    font-size: .9em;
+    cursor: pointer;
+}
+
+.formfield__file::file-selector-button {
+    line-height: 25px;
+}
+
+.formblock__submit>input:hover,
+.formfield__file::file-selector-button:hover {
+    filter: brightness(85%);
+}
+
+.formblock__submit__bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: block;
+    background-color: #000;
+    mix-blend-mode: overlay;
+}
+
+@media screen and (max-width:480px) {
+    .formblock__option__container {
+        flex-direction: column;
+    }
+}

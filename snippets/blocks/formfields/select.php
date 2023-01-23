@@ -1,17 +1,30 @@
-<select
-    name="<?= $formfield->slug() ?>"
-    id="<?= $formfield->id() ?>"
-    <?= $formfield->required('attr') ?>
-    <?= $formfield->ariaAttr() ?>
-    <?= $formfield->autofill(true) ?>
-    >
 
-    <option value="" disabled <?= e($formfield->value() == "", ' selected') ?>><?= $formfield->placeholder() ?></option>
 
-    <?php foreach ($formfield->options() as $option) : ?>
-        <option value="<?= $option->slug() ?>" <?= e($option->selected()->isTrue(), " selected") ?>>
-            <?= $option->label() ?>
-        </option>
-    <?php endforeach ?>
+<div class="formfield__select__wrapper" >
 
-</select>
+    <select
+        class="formfield__select"
+        name="<?= $formfield->slug() ?>"
+        id="<?= $formfield->id() ?>"
+        data-form="field"
+        <?= $formfield->required('attr') ?>
+        <?= $formfield->ariaAttr() ?>
+        <?= $formfield->autofill(true) ?>
+        >
+
+        <?php $selected = $formfield->value() == "" ? "selected" : ""?>
+
+        <option class="formfield__select__option--<?= $selected ?>" value="" disabled <?= $selected ?>><?= $formfield->placeholder() ?></option>
+
+        <?php foreach ($formfield->options() as $option) : ?>
+
+            <?php $selected = $option->selected()->isTrue() ? "selected" : ""?>
+
+            <option class="formfield__select__option--<?= $selected ?>" value="<?= $option->slug() ?>" <?= $selected ?>>
+                <?= $option->label() ?>
+            </option>
+        <?php endforeach ?>
+
+    </select>
+    <span class="formfield__select__chevron"></span>
+</div>

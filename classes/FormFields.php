@@ -16,6 +16,14 @@ class FormFields extends Blocks
      */
     protected $isFilled;
 
+
+    /**
+     * Set all attachment for email
+     *
+     * @var array
+     */
+    public $attachments = [];
+
     /**
      * Magic getter function
      *
@@ -30,7 +38,7 @@ class FormFields extends Blocks
         $this->parent = $parent;
         
         //Main check if Form is filled.
-        $this->isFilled = Environment::getGlobally('REQUEST_METHOD') === 'POST' && (get('id') or get($formid));
+        $this->isFilled = Environment::getGlobally('REQUEST_METHOD') === 'POST' && get('hash');
 
         //Add field object to class
         foreach ($params as $formfield) {
@@ -77,78 +85,38 @@ class FormFields extends Blocks
      * 
      * @return mixed
      */
-    public function uploadFiles($container)
+    public function hasAttachment()
     {
-        $uploadet = [];
 
-        //Walker through file fields
+        //Walker through fields looking for file
         foreach ($this as $f) {
-                
-            if ($tmp_files = $f->files('tmp_name')) {
-
-                //Prepare file info array
-                $upload_item = array();
-
-                //Become almighty
-                kirby()->impersonate('kirby');
-
-                //Walker through files in fields
-                foreach ($tmp_files as $i => $file) {
-
-                    //Read original filename
-                    $name = $f->files('name', $i);
-
-                    //Create a random filename
-                    $tmp_name = implode('.', [bin2hex(random_bytes(18)), pathinfo($name, PATHINFO_EXTENSION)]);
-
-                    //Save file
-                    $localfile = $container->createFile([
-                        'source'     => $file,
-                        'template'   => 'formfile',
-                        'filename'   => $tmp_name,
-                        'content'   => [
-                            'filename'   => $name,
-                            'field'      => $f->slug()
-                        ]
-                    ]);
-
-                    //Push fileinfos
-                    array_push($upload_item, [
-                        'name' => F::safeName($name),
-                        'tmp_name' => $tmp_name,
-                        'location' => $localfile->url(),
-                        'size' => $f->files('size', $i)
-                    ]);
-                }
-
-                //Assign fileinfos 
-                $uploadet[$f->slug()->value()] = $upload_item;
+            if ($f->type(true) == "file") {
+                return true;
             }
         }
 
-        return $uploadet;
-        
+        return false;
+
     }
 
-
     /**
-     * Returns a list of fields with errors
+     * Returns a list of fields
      * 
-     * @param string|NULL $separator Unset returns Array
+     * @param string $attr What value to return
      * @return string|array
      */
-    public function errorFields($separator = NULL)
+    public function errorFields($attr = NULL)
     {
         $errors = [];
 
         //Walker through failed fields
         foreach ($this as $f) {
             if (!$f->isValid()) {
-                array_push($errors, $f->label()->toString());
+                array_push($errors, ($attr) ? $f->$attr()->toString() : $f);
             }
         }
 
-        return is_null($separator) ? $errors : implode($separator, $errors);
+        return $errors;
     }
 
     /**
@@ -158,7 +126,7 @@ class FormFields extends Blocks
      */
     public function isValid(): bool
     {
-        return count($this->errorFields()) == 0 || !$this->isFilled();
+        return count($this->errorFields()) == 0 and $this->isFilled();
     }
 
     /**

@@ -126,6 +126,10 @@ class FormBlueprint
             'help' => 'form.block.fromfields.display.help'
         ];
 
+        $out['formblocktracer'] = [
+            'type' => 'hidden'
+        ];
+
         return $out;
     }
 
