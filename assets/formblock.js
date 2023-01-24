@@ -69,8 +69,7 @@ export function FormBlock(config) {
 
     this.onfieldvalidate = (field_data, onsubmit) => {
 
-
-        $this.form_element.querySelector('[data-form="form_error"]').outerHTML = "";
+        $this.form_element.querySelector('[data-form="form_error"]').outerHTML = $this.data.error_message;
 
         field_data.forEach((field) => {
 
