@@ -636,11 +636,7 @@ class Form extends Block
             ], $this->hash());
 
             //Reqeust already exists
-            if(is_null($request)) {
-
-                $this->setError($this->message('exists_message'));
-
-            } else {
+            if(!is_null($request)) {
 
                 $this->attachments = $this->request->uploadFiles($this->attachmentFields());
                 
