@@ -47,13 +47,14 @@ class FormRequest
     {
 
         //Get Page
-        $this->page = ($props['page_id'] ?? "site" == "site") ? site() : site()->page($props['page_id']);
-        
+        $this->page = (($props['page_id'] ?? "site") == "site") ? site() : site()->page($props['page_id']);
+
         //Get container
         if ($props['form_id'] ?? false) {
-
+            
             //Set Container
             $this->container = $this->page->draft($props['form_id']);
+            
 
             //Create if not exists
             if (!$this->container) {
@@ -133,9 +134,11 @@ class FormRequest
                 'content' => $content
             ]);
 
+            return $this->request;
         }
 
-        return $this->request;
+        return null;
+
         
     }
 
@@ -299,11 +302,13 @@ class FormRequest
         
         $out = array();
 
-        if(is_null($this->container)) {
-            $container = $this->page->index(true)->filterBy('template', 'formcontainer');
+        
+        if(is_null($this->container) || $this->container == []) {
+            $container = $this->page->index(true)->template('formcontainer');
         } else {
             $container = [$this->container];
         }
+
 
         foreach ($container as $a) {
 
