@@ -38,6 +38,10 @@
     margin-top: 10px;
 }
 
+.formblock__message--hidden {
+    display: none;
+}
+
 .formblock__message--error {
     color: var(--formblock-color-error);
     width: 100%;

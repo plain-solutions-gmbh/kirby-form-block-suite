@@ -373,11 +373,11 @@ class Form extends Block
 
         return Str::template(
             $default
-                ->or(option(
-                    'microman.formblock.translations.' . self::getLang() . '.' . $key,
-                    I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", self::getLang())
-                )
-            ), $replace);
+                ->or(option( 'microman.formblock.translations.' . self::getLang() . '.' . $key))
+                ->or(I18n::translate('form.block.message.' . $key, "", self::getLang()))
+                ->or(option( 'microman.formblock.translations.en.' . $key))
+                ->or(I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", "en"))
+            , $replace);
 
     }
 
@@ -542,7 +542,7 @@ class Form extends Block
         if ($template == 'field_error' && $props["field"]->isValid())
             return '<div class="formblock__message--hidden" data-form="fields_error" data-field="' . $props["field"]->slug() . '" id="' . $props["field"]->id() . '-error-message"></div>';
 
-        if ($template == 'form_error' && ($this->isValid() && !$this->isFatal() || !$this->isFilled()))
+        if ($template == 'form_error' && (($this->isValid() || get('field_validation')) && !$this->isFatal() || !$this->isFilled()))
             return '<div class="formblock__message--hidden" data-form="form_error"></div>';
 
         if ($template == 'form_success' && !$this->isSuccess())
@@ -615,9 +615,6 @@ class Form extends Block
      */
     private function runProcess()
     {
-        if ($this->hash() == 0) {
-            return;
-        }
         
         if ($this->isFilled() && $this->isValid() && is_null(get('field_validation'))) {
             
@@ -635,7 +632,7 @@ class Form extends Block
                 'display' => $this->message('display')
             ], $this->hash());
 
-            //Reqeust already exists
+            //Reqeust not already exists
             if(!is_null($request)) {
 
                 $this->attachments = $this->request->uploadFiles($this->attachmentFields());
@@ -650,7 +647,7 @@ class Form extends Block
                     $this->sendConfirmation();
                 }
                 
-                $this->hash = 0;
+                $this->hash('true');
 
             }
 

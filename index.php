@@ -39,7 +39,6 @@ Kirby::plugin('microman/formblock', [
         'pages/formcontainer' => FormBlueprint::getBlueprint('pages/formcontainer'),
     ],
     'snippets' => Form::snippets(__DIR__),
-    'assets' => [ 'formblock' => __DIR__ . "assets/formblock.css"],
     'hooks' => [
         'page.update:before' => function ($page, $values, $strings) {
             $content = json_encode($values);

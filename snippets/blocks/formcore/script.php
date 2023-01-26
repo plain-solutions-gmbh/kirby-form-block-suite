@@ -1,8 +1,7 @@
-
 <script type="module">
 
   import {FormBlock} from '<?= kirby()->url('media') . '/plugins/microman/formblock/formblock.js' ?>';
-  
+
   document.getElementById('<?= $form->id() ?>').formblock = new FormBlock({
     form_name: '<?= $form->name() ?>',
     form_id: '<?= $form->id() ?>',

@@ -4,7 +4,7 @@
     class="formfield__file"
     type="file"
     id="<?= $formfield->id() ?>"
-    name="<?= $formfield->slug() . (($isMultiple) ? '[]' : '') ?>"
+    name="<?= $formfield->slug() . '[]' ?>"
     accept="<?= $formfield->accept() ?>"
     data-form="files"
     <?= $formfield->autofill(true) ?>
