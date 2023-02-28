@@ -126,9 +126,9 @@ class FormBlueprint
             $fieldsets = static::mergeFormfields($userlocation, $fieldsets, $customfields);
         }
 
-        $license = new License();
+        $license = new License($fieldsets);
         
-        return $license->checkLicense() + ['formfields' => ['type' => 'blocks', 'fieldsets' => $fieldsets]];
+        return $license->checkLicense();
     }
 
     /**

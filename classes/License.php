@@ -11,16 +11,17 @@ class license {
 
     protected $product_id = '801346';
     protected $product_page = 'https://license.microman.ch?product=801346';
-    protected $license_data = [];
+    protected $license_data = array();
     protected $license_key = "";
     protected $error = "";
+    protected $success = array();
 
-    public function __construct()
+    public function __construct($fieldsets)
     {        
 
         $this->license_key = kirby()->option('microman.formblock.license');
         $this->license_data = $this->licensedata();
-        
+        $this->success = ['formfields' => ['type' => 'blocks', 'fieldsets' => $fieldsets]];
     }
 
     public function checkLicense() {
@@ -28,7 +29,7 @@ class license {
         $license = $this->readLicense();
 
         if ($license === $this->licensedata(true)) {
-            return [];
+            return $this->success;
         }
 
         if (!is_null($this->license_key)) {
@@ -64,7 +65,7 @@ class license {
             return $this->answere("The trial period has expired.", true, 'buy');
         } 
 
-        return $this->answere("Trial period ends in {$expire} days.", true, 'buy');
+        return $this->answere("Trial period ends in {$expire} days.", true, 'buy', true);
 
     }
 
@@ -112,7 +113,7 @@ class license {
         try {
 
             F::write($this->licenseFile(), $content);
-            return $this->answere("License has been successfully registered", false);
+            return $this->answere("License has been successfully registered", false, null, true);
 
         } catch (\Throwable $th) {
             
@@ -122,7 +123,7 @@ class license {
 
     }
 
-    private function answere($msg = null, $isError = true, $additional = null) {
+    private function answere($msg = null, $isError = true, $additional = null, $success = false) {
 
         $support = ' Please contact <a href="https://microman.ch/en/microman" target="_blank">the support</a>';
         $buy = " <a href='https://license.microman.ch?product={$this->product_id}' target='_blank'>Buy now!</a>";
@@ -131,7 +132,7 @@ class license {
             $msg .= $$additional;
         }
 
-        return [
+        $out = [
             'license' => [
                 'label' => 'Registration',
                 'type' => 'info',
@@ -139,6 +140,8 @@ class license {
                 'text' => $msg
             ]
         ];
+
+        return $success ? $out + $this->success : $out;
 
     }
 
