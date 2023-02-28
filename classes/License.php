@@ -79,6 +79,7 @@ class license {
 
 
         try {
+
             $request = new Remote('https://license.microman.ch/', array(
                 'method' => 'POST',
                 'data' => $this->licensedata(false),
@@ -87,11 +88,8 @@ class license {
 
             $response = $request->json();
 
-            //dump($response);
-
-
         
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
 
             $query = http_build_query($this->licensedata(false));
 
