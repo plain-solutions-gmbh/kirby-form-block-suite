@@ -118,15 +118,17 @@ class FormBlueprint
 
         $out = [];
 
-        eval(hex2bin(file_get_contents(dirname(__FILE__).'/FormValidator.php')));
+        $customfields = static::getBlueprint('blocks/customfields', true);
 
-        $out['display'] = [
-            'type' => 'text',
-            'label' => 'form.block.fromfields.display',
-            'help' => 'form.block.fromfields.display.help'
-        ];
+        $fieldsets = static::mergeFormfields(__DIR__ . '/../blueprints/blocks/formfields', $fieldsets, $customfields);
+        
+        if (Dir::exists($userlocation = kirby()->root('blueprints') . DS . 'blocks/formfields')) {
+            $fieldsets = static::mergeFormfields($userlocation, $fieldsets, $customfields);
+        }
 
-        return $out;
+        $license = new License();
+        
+        return $license->checkLicense() + ['formfields' => ['type' => 'blocks', 'fieldsets' => $fieldsets]];
     }
 
     /**

@@ -6,6 +6,7 @@ load([
     'microman\\FormRequest' => '/classes/FormRequest.php',
     'microman\\FormFields' => '/classes/FormFields.php',
     'microman\\FormField' => '/classes/FormField.php',
+    'microman\\License' => '/classes/License.php',
 ], __DIR__);
 
 use microman\Form;
