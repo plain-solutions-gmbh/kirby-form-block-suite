@@ -520,7 +520,7 @@ If you disable this function, you'il lose some features
 
 **Problem:** How do i use the form bock suite in my kirby environemt:
 
-**Solution:** This plugin is a Kirby block. Please read [this manual](http://getkirby/docs/reference/panel/fields/blocks) carefully before you start.
+**Solution:** This plugin is a Kirby block. Please read [this manual](https://getkirby.com/docs/reference/panel/fields/blocks) carefully before you start.
 
 ---
 
