@@ -518,6 +518,12 @@ If you disable this function, you'il lose some features
 
 ---
 
+**Problem:** How do i use the form bock suite in my kirby environemt:
+
+**Solution:** This plugin is a Kirby block. Please read [this manual](http://getkirby/docs/reference/panel/fields/blocks) carefully before you start.
+
+---
+
 **Problem:** Got an error by saving the form in panel:
 
 ![errorfields](./.github/error_fields.png)
