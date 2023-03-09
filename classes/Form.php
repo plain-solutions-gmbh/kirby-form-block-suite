@@ -59,13 +59,10 @@ class Form extends Block
 
         parent::__construct($this->setDefault($params));
 
-
         //Hands away from panel!
         if (preg_match('(api|panel)', $_SERVER['REQUEST_URI']) > 0) {
             return false;
         } 
-
-
 
         $this->fields = new FormFields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
 
@@ -182,7 +179,7 @@ class Form extends Block
      * 
      * @return array|object
      */
-    public function field(string $slug, $attrs= NULL)
+    public function form_field(string $slug, $attrs= NULL)
     {
         if (is_null($attrs)) {
             return $this->fields()->$slug();
@@ -217,7 +214,7 @@ class Form extends Block
         $fields = [];
         foreach ($this->fields() as $field) {
             $fieldSlug = $field->slug()->toString();
-            $fields[$fieldSlug] = $this->field($fieldSlug, $attrs);
+            $fields[$fieldSlug] = $this->form_field($fieldSlug, $attrs);
         }
 
         return $fields;
@@ -453,7 +450,7 @@ class Form extends Block
                 ]
             ];
 
-            if ($replyTo = $this->field('email', 'value')) {
+            if ($replyTo = $this->form_field('email', 'value')) {
                 $emailData['replyTo'] = $replyTo;
             }
 
@@ -492,7 +489,7 @@ class Form extends Block
 
             $emailData = [
                 'from' => option('microman.formblock.from_email'),
-                'to' => $this->field('email', 'value'),
+                'to' => $this->form_field('email', 'value'),
                 'replyTo' => explode(';', $reply),
                 'subject' => $this->message('confirm_subject'),
                 'body' => [
