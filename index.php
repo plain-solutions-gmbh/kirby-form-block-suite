@@ -69,7 +69,7 @@ Kirby::plugin('microman/formblock', [
             'action'  => function () {
                 site()->visit(get('page'), get('lang'));
                 $rendered_page = page()->render();
-                preg_match('/\<\!-- Startvalidation:'.get('id').' --\>(.*?)\<\!-- Endvalidation --\>/s', $rendered_page, $out);
+                preg_match('/\<\!--\[Startvalidation:' . get('id') . '\]--\>(.*?)\<\!--\[Endvalidation\]--\>/s', $rendered_page, $out);
                 return end($out);
                 
             }
