@@ -21,7 +21,17 @@ class license {
 
         $this->license_key = kirby()->option('microman.formblock.license');
         $this->license_data = $this->licensedata();
-        $this->success = ['formfields' => ['type' => 'blocks', 'fieldsets' => $fieldsets]];
+        $this->success = [
+            'formfields'    => [
+                'type' => 'blocks',
+                'fieldsets' => $fieldsets
+            ],
+            'display'       => [
+                'type' => 'text',
+                'label' => 'form.block.fromfields.display',
+                'help' => 'form.block.fromfields.display.help'
+            ]
+        ];
     }
 
     public function checkLicense() {
