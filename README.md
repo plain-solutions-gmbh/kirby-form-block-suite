@@ -84,8 +84,9 @@ You can test this plugin 14 days for free. There's two license available:
 
 [See also the other plugins](https://license.microman.ch/)
 
+Enter your license key in your config file: `'microman.formblock.license' => "[your-key]"`
 
-> If you have trouble with your license, check *Troubleshooting* at the end of this documentation.
+> If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
 
 **Important migration information!**
@@ -419,6 +420,14 @@ my_custom_message:
 
 # Config
 
+## Enter License Key
+
+If you bought your license key. Enter it in the config and reload the Panel:
+
+`'microman.formblock.license' => "[your-key]"`
+
+See [Troubleshooting](#troubleshooting) if it's not working.
+
 ## Email address for outgoing emails
 
 ```php
@@ -516,6 +525,8 @@ If you disable this function, you'il lose some features
 
 # Troubleshooting
 
+> Please read this Capter carefully before [contacting the support](https://microman.ch/en/microman). 
+
 ---
 
 **Problem:** How do i use the form bock suite in my kirby environemt:
@@ -552,7 +563,7 @@ If you disable this function, you'il lose some features
 - If you haven't got a license yet? Get a [single site license](https://license.microman.ch/?product=801346) or an [infinite site license](https://license.microman.ch/?product=803284).
 - Set the license key in your `config.php` like this `'microman.formblock.license' => "[your-key]",`
 - Reload the Panel
-- Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.mircroman.ch)
+- Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.microman.ch)
 - Delete the cache folder: `/site/cache/microman/`
 - Your license key was already validated by another host: Contact the [support](https://microman.ch/en/microman) to release the linkage.
 
