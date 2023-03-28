@@ -549,7 +549,7 @@ If you disable this function, you'il lose some features
 
 ```php
 'microman.formblock' => [
-  'default_language' = 'de'
+  'default_language' => 'de'
 ]
 
 ```
