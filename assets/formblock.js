@@ -17,7 +17,7 @@ export function FormBlock(config) {
 
         if (e.target.status === 200) {
 
-            $this.state = $this.data.state;
+            $this.state = $this.data.state ?? $this.data.status;
 
             $this.form_element.dataset.process = $this.state;
             $this.submit_bar.style.width = 0;
@@ -43,7 +43,7 @@ export function FormBlock(config) {
         } else {
 
             //Show error in Console
-            console.error((data.target.status === 404) ? "Error 404" : $this.data);
+            console.error( $this.data   );
 
             //Show Error message in Form
             $this.onerror($this.config.messages.fatal);
