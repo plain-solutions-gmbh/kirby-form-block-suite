@@ -21,7 +21,7 @@
 
         <?php else: ?>
 
-            <label class="formblock_field__label" for="<?= $field->slug() ?>">
+            <label class="formblock_field__label" for="<?= $field->slug() ?>" id="label-<?= $field->id() ?>">
 
                 <span class="formfield__label__text"><?= $field->label() ?></span>
                 <span class="formfield__label__required" aria-hidden="true"><?= $field->required('asterisk') ?></span>

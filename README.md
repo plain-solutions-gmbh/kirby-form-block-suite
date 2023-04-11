@@ -522,6 +522,18 @@ If you disable this function, you'il lose some features
 - No upload process bar
 - The form will not be centered after sending
 
+## Hook Success
+
+Since Version 3.4.8. Trigger when Form is send.
+
+```php
+'hooks' => [
+  'formblock.success:after' => function (\microman\FormRequest $request) {
+      //Your code
+  },
+]
+```
+
 
 # Troubleshooting
 

@@ -646,6 +646,10 @@ class Form extends Block
                 
                 $this->hash('true');
 
+                kirby()->trigger('formblock.success:after', [
+                    'request' => $this->request,
+                ]);
+
             }
 
         }

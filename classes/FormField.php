@@ -177,7 +177,7 @@ class FormField extends Block
      */
     public function ariaAttr()
     {
-        return 'aria-describedby="' . $this->id() . '-error-message"';
+        return 'aria-labelledby="label-' . $this->id() . '" aria-describedby="' . $this->id() . '-error-message"';
     }
 
     /**
