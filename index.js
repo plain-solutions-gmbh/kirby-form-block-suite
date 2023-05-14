@@ -41,10 +41,7 @@
       options._ssrRegister = hook;
     } else if (injectStyles) {
       hook = shadowMode ? function() {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        );
+        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
       } : injectStyles;
     }
     if (hook) {
@@ -104,11 +101,9 @@
           page_id: this.thisPage,
           form_id: this.$attrs.id,
           form_name: this.content.name
-        }).then((data) => $this.status = data).catch(
-          function() {
-            $this.error = $this.$t("form.block.inbox.error");
-          }
-        );
+        }).then((data) => $this.status = data).catch(function() {
+          $this.error = $this.$t("form.block.inbox.error");
+        });
       },
       onInput(value) {
         this.$emit("update", value);
@@ -116,16 +111,7 @@
     }
   };
   const __cssModules$2 = {};
-  var __component__$2 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$2,
-    render$2,
-    staticRenderFns$2,
-    false,
-    __vue2_injectStyles$2,
-    null,
-    null,
-    null
-  );
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
   function __vue2_injectStyles$2(context) {
     for (let o in __cssModules$2) {
       this[o] = __cssModules$2[o];
@@ -191,16 +177,7 @@
     }
   };
   const __cssModules$1 = {};
-  var __component__$1 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$1,
-    render$1,
-    staticRenderFns$1,
-    false,
-    __vue2_injectStyles$1,
-    null,
-    null,
-    null
-  );
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
   function __vue2_injectStyles$1(context) {
     for (let o in __cssModules$1) {
       this[o] = __cssModules$1[o];
@@ -395,16 +372,7 @@
     }
   };
   const __cssModules = {};
-  var __component__ = /* @__PURE__ */ normalizeComponent(
-    __vue2_script,
-    render,
-    staticRenderFns,
-    false,
-    __vue2_injectStyles,
-    null,
-    null,
-    null
-  );
+  var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
   function __vue2_injectStyles(context) {
     for (let o in __cssModules) {
       this[o] = __cssModules[o];

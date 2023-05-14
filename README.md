@@ -522,19 +522,18 @@ If you disable this function, you'il lose some features
 - No upload process bar
 - The form will not be centered after sending
 
-## Hooks
+## Hook Success
 
-Since Version 3.4.8: `formblock.success:after` triggers when the form is send successfully.
-
-In this example you can prevent Kirby Form Block Suite from saving requests:
+Since Version 3.4.8. Trigger when Form is send.
 
 ```php
 'hooks' => [
   'formblock.success:after' => function (\microman\FormRequest $request) {
-    $request->delete();
-  }
-],
+      //Your code
+  },
+]
 ```
+
 
 # Troubleshooting
 

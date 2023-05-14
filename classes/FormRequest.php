@@ -5,7 +5,6 @@ namespace microman;
 use Kirby\Cms\Page;
 use Kirby\Cms\Site;
 use Kirby\Cms\Template;
-use Kirby\Exception\Exception;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\F;
 use Kirby\Uuid\Uuid;
@@ -45,9 +44,13 @@ class FormRequest
      */
     public function __construct($props)
     {
-
+        
         //Get Page
-        $this->page = (($props['page_id'] ?? "site") == "site") ? site() : site()->page($props['page_id']);
+        if (($props['page_id'] ?? "site") === 'site') {
+            $this->page = site();
+        } else {
+            $this->page = site()->index(true)->find($props['page_id']);
+        }
 
         //Get container
         if ($props['form_id'] ?? false) {
@@ -138,7 +141,6 @@ class FormRequest
         }
 
         return null;
-
         
     }
 

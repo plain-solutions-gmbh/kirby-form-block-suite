@@ -331,7 +331,7 @@ class FormField extends Block
         foreach ($validator as $v) {
             $rule = Str::lower($v['validate']);
             $rules[$rule] = [isset($v[$rule]) ? $v[$rule] : "" ];
-            $messages[$rule] = $v['msg'] ?: NULL;
+            $messages[$rule] = $v['msg'] ?? NULL;
         }
 
         return V::errors($this->value(), $rules, $messages);
