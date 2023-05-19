@@ -583,4 +583,14 @@ Since Version 3.4.8. Trigger when Form is send.
 
 If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/youngcut/kirby-form-block-suite/issues) or send me a [private message](https://microman.ch/en/microman).
 
-**I hope you will enjoy this plugin. Stay tuned!**
+**I hope you will enjoy this plugin.**
+
+## License
+
+This is a free trial version of Kirby Form Block Suite Plugin, which grants you the right to use the plugin for testing purposes. If you wish to use this plugin on one website or if you intend to use it for commercial purposes, you must [purchase a license](https://license.microman.ch/?product=801346).
+
+A license is required for those who wish to use the plugin to generate revenue, including but not limited to: e-commerce websites, affiliate marketing websites, and websites that require payment to access content. Licenses are non-transferable and cannot be shared with other users or websites.
+
+By downloading and using this plugin, you agree to the [terms and conditions of the License Agreement](https://license.microman.ch/license/). Failure to comply with the terms of the License Agreement may result in revocation of your license and legal action.
+
+To purchase a license or learn more about our licensing options, please visit our [website](https://microman.ch) or contact us at [Contact Email](mailto:kirby@micorman.ch). Thank you for your interest in Kirby Form Block Suite Plugin!

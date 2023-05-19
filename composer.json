@@ -2,8 +2,8 @@
     "name": "microman/kirby-form-block-suite",
     "description": "Contactform based on Kirby blocks. ",
     "type": "kirby-plugin",
-    "version": "3.5.0",
-    "license": "GPL-3.0-or-later",
+    "version": "3.5.1",
+    "license": "proprietary",
     "authors": [{
         "name": "Roman Gsponer",
         "email": "kirby@microman.ch"

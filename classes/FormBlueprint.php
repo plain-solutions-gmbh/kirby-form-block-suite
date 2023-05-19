@@ -2,6 +2,14 @@
 
 namespace microman;
 
+/**
+ * @package   Kirby Form Block Suite
+ * @author    Roman Gsponer <kirby@microman.ch>
+ * @link      https://microman.ch/
+ * @copyright Roman Gsponer
+ * @license   https://license.microman.ch/license/ 
+ */
+
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\Str;

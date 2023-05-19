@@ -2,6 +2,14 @@
 
 namespace microman;
 
+/**
+ * @package   Kirby Form Block Suite
+ * @author    Roman Gsponer <kirby@microman.ch>
+ * @link      https://microman.ch/
+ * @copyright Roman Gsponer
+ * @license   https://license.microman.ch/license/ 
+ */
+
 use Kirby\Cms\Block;
 use Kirby\Cms\Structure;
 use Kirby\Toolkit\A;
