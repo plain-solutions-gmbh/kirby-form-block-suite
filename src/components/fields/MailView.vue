@@ -2,21 +2,27 @@
     <div class="k-field-type-mail-view">
         <!-- eslint-disable vue/no-v-html -->
 
-        <template v-if="data">
-            <k-mail-list
-                v-for="group in data"
-                :key="group.slug"
-                class="k-table k-field-type-mail-table"
-                :value='group'
-                :showuuid="!isUnique"
-                @open="openMail"
-                @setRead="setRead"
-                @deleteMail="deleteMail"
-                @setAccordion="setAccordion" />
-        </template>
+        <k-grid>
+            <k-column v-if="showLicense">
+                <k-formblock-license @onSuccess="showLicense = false" />
+            </k-column>
+            <k-column>
+                <template v-if="data">
+                    <k-mail-list
+                        v-for="group in data"
+                        :key="group.slug"
+                        class="k-table k-field-type-mail-table"
+                        :value='group'
+                        :showuuid="!isUnique"
+                        @open="openMail"
+                        @setRead="setRead"
+                        @deleteMail="deleteMail"
+                        @setAccordion="setAccordion" />
+                </template>
 
-        <k-info-field v-if="loading" :text="$t('form.block.inbox.loading')" />
-
+                <k-info-field v-if="loading" :text="$t('form.block.inbox.loading')" />
+            </k-column>
+        </k-grid>
         <k-dialog ref="dialog" class="k-field-type-page-dialog" size="large">
         
             <k-headline>{{current.title}}</k-headline>
@@ -84,7 +90,8 @@ export default {
         dateformat: {
             type: String,
             default: "DD.MM.YYYY HH:mm"
-        }
+        },
+        license: Boolean
     },
     data () {
         return {
@@ -99,7 +106,8 @@ export default {
             id: 0,
             parent:false,
             loading: true,
-            page: "Keine Seite"
+            page: "Keine Seite",
+            showLicense: true,
         };
     },
     computed: {
@@ -128,15 +136,13 @@ export default {
         },
     },
     created () {
-
+        this.showLicense = this.license
         this.findId(this.$parent);
         this.$events.$on("form.update", this.updateList);
 
     },
     destroyed() {
-
         this.$events.$off("form.update", this.updateList);
-
     },
     methods: {
         //Find current blockid

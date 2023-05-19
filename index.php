@@ -6,10 +6,11 @@ load([
     'microman\\FormRequest' => '/classes/FormRequest.php',
     'microman\\FormFields' => '/classes/FormFields.php',
     'microman\\FormField' => '/classes/FormField.php',
-    'microman\\License' => '/classes/License.php',
+    'microman\\FormLicense' => '/classes/FormLicense.php',
 ], __DIR__);
 
 use microman\Form;
+use microman\FormLicense;
 use microman\FormRequest;
 use microman\FormBlueprint;
 use Kirby\Cms\App as Kirby;
@@ -91,7 +92,13 @@ Kirby::plugin('microman/formblock', [
                     $formRequest = new FormRequest($this->requestQuery());
                     return $formRequest->api($this->requestQuery());
                 }
-            ]
+            ],
+            [
+                "pattern" => "formblock/license",
+                "action" => function () {
+                    return FormLicense::register(get("key"), get("email"));
+                },
+            ],
         ]
     ],
     'translations' => [

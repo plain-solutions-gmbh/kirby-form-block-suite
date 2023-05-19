@@ -106,3 +106,22 @@
   --size: 0.99em;
   margin-right: 6px;
 }
+.k-formblock-license > .k-box {
+  text-align: center;
+}
+.k-formblock-license-dialog .k-loader {
+  display: inline-block;
+  margin-right: 0.4em;
+}
+.k-formblock-license-dialog .loader-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.k-formblock-license-dialog .loader-text {
+  line-height: 1.2em;
+}
+.k-formblock-license .link {
+  text-decoration: underline;
+  cursor: pointer;
+}

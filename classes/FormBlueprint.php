@@ -46,6 +46,8 @@ class FormBlueprint
             'label' => 'form.block.inbox',
             'fields' => [
                 'mailview' => [
+                    //You can find the license validation in the file: lib/FormLicense.php
+                    "license" => !FormLicense::checkLicense(),
                     'type' => 'mailview'
                 ]
             ]
@@ -126,9 +128,17 @@ class FormBlueprint
             $fieldsets = static::mergeFormfields($userlocation, $fieldsets, $customfields);
         }
 
-        $license = new License($fieldsets);
-        
-        return $license->checkLicense();
+        return [
+            'formfields'    => [
+                'type' => 'blocks',
+                'fieldsets' => $fieldsets
+            ],
+            'display'       => [
+                'type' => 'text',
+                'label' => 'form.block.fromfields.display',
+                'help' => 'form.block.fromfields.display.help'
+            ]
+        ];
     }
 
     /**
