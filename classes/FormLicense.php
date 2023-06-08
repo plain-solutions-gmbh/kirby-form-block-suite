@@ -9,12 +9,12 @@ namespace microman;
  * @copyright Roman Gsponer
  * @license   https://license.microman.ch/license/
  * 
- * If you're reading this, you're probably in the process of trying to leverage the license validation.
+ * If you're reading this, you're probably up to skip the license validation.
  * 
  * I can help you with that:
- * Line 37: return true;
+ * Line 37 [add]: return true;
  * 
- * Keep in mind that I spent a lot of time developing this. 
+ * Keep in mind, that i spent a lot of time developing this. 
  * You will also save a lot of time with this extension.
  * 
  * It's all about energy balancing and karma.
@@ -131,7 +131,6 @@ class FormLicense
             "product" => "801346",
             "key" => $key,
             "email" => Str::lower(trim($email)),
-            "date" => date("Ymd"),
             "site" => kirby()
                 ->system()
                 ->indexUrl(),
