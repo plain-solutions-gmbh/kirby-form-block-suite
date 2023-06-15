@@ -84,8 +84,6 @@ You can test this plugin 14 days for free. There's two license available:
 
 [See also the other plugins](https://license.microman.ch/)
 
-Enter your license key in your config file: `'microman.formblock.license' => "[your-key]"`
-
 > If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
 
@@ -422,6 +420,8 @@ my_custom_message:
 
 ## Enter License Key
 
+> (Obsolete in Version > 3.5.0)!
+
 If you bought your license key. Enter it in the config and reload the Panel:
 
 `'microman.formblock.license' => "[your-key]"`
@@ -573,11 +573,14 @@ Since Version 3.4.8. Trigger when Form is send.
 
 **Solutions:**
 - If you haven't got a license yet? Get a [single site license](https://license.microman.ch/?product=801346) or an [infinite site license](https://license.microman.ch/?product=803284).
-- Set the license key in your `config.php` like this `'microman.formblock.license' => "[your-key]",`
-- Reload the Panel
 - Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.microman.ch)
-- Delete the cache folder: `/site/cache/microman/`
 - Your license key was already validated by another host: Contact the [support](https://microman.ch/en/microman) to release the linkage.
+- Delete the license file and try again folder: `/site/config/.formblock_license`
+
+In versions < 3.5.0:
+- Reload the Panel
+- Set the license key in your `config.php` like this `'microman.formblock.license' => "[your-key]",`
+- Delete the cache folder: `/site/cache/microman/`
 
 ---
 
