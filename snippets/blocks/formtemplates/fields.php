@@ -1,7 +1,7 @@
 
 <?php foreach ($form->fields() as $field) : ?>
 
-    <div class="formfield__container" data-id="<?= $field->slug() ?>">
+    <div class="formfield__container" data-id="<?= $field->slug() ?>" data-type="<?= $field->inputtype() ?>">
 
         <?php if($field->hasOptions() && $field->type(true) != "select"): ?>
             <fieldset class="formblock__option__container" data-id="<?= $field->slug() ?>">
@@ -20,7 +20,7 @@
             </fieldset>
 
         <?php else: ?>
-
+                
             <label class="formblock_field__label" for="<?= $field->slug() ?>" id="label-<?= $field->id() ?>">
 
                 <span class="formfield__label__text"><?= $field->label() ?></span>

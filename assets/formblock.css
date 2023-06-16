@@ -21,6 +21,12 @@
     width: 100%;
 }
 
+.formfield__container[data-type=hidden] {
+    visibility:hidden;
+    position: absolute;
+    width: 0;
+    height:0;
+}
 
 /* Label */
 
