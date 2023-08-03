@@ -623,8 +623,6 @@ class Form extends Block
         
         if ($this->isFilled() && $this->isValid() && is_null(get('field_validation'))) {
             
-            $a = $this->name()->value();
-
             $this->request = new FormRequest([
                 'page_id' => $this->parent()->id(),
                 'form_id' => $this->id(),

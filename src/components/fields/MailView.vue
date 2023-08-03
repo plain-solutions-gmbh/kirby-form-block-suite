@@ -51,9 +51,7 @@
                                     </li>
                                 </ul>
                             </td>
-                            <td v-else>
-                                {{current.formdata[key]}}
-                            </td>
+                            <td v-else v-html="current.formdata[key]" />
                     </tr>
                 </table>
             </div>

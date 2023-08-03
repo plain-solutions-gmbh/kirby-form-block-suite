@@ -217,7 +217,7 @@ class FormBlueprint
                     $table = "<table>";
 
                     foreach ($fields as $field) {
-                        $table .= "<tr><td>" . $field->label() . "</td><td>" . $field->value() . "</td></tr>";
+                        $table .= "<tr><td valign='top'>" . $field->label() . "</td><td>" . nl2br($field->value()) . "</td></tr>";
                     }
 
                     $table .= "</table>";

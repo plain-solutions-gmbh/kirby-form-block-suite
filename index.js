@@ -1,21 +1,11 @@
 (function() {
   "use strict";
-  var render$3 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-block-type-form" }, [_c("div", { staticClass: "k-block-type-form-wrapper", attrs: { "data-state": _vm.state }, on: { "click": _vm.open } }, [_c("k-input", { attrs: { "name": "name", "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
-      _vm.$set(_vm.content, "name", $$v);
-    }, expression: "content.name" } }), _c("k-tag", { attrs: { "data-state": _vm.status.state } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.show")) + " (" + _vm._s(_vm.status.text) + ")")])], 1)]);
-  };
-  var staticRenderFns$3 = [];
-  render$3._withStripped = true;
-  var Form_vue_vue_type_style_index_0_lang = "";
-  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+  const Form_vue_vue_type_style_index_0_lang = "";
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render2) {
-      options.render = render2;
-      options.staticRenderFns = staticRenderFns2;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
       options._compiled = true;
     }
     if (functionalTemplate) {
@@ -41,7 +31,10 @@
       options._ssrRegister = hook;
     } else if (injectStyles) {
       hook = shadowMode ? function() {
-        injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        );
       } : injectStyles;
     }
     if (hook) {
@@ -62,7 +55,7 @@
       options
     };
   }
-  const __vue2_script$3 = {
+  const _sfc_main$3 = {
     data() {
       return {
         status: {
@@ -101,53 +94,39 @@
           page_id: this.thisPage,
           form_id: this.$attrs.id,
           form_name: this.content.name
-        }).then((data) => $this.status = data).catch(function() {
-          $this.error = $this.$t("form.block.inbox.error");
-        });
+        }).then((data) => $this.status = data).catch(
+          function() {
+            $this.error = $this.$t("form.block.inbox.error");
+          }
+        );
       },
       onInput(value) {
         this.$emit("update", value);
       }
     }
   };
-  const __cssModules$3 = {};
-  var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
-  function __vue2_injectStyles$3(context) {
-    for (let o in __cssModules$3) {
-      this[o] = __cssModules$3[o];
-    }
-  }
-  __component__$3.options.__file = "src/components/blocks/Form.vue";
-  var Form = /* @__PURE__ */ function() {
-    return __component__$3.exports;
-  }();
-  var render$2 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { attrs: { "id": "maillist" } }, [_c("table", { staticClass: "k-table k-field-type-mail-table", attrs: { "data-noheader": _vm.showHeader, "aria-expanded": _vm.isOpen } }, [!_vm.value.header.hide ? _c("thead", { staticClass: "k-field-type-mail-table-header", attrs: { "data-state": _vm.value.header.state.state, "aria-controls": "collapse" + _vm._uid }, on: { "click": function($event) {
-      return _vm.toggleAccordion();
-    } } }, [_c("tr", [_c("th", { staticClass: "k-field-type-mail-header", attrs: { "data-mobile": "" } }, [_c("p", [_vm._v(_vm._s(_vm.value.header.page) + " - " + _vm._s(_vm.value.header.name) + " (" + _vm._s(_vm.value.header.state.text) + ") "), _vm.showuuid ? _c("span", [_vm._v(" (" + _vm._s(_vm.value.uuid) + ")")]) : _vm._e()]), _c("k-icon", { style: _vm.isOpen ? "" : "transform:rotate(180deg);", attrs: { "type": "angle-up" } })], 1)])]) : _vm._e(), _c("tbody", { directives: [{ name: "show", rawName: "v-show", value: _vm.showHeader, expression: "showHeader" }], staticClass: "k-field-type-mail-table-body", attrs: { "id": "collapse" + _vm._uid } }, [_vm.value.content.length == 0 ? _c("tr", [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item" }, [_vm._v(" " + _vm._s(_vm.$t("form.block.inbox.empty")) + " ")])], 1)]) : _vm._e(), _vm._l(_vm.value.content, function(mail) {
-      return _c("tr", { key: mail.id }, [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item", attrs: { "options": [
-        mail.read == "" ? { icon: "preview", text: _vm.$t("form.block.inbox.asread"), click: function() {
-          return _vm.$emit("setRead", true, mail);
-        } } : { icon: "unread", text: _vm.$t("form.block.inbox.asunread"), click: function() {
-          return _vm.$emit("setRead", false, mail);
-        } },
-        { icon: "trash", text: _vm.$t("form.block.inbox.delete"), click: function() {
-          return _vm.$emit("deleteMail", mail);
-        } }
-      ] }, on: { "click": function($event) {
-        return _vm.$emit("open", mail);
-      } } }, [_c("k-status-icon", { attrs: { "status": mail.status, "tooltip": mail.tooltip } }), _c("header", { staticClass: "k-item-content" }, [_vm._t("default", function() {
-        return [_c("h3", { staticClass: "k-item-title" }, [_vm._v(_vm._s(mail.title))]), _c("p", { staticClass: "k-item-info", domProps: { "innerHTML": _vm._s(mail.desc) } })];
-      })], 2)], 1)], 1)]);
-    }), _vm.value.length == 0 ? _c("tr", [_c("td", [_c("k-item", { staticClass: "k-field-type-page-list-item-empty", attrs: { "text": _vm.$t("form.block.inbox.empty"), "disabled": "true" } })], 1)]) : _vm._e()], 2)])]);
+  var _sfc_render$3 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-block-type-form" }, [_c("div", { staticClass: "k-block-type-form-wrapper", attrs: { "data-state": _vm.state }, on: { "click": _vm.open } }, [_c("k-input", { attrs: { "name": "name", "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
+      _vm.$set(_vm.content, "name", $$v);
+    }, expression: "content.name" } }), _c("k-tag", { attrs: { "data-state": _vm.status.state } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.show")) + " (" + _vm._s(_vm.status.text) + ")")])], 1)]);
   };
-  var staticRenderFns$2 = [];
-  render$2._withStripped = true;
-  var MailList_vue_vue_type_style_index_0_lang = "";
-  const __vue2_script$2 = {
+  var _sfc_staticRenderFns$3 = [];
+  _sfc_render$3._withStripped = true;
+  var __component__$3 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$3,
+    _sfc_render$3,
+    _sfc_staticRenderFns$3,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  __component__$3.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/blocks/Form.vue";
+  const Form = __component__$3.exports;
+  const MailList_vue_vue_type_style_index_0_lang = "";
+  const _sfc_main$2 = {
     props: {
       value: {
         type: Array,
@@ -176,43 +155,37 @@
       }
     }
   };
-  const __cssModules$2 = {};
-  var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
-  function __vue2_injectStyles$2(context) {
-    for (let o in __cssModules$2) {
-      this[o] = __cssModules$2[o];
-    }
-  }
-  __component__$2.options.__file = "src/components/MailList.vue";
-  var MailList = /* @__PURE__ */ function() {
-    return __component__$2.exports;
-  }();
-  var render$1 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-field-type-mail-view" }, [_c("k-grid", [_vm.showLicense ? _c("k-column", [_c("k-formblock-license", { on: { "onSuccess": function($event) {
-      _vm.showLicense = false;
-    } } })], 1) : _vm._e(), _c("k-column", [_vm.data ? _vm._l(_vm.data, function(group) {
-      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", attrs: { "value": group, "showuuid": !_vm.isUnique }, on: { "open": _vm.openMail, "setRead": _vm.setRead, "deleteMail": _vm.deleteMail, "setAccordion": _vm.setAccordion } });
-    }) : _vm._e(), _vm.loading ? _c("k-info-field", { attrs: { "text": _vm.$t("form.block.inbox.loading") } }) : _vm._e()], 2)], 1), _c("k-dialog", { ref: "dialog", staticClass: "k-field-type-page-dialog", attrs: { "size": "large" } }, [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
-      return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
-        return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
-      }), 0)]) : _c("td", [_vm._v(" " + _vm._s(_vm.current.formdata[key]) + " ")])]);
-    }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table", domProps: { "innerHTML": _vm._s(_vm.current.formdata.summary) } }), _vm.current.length > 0 ? _c("k-fieldset", { attrs: { "disabled": "true", "fields": _vm.prev }, model: { value: _vm.current, callback: function($$v) {
-      _vm.current = $$v;
-    }, expression: "current" } }) : _vm._e(), _vm.current.error ? _c("k-info-field", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e(), _c("template", { slot: "footer" }, [_c("k-button-group", [_vm.current.read != "" ? _c("k-button", { on: { "click": function($event) {
-      return _vm.setRead(false);
-    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asunread")))]) : _vm._e(), _c("k-button", { attrs: { "icon": "cancel" }, on: { "click": function($event) {
-      return _vm.$refs.dialog.close();
-    } } }, [_vm._v(_vm._s(_vm.$t("close")))]), _vm.current.read == "" ? _c("k-button", { on: { "click": function($event) {
-      return _vm.setRead(true);
-    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asread")))]) : _vm._e()], 1)], 1)], 2)], 1);
+  var _sfc_render$2 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { attrs: { "id": "maillist" } }, [_c("table", { staticClass: "k-table k-field-type-mail-table", attrs: { "data-noheader": _vm.showHeader, "aria-expanded": _vm.isOpen } }, [!_vm.value.header.hide ? _c("thead", { staticClass: "k-field-type-mail-table-header", attrs: { "data-state": _vm.value.header.state.state, "aria-controls": `collapse${_vm._uid}` }, on: { "click": function($event) {
+      return _vm.toggleAccordion();
+    } } }, [_c("tr", [_c("th", { staticClass: "k-field-type-mail-header", attrs: { "data-mobile": "" } }, [_c("p", [_vm._v(_vm._s(_vm.value.header.page) + " - " + _vm._s(_vm.value.header.name) + " (" + _vm._s(_vm.value.header.state.text) + ") "), _vm.showuuid ? _c("span", [_vm._v(" (" + _vm._s(_vm.value.uuid) + ")")]) : _vm._e()]), _c("k-icon", { style: _vm.isOpen ? "" : "transform:rotate(180deg);", attrs: { "type": "angle-up" } })], 1)])]) : _vm._e(), _c("tbody", { directives: [{ name: "show", rawName: "v-show", value: _vm.showHeader, expression: "showHeader" }], staticClass: "k-field-type-mail-table-body", attrs: { "id": `collapse${_vm._uid}` } }, [_vm.value.content.length == 0 ? _c("tr", [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item" }, [_vm._v(" " + _vm._s(_vm.$t("form.block.inbox.empty")) + " ")])], 1)]) : _vm._e(), _vm._l(_vm.value.content, function(mail) {
+      return _c("tr", { key: mail.id }, [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item", attrs: { "options": [
+        mail.read == "" ? { icon: "preview", text: _vm.$t("form.block.inbox.asread"), click: () => _vm.$emit("setRead", true, mail) } : { icon: "unread", text: _vm.$t("form.block.inbox.asunread"), click: () => _vm.$emit("setRead", false, mail) },
+        { icon: "trash", text: _vm.$t("form.block.inbox.delete"), click: () => _vm.$emit("deleteMail", mail) }
+      ] }, on: { "click": function($event) {
+        return _vm.$emit("open", mail);
+      } } }, [_c("k-status-icon", { attrs: { "status": mail.status, "tooltip": mail.tooltip } }), _c("header", { staticClass: "k-item-content" }, [_vm._t("default", function() {
+        return [_c("h3", { staticClass: "k-item-title" }, [_vm._v(_vm._s(mail.title))]), _c("p", { staticClass: "k-item-info", domProps: { "innerHTML": _vm._s(mail.desc) } })];
+      })], 2)], 1)], 1)]);
+    }), _vm.value.length == 0 ? _c("tr", [_c("td", [_c("k-item", { staticClass: "k-field-type-page-list-item-empty", attrs: { "text": _vm.$t("form.block.inbox.empty"), "disabled": "true" } })], 1)]) : _vm._e()], 2)])]);
   };
-  var staticRenderFns$1 = [];
-  render$1._withStripped = true;
-  var MailView_vue_vue_type_style_index_0_lang = "";
-  const __vue2_script$1 = {
+  var _sfc_staticRenderFns$2 = [];
+  _sfc_render$2._withStripped = true;
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$2,
+    _sfc_render$2,
+    _sfc_staticRenderFns$2,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  __component__$2.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/MailList.vue";
+  const MailList = __component__$2.exports;
+  const MailView_vue_vue_type_style_index_0_lang = "";
+  const _sfc_main$1 = {
     props: {
       value: {
         type: String,
@@ -376,33 +349,42 @@
       }
     }
   };
-  const __cssModules$1 = {};
-  var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
-  function __vue2_injectStyles$1(context) {
-    for (let o in __cssModules$1) {
-      this[o] = __cssModules$1[o];
-    }
-  }
-  __component__$1.options.__file = "src/components/fields/MailView.vue";
-  var MailView = /* @__PURE__ */ function() {
-    return __component__$1.exports;
-  }();
-  var render = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-formblock-license" }, [_c("k-box", { attrs: { "theme": "notice" } }, [_vm._v(" This is an unregistered version of the kirby form block suite. "), _vm.doRegister ? _c("span", { staticClass: "link", on: { "click": function($event) {
-      return _vm.$refs.regdialog.open();
-    } } }, [_vm._v("Register now")]) : _vm._e()]), _c("k-dialog", { ref: "regdialog", staticClass: "k-formblock-license-dialog", attrs: { "size": "medium" } }, [_c("k-grid", { attrs: { "gutter": "medium" } }, [_c("k-column", [_c("k-text", { attrs: { "size": "large" } }, [_vm._v(" Get your license "), _c("a", { attrs: { "href": "https://license.microman.ch/?product=801346", "target": "_blank" } }, [_vm._v("here")])])], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Please enter your license code", "help": _vm.supporttext(), "required": "true", "placeholder": "" }, model: { value: _vm.licensekey, callback: function($$v) {
-      _vm.licensekey = $$v;
-    }, expression: "licensekey" } })], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Email", "type": "text", "required": "true", "placeholder": "mail@example.com" }, model: { value: _vm.email, callback: function($$v) {
-      _vm.email = $$v;
-    }, expression: "email" } })], 1), _c("k-column", [_vm.theme ? _c("k-box", { staticClass: "loader-box", attrs: { "theme": _vm.theme } }, [_vm.theme === "notice" ? _c("k-loader") : _vm._e(), _c("span", { staticClass: "loader-text" }, [_vm._v(_vm._s(_vm.notify))])], 1) : _vm._e()], 1)], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "chancel" }, on: { "click": _vm.reset } }, [_vm._v("Close")]), _c("k-button", { attrs: { "disabled": _vm.onLoad || _vm.onSuccess, "icon": "check", "theme": "positive" }, on: { "click": _vm.register } }, [_vm._v("Register")])], 1)], 1)], 2)], 1);
+  var _sfc_render$1 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_c("k-grid", [_vm.showLicense ? _c("k-column", [_c("k-formblock-license", { on: { "onSuccess": function($event) {
+      _vm.showLicense = false;
+    } } })], 1) : _vm._e(), _c("k-column", [_vm.data ? _vm._l(_vm.data, function(group) {
+      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", attrs: { "value": group, "showuuid": !_vm.isUnique }, on: { "open": _vm.openMail, "setRead": _vm.setRead, "deleteMail": _vm.deleteMail, "setAccordion": _vm.setAccordion } });
+    }) : _vm._e(), _vm.loading ? _c("k-info-field", { attrs: { "text": _vm.$t("form.block.inbox.loading") } }) : _vm._e()], 2)], 1), _c("k-dialog", { ref: "dialog", staticClass: "k-field-type-page-dialog", attrs: { "size": "large" } }, [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
+      return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
+        return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
+      }), 0)]) : _c("td", { domProps: { "innerHTML": _vm._s(_vm.current.formdata[key]) } })]);
+    }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table", domProps: { "innerHTML": _vm._s(_vm.current.formdata.summary) } }), _vm.current.length > 0 ? _c("k-fieldset", { attrs: { "disabled": "true", "fields": _vm.prev }, model: { value: _vm.current, callback: function($$v) {
+      _vm.current = $$v;
+    }, expression: "current" } }) : _vm._e(), _vm.current.error ? _c("k-info-field", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e(), _c("template", { slot: "footer" }, [_c("k-button-group", [_vm.current.read != "" ? _c("k-button", { on: { "click": function($event) {
+      return _vm.setRead(false);
+    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asunread")))]) : _vm._e(), _c("k-button", { attrs: { "icon": "cancel" }, on: { "click": function($event) {
+      return _vm.$refs.dialog.close();
+    } } }, [_vm._v(_vm._s(_vm.$t("close")))]), _vm.current.read == "" ? _c("k-button", { on: { "click": function($event) {
+      return _vm.setRead(true);
+    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asread")))]) : _vm._e()], 1)], 1)], 2)], 1);
   };
-  var staticRenderFns = [];
-  render._withStripped = true;
-  var FormLicense_vue_vue_type_style_index_0_lang = "";
-  const __vue2_script = {
+  var _sfc_staticRenderFns$1 = [];
+  _sfc_render$1._withStripped = true;
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$1,
+    _sfc_render$1,
+    _sfc_staticRenderFns$1,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  __component__$1.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/fields/MailView.vue";
+  const MailView = __component__$1.exports;
+  const FormLicense_vue_vue_type_style_index_0_lang = "";
+  const _sfc_main = {
     props: {
       message: String,
       supportLink: String,
@@ -472,17 +454,30 @@
       }
     }
   };
-  const __cssModules = {};
-  var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
-  function __vue2_injectStyles(context) {
-    for (let o in __cssModules) {
-      this[o] = __cssModules[o];
-    }
-  }
-  __component__.options.__file = "src/components/FormLicense.vue";
-  var FormLicense = /* @__PURE__ */ function() {
-    return __component__.exports;
-  }();
+  var _sfc_render = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-formblock-license" }, [_c("k-box", { attrs: { "theme": "notice" } }, [_vm._v(" This is an unregistered version of the kirby form block suite. "), _vm.doRegister ? _c("span", { staticClass: "link", on: { "click": function($event) {
+      return _vm.$refs.regdialog.open();
+    } } }, [_vm._v("Register now")]) : _vm._e()]), _c("k-dialog", { ref: "regdialog", staticClass: "k-formblock-license-dialog", attrs: { "size": "medium" } }, [_c("k-grid", { attrs: { "gutter": "medium" } }, [_c("k-column", [_c("k-text", { attrs: { "size": "large" } }, [_vm._v(" Get your license "), _c("a", { attrs: { "href": "https://license.microman.ch/?product=801346", "target": "_blank" } }, [_vm._v("here")])])], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Please enter your license code", "help": _vm.supporttext(), "required": "true", "placeholder": "" }, model: { value: _vm.licensekey, callback: function($$v) {
+      _vm.licensekey = $$v;
+    }, expression: "licensekey" } })], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Email", "type": "text", "required": "true", "placeholder": "mail@example.com" }, model: { value: _vm.email, callback: function($$v) {
+      _vm.email = $$v;
+    }, expression: "email" } })], 1), _c("k-column", [_vm.theme ? _c("k-box", { staticClass: "loader-box", attrs: { "theme": _vm.theme } }, [_vm.theme === "notice" ? _c("k-loader") : _vm._e(), _c("span", { staticClass: "loader-text" }, [_vm._v(_vm._s(_vm.notify))])], 1) : _vm._e()], 1)], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "chancel" }, on: { "click": _vm.reset } }, [_vm._v("Close")]), _c("k-button", { attrs: { "disabled": _vm.onLoad || _vm.onSuccess, "icon": "check", "theme": "positive" }, on: { "click": _vm.register } }, [_vm._v("Register")])], 1)], 1)], 2)], 1);
+  };
+  var _sfc_staticRenderFns = [];
+  _sfc_render._withStripped = true;
+  var __component__ = /* @__PURE__ */ normalizeComponent(
+    _sfc_main,
+    _sfc_render,
+    _sfc_staticRenderFns,
+    false,
+    null,
+    null,
+    null,
+    null
+  );
+  __component__.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/FormLicense.vue";
+  const FormLicense = __component__.exports;
   window.panel.plugin("microman/formblock", {
     fields: {
       mailview: MailView
