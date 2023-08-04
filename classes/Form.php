@@ -374,17 +374,19 @@ class Form extends Block
      * @return string
      */
 
-    static function translate($key, $default, $replace = []) {
+static function translate($key, $default, $replace = []) {
 
-        return Str::template(
-            $default
-                ->or(option( 'microman.formblock.translations.' . self::getLang() . '.' . $key))
-                ->or(I18n::translate('form.block.message.' . $key, "", self::getLang()))
-                ->or(option( 'microman.formblock.translations.en.' . $key))
-                ->or(I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", "en"))
-            , $replace);
+    $output = Str::template(
+        $default
+            ->or(option( 'microman.formblock.translations.' . self::getLang() . '.' . $key))
+            ->or(I18n::translate('form.block.message.' . $key, "", self::getLang()))
+            ->or(option( 'microman.formblock.translations.en.' . $key))
+            ->or(I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", "en"))
+        , $replace);
 
-    }
+    return nl2br($output);
+
+}
 
     /**
      * Returns error message
