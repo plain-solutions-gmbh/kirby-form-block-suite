@@ -139,7 +139,7 @@ export function FormBlock(config) {
 
         const xhr_validate = new XMLHttpRequest();
 
-        xhr_validate.open("POST", "/form/validator", true);
+        xhr_validate.open("POST", $this.config.endpoint, true);
         xhr_validate.addEventListener('load', $this.onvalidate);
         xhr_validate.send($this.formdata);
 
@@ -159,7 +159,7 @@ export function FormBlock(config) {
 
             const xhr_submit = new XMLHttpRequest();
 
-            xhr_submit.open("POST", "/form/validator", true);
+            xhr_submit.open("POST", $this.config.endpoint, true);
 
             xhr_submit.addEventListener('load', $this.onsubmit);
             xhr_submit.addEventListener('error', $this.onerror);

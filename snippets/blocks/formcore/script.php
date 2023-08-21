@@ -8,6 +8,7 @@
     form_hash: '<?= $form->hash() ?>',
     page_id: '<?= $page->id() ?>',
     language: '<?= $form->getLang(); ?>',
+    endpoint: '<?= kirby()->url() ?>/form/validator',
     messages: {
       fatal: '<?= $form->message('fatal_message') ?>',
       send: '<?= $form->message('send_button') ?>',

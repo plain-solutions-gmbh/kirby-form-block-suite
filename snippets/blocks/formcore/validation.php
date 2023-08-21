@@ -27,11 +27,11 @@
         }
 
         echo json_encode([
-            'state' => $state ,
-            'error_message' => $form->template('form_error', [], (!$form->isFatal() and $form->isValid())),
-            'success_message' => $form->template('form_success', [], !$form->isSuccess()),
-            'redirect' => ($form->redirect()->isTrue() && $form->isSuccess()) ? $form->success_url()->toPage()->url() : "",
-            'fields' => $fields
+            'state'             => $state ,
+            'error_message'     => $form->template('form_error', [], (!$form->isFatal() and $form->isValid())),
+            'success_message'   => $form->template('form_success', [], !$form->isSuccess()),
+            'redirect'          => ($form->redirect()->isTrue() && $form->isSuccess()) ? $form->success_url()->toPage()->url() : "",
+            'fields'            => $fields
         ]);
 
     ?>
