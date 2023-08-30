@@ -149,13 +149,14 @@ class FormField extends Block
      */
     public function value($raw = false): string
     {
-        if ($this->hasOptions()) 
-            return A::join($this->selectedOptions($raw ? 'slug' : 'label'), ', ');
+        if ($this->hasOptions()) {
+            return $this->isFilled() ? A::join($this->selectedOptions($raw ? 'slug' : 'label'), ', ') : "";
+        } 
 
         
-        if (!is_null($this->files))
+        if (!is_null($this->files)) {
             return implode(', ', array_map(fn($f) => f::safeName($f['name']), $this->files));
-        
+        }
 
         return $raw ? $this->content()->value() : Escape::html($this->content()->value());
     }
