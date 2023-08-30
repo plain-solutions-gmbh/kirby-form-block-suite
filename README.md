@@ -432,7 +432,7 @@ See [Troubleshooting](#troubleshooting) if it's not working.
 
 ```php
 'microman.formblock' => [
-    'from_email' => 'info@example.com'
+    'from_email' => ["info@example.com" => "John Doe"]
 ],
 ```
 Default: `no-reply@[the root url of your website]`
