@@ -276,7 +276,7 @@ To get the form field object, use `$block->field('slug_of_the_form_field')` or i
 
 Let's say you want to create a form field type that shows some information to your visitors:
 
-_site/blueprints/blocks/formfields/info.yml_
+_site/theme/blueprints/blocks/formfields/info.yml_
 ```yml
 name: Information
 icon: alert
@@ -297,7 +297,7 @@ fields:
     type: writer
 ```
 
-_site/snippets/formfields/info.php_
+_site/theme/snippets/blocks/formfields/info.php_
 ```xml
 <div class="info-field" id="<?= $formfield->slug() ?>" style="background:<?= $formfield->color() ?>">
     
