@@ -1,6 +1,6 @@
 <textarea
     class="formfield__textarea"
-    id="<?= $formfield->id() ?>"
+    id="<?= $formfield->slug() ?>"
     name="<?= $formfield->slug() ?>"
     rows="<?= $formfield->row() ?>"
     placeholder="<?= $formfield->placeholder() ?>"

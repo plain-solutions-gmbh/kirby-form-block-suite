@@ -5,7 +5,7 @@
     <select
         class="formfield__select"
         name="<?= $formfield->slug() ?>"
-        id="<?= $formfield->id() ?>"
+        id="<?= $formfield->slug() ?>"
         data-form="field"
         <?= $formfield->required('attr') ?>
         <?= $formfield->ariaAttr() ?>

@@ -2,7 +2,7 @@
 <input
     class="formfield__input"
     type="<?= $formfield->inputtype() ?>"
-    id="<?= $formfield->id() ?>"
+    id="<?= $formfield->slug() ?>"
     name="<?= $formfield->slug() ?>"
     placeholder="<?= $formfield->placeholder() ?>"
     value="<?= $formfield->value() ?>"
