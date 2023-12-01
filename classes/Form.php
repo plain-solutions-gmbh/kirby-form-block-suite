@@ -448,17 +448,21 @@ static function translate($key, $default, $replace = []) {
         }
 
         try {
-            
+
             $emailData = [
                 'from' => option('microman.formblock.from_email'),
                 'to' => explode(';', $recipient),
                 'subject' => $this->message('notify_subject'),
-                'attachments' => $this->attachments,
-                'body' => [
-                    'text' => Str::unhtml($body),
-                    'html' => $body
-                ]
+                'attachments' => $this->attachments
             ];
+
+            if (option('microman.formblock.disable_html')) {
+                $body_array = array('text' => Str::unhtml($body));
+            } else {
+                $body_array = array('text' => Str::unhtml($body), 'html' => $body);
+            }
+
+            $emailData["body"] = $body_array;
 
             if ($replyTo = $this->form_field('email', 'value')) {
                 $emailData['replyTo'] = $replyTo;
