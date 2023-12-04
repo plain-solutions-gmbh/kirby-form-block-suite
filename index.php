@@ -24,6 +24,7 @@ Kirby::plugin('microman/formblock', [
         'default_language' => 'en',
         'disable_confirm' => false,
         'disable_notify' => false,
+        'disable_html' => false,
         'dynamic_validation' => true
     ],
     'templates' => [ 'formcontainer' => __DIR__ . "/templates/formcontainer.php" ],
