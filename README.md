@@ -441,6 +441,18 @@ Default: `no-reply@[the root url of your website]`
 
 > You probably get an SMTP-Error on localhost environments. Test the email function on a server!
 
+## Plain text emails
+
+By default the plugin will use HTML for the body of the confirm/notification emails.
+You can disable it this way:
+
+```php
+'microman.formblock' => [
+    'disable_html' => false
+],
+```
+_Thanks to [felix](https://github.com/youngcut/kirby-form-block-suite/pull/27)_
+
 ## Honeypot
 
 The form block plugin insert a hidden honeypot field into the form to prevent bots to make a request. If a bot is filling this field, the request will fail. Each field has a context field. The plugin checks which context is in use and get the next available context from this array for the honeypot field.

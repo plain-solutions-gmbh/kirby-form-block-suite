@@ -60,7 +60,7 @@ class FormLicense
 
     private static function licenseFile()
     {
-        return kirby()->root("config") . DS . ".formblock_license";
+        return kirby()->root("config") . "/.formblock_license";
     }
 
     private static function readLicense()

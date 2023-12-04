@@ -132,7 +132,7 @@ class FormBlueprint
 
         $fieldsets = static::mergeFormfields(__DIR__ . '/../blueprints/blocks/formfields', $fieldsets, $customfields);
         
-        if (Dir::exists($userlocation = kirby()->root('blueprints') . DS . 'blocks/formfields')) {
+        if (Dir::exists($userlocation = kirby()->root('blueprints') . '/blocks/formfields')) {
             $fieldsets = static::mergeFormfields($userlocation, $fieldsets, $customfields);
         }
 
