@@ -18,6 +18,34 @@ use Kirby\Data\Yaml;
 class FormBlueprint
 {
 
+        /**
+     * Get form tab
+     * 
+     * @return array
+     **/
+    /*
+    public static function getBlock(): array
+    {
+        return [
+            'name' => 'form.block.fromfields',
+            'icon' => 'form',
+            'fields' => [
+                'id' => [
+                    'type' => 'select',
+                    'default' => [
+                        'id' => ''
+                    ],
+                    'options' => [
+                        'type'  => 'query',
+                        'query' => 'site.drafts',
+                        'text'  => '{{page.name}}'
+                    ]
+                ]                
+            ]
+        ];
+    }
+    */
+
     /**
      * Get Blueprint as array
      * 
@@ -53,6 +81,7 @@ class FormBlueprint
         return [
             'label' => 'form.block.inbox',
             'fields' => [
+                'formid' => ['type' => 'hidden'],
                 'mailview' => [
                     //You can find the license validation in the file: lib/FormLicense.php
                     "license" => !FormLicense::checkLicense(),

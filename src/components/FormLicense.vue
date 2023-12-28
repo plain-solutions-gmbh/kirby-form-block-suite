@@ -10,7 +10,7 @@
       <k-grid gutter="medium">
         <k-column>
           <k-text size="large">
-            Get your license 
+            Get your license
             <a
               href="https://license.microman.ch/?product=801346"
               target="_blank"
@@ -63,8 +63,18 @@
 <script>
 export default {
   props: {
-    message: String,
-    supportLink: String,
+    message: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
+    supportLink: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
     isError: Boolean,
     doRegister: {
       type: Boolean,

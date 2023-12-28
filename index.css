@@ -1,95 +1,21 @@
-.k-block-type-form .k-block-type-form-wrapper, .k-block-type-form .k-input, .k-block-type-form .k-tag {
-  display: inline-flex;
-  width: auto;
-}
-.k-block-type-form .k-tag {
-  background-color: var(--color-gray-300);
-}
-.k-block-type-form .k-tag[data-state=new] {
-  color: var(--color-white);
-  background-color: var(--color-green);
-}
-.k-block-type-form .k-tag[data-state=ok] {
-  color: var(--color-gray-600);
-}
-.k-block-type-form .k-tag[data-state=error] {
-  background-color: var(--color-red);
-  color: var(--color-white);
-}
-.k-block-type-form .k-block-type-form-wrapper {
-  border: 1px solid var(--color-gray-300);
-}
-.k-block-type-form .k-text-input {
-  padding-left: 0.3rem;
-}.k-field-type-mail-view {
-  padding: 0;
-}
-.k-field-type-mail-table {
-  margin-bottom: 1em;
-}
-.k-field-type-mail-table[data-noheader] .k-field-type-mail-table tr:first-child .k-item {
-  border-radius: 0;
-}
-.k-field-type-mail-table tr .k-item {
-  border-radius: 0;
-}
-.k-field-type-mail-table tr .k-item:focus-within {
-  box-shadow: none;
-}
-.k-field-type-mail-table tr:last-child .k-item {
-  border-bottom-right-radius: var(--rounded);
-  border-bottom-left-radius: var(--rounded);
-}
-.k-field-type-mail-table tr:first-child .k-item {
-  border-top-right-radius: var(--rounded);
-  border-top-left-radius: var(--rounded);
-}
-.k-field-type-mail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.k-field-type-mail-list-item-empty em {
-  font-style: italic;
-  color: var(--color-text-light);
-}
-.k-field-type-mail-table-header th {
-  background-color: var(--color-gray-300);
-  border-color: var(--color-gray-300);
-  cursor: pointer;
-}
-.k-field-type-mail-table-header + .k-field-type-mail-table-body tr:first-child .k-item {
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-.k-field-type-mail-table-header[data-state=new] th {
-  color: var(--color-white);
-  background-color: var(--color-green);
-  border-color: var(--color-green);
-}
-.k-field-type-mail-table-header[data-state=ok] th {
-  color: var(--color-gray-600);
-}
-.k-field-type-mail-table-header[data-state=error] th {
-  background-color: var(--color-red);
-  border-color: var(--color-red);
-  color: var(--color-white);
-}.k-field-type-page-dialog h2.k-headline {
-  padding-bottom: 15px;
+.k-field-type-page-dialog h2.k-headline {
+  padding-bottom: var(--spacing-4);
 }
 .k-field-type-page-dialog-table {
   width: 100%;
-  padding: 15px;
   background: var(--color-gray-100);
+  padding: var(--spacing-3);
 }
-.k-field-type-page-dialog-table td, .k-field-type-page-dialog-table th {
+.k-field-type-page-dialog-table td,
+.k-field-type-page-dialog-table th {
   vertical-align: top;
-  line-height: 1.25em;
+  padding: var(--spacing-2);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .k-field-type-page-dialog-table tr > td:first-child {
-  padding-right: 1em;
+  width: 1px;
+  white-space: nowrap;
 }
 .k-field-type-page-dialog-table .field_summary {
   display: none;
@@ -100,7 +26,7 @@
 .k-field-type-page-dialog-table .k-field-type-page-dialog-link {
   display: flex;
   font-size: 0.9em;
-  line-height: 1.4em;
+  line-height: 1.75em;
 }
 .k-field-type-page-dialog-table .k-field-type-page-dialog-link span.k-icon {
   --size: 0.99em;

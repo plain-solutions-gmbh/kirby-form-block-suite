@@ -18,6 +18,8 @@ return [
 	'form.block.inbox.tooltip.unread' 		=> 'Šis užpildymas dar neperskaitytas',
 	'form.block.inbox.notinblock'    		=> 'The mail view field can only used in form blocks',
 
+	'form.block.migrate.success'    		=> 'Jūsų formos duomenys ką tik perkelti. Norėdami tęsti darbą, išsaugokite puslapį.',
+
 	'form.block.fromfields' 							=> 'Formos laukeliai',
 	'form.block.fromfields.label' 						=> 'Rodomas pavadinimas',
 	'form.block.fromfields.width' 						=> 'Plotis',

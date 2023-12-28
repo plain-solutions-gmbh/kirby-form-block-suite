@@ -18,6 +18,8 @@ use Kirby\Toolkit\F;
 use Kirby\Uuid\Uuid;
 use Kirby\Http\Request\Files;
 
+use Kirby\Exception\Exception;
+
 class FormRequest
 {
 
@@ -28,6 +30,9 @@ class FormRequest
      * @var \Kirby\Cms\Page
      */
     protected $page;
+
+
+    protected $page_id;
 
     /**
      * Request container
@@ -44,6 +49,13 @@ class FormRequest
     protected $request;
 
     /**
+     * Current Request
+     *
+     * @var \Kirby\Cms\Pages
+     */
+    protected $forms;
+
+    /**
      * Magic getter function
      *
      * @param Array $props
@@ -53,32 +65,35 @@ class FormRequest
     public function __construct($props)
     {
         
+        $this->page_id = $props['page_id'] ?? 'site';
+
         //Get Page
-        if (($props['page_id'] ?? "site") === 'site') {
+        if ($this->page_id === 'site') {
             $this->page = site();
         } else {
-            $this->page = site()->index(true)->find($props['page_id']);
+            $this->page = site()->index(true)->find($this->page_id);
         }
+
+        $this->forms = $this->page->index(true)->filterBy('intendedTemplate', 'formcontainer');
 
         //Get container
         if ($props['form_id'] ?? false) {
             
             //Set Container
-            $this->container = $this->page->draft($props['form_id']);
-            
-
-            //Create if not exists
-            if (!$this->container) {
-                $this->createContainer($props);
-            }
+            $this->container = $this->forms->findBy('slug', $props['form_id']);
 
         } 
+
+        //Create if not exists
+        if (is_null($this->container) && ($props['allowCreate'] ?? false)) {
+            $this->createContainer($props);
+        }
 
         //Set current request
         if ($props['request_id'] ?? false) {
             $this->request($props['request_id']);
         }
-
+            
     }
 
    
@@ -91,15 +106,13 @@ class FormRequest
      */
     private function createContainer($props) {
 
-
         site()->kirby()->impersonate('kirby');
 
         $this->container = $this->page->createChild([
             'slug' => $props['form_id'],
             'template' => 'formcontainer',
             'content' => [ 
-                'name' => $props['form_name'] ?? "",
-                'openaccordion' => "false",
+                'name' => $props['form_name'] ?? $props['form_id'],
             ]
         ]);
 
@@ -114,7 +127,7 @@ class FormRequest
      */
     private function request($request_id = null) {
 
-        if (!is_null($request_id)) {
+        if (!is_null($request_id) && is_null($this->container) === false) {
 
             $this->request = $this->container->draft($request_id);
             
@@ -134,6 +147,7 @@ class FormRequest
      */
     public function create($content, $requestid): \Kirby\Cms\Page|null
     {
+
 
         if (is_null($this->request($requestid))) {
 
@@ -188,7 +202,6 @@ class FormRequest
         $fd = array_merge($fd, $input);
         return $this->update(['formdata' => json_encode($fd)]);
         
-
     }
     
 
@@ -203,8 +216,13 @@ class FormRequest
         if (!is_null($this->request)) {
 
             site()->kirby()->impersonate('kirby');
+            $this->request->delete();
 
-            return $this->request->delete();
+            if($this->container->empty()) {
+                $this->container->delete();
+            }
+            
+            return true;
         }
 
         return false;
@@ -228,6 +246,17 @@ class FormRequest
 
     }
 
+    
+    private function verifyName($form_name) {
+
+        if (is_null($this->container) === false && $this->container->name()->value() !== $form_name) {
+            $this->updateContainer([
+                'name' => $form_name
+            ]);
+        }
+
+    }
+
     /**
      * Get infos of requests
      *
@@ -237,21 +266,32 @@ class FormRequest
      * @return array|string
      * 
      */
-    public function info($kind = "count", $container = null)
+    public function info($params = [])
     {
 
-        if(!is_null($container))
-            $this->container = $container;
+        if (array_key_exists('form_name', $params)) {
+            $this->verifyName($params['form_name']);
+        }
 
+        return $this->infoPart('array');
+
+
+    }
+
+    public function infoPart($kind = "count", $container = null)
+    {
+
+        $container ??= $this->container;
         $counter = [0,0,0];
 
-        if ($this->container->hasDrafts()) {
+        if (is_null($container) === false && $container->hasDrafts()) {
             $counter = [
-                $this->container->drafts()->count(),
-                $this->container->drafts()->filterBy('read', '')->count(),
-                $this->container->drafts()->filterBy([['read', ''],['error', '!=', '']])->count()
+                $container->drafts()->count(),
+                $container->drafts()->filterBy('read', '')->count(),
+                $container->drafts()->filterBy([['read', ''],['error', '!=', '']])->count()
             ];
         }
+    
 
 
         switch ($kind) {
@@ -268,20 +308,30 @@ class FormRequest
                 break;
             
             case 'state':
-                if ($this->info('read') > 0)
-                    return 'new';
+                if ($this->infoPart('read', $container) > 0)
+                    return 'positive';
 
-                if ($this->info('fail') > 0)
-                    return 'error';
+                if ($this->infoPart('fail', $container) > 0)
+                    return 'negative';
 
-                return 'ok';
+                return 'info';
+                break;
+
+            case 'theme':
+                if ($this->infoPart('read', $container) > 0)
+                    return 'positive';
+
+                if ($this->infoPart('fail', $container) > 0)
+                    return 'negative';
+
+                return 'gray';
                 break;
 
             case 'text':
-                $text = $this->info('read') . "/" . $this->info('count') . " " . I18n::translate('form.block.inbox.new');
+                $text = $this->infoPart('read', $container) . "/" . $this->infoPart('count', $container) . " " . I18n::translate('form.block.inbox.new');
 
-                if ($this->info('fail') > 0)
-                    $text .= " & " . $this->info('fail') . " " . I18n::translate('form.block.inbox.failed');
+                if ($this->infoPart('fail', $container) > 0)
+                    $text .= " & " . $this->infoPart('fail', $container) . " " . I18n::translate('form.block.inbox.failed');
 
                 return $text;
                 break;
@@ -289,11 +339,12 @@ class FormRequest
             default:
             
                 return [
-                    "count" => $this->info('count'),
-                    "read" => $this->info('read'),
-                    "fail" => $this->info('fail'),
-                    "state" => $this->info('state'),
-                    "text" => $this->info('text'),
+                    "count" => $this->infoPart('count', $container),
+                    "read" => $this->infoPart('read', $container),
+                    "fail" => $this->infoPart('fail', $container),
+                    "state" => $this->infoPart('state', $container),
+                    "theme" => $this->infoPart('theme', $container),
+                    "text" => $this->infoPart('text', $container),
                 ];
         }
                     
@@ -312,35 +363,33 @@ class FormRequest
         
         $out = array();
 
-        
-        if(is_null($this->container) || $this->container == []) {
-            $container = $this->page->index(true)->template('formcontainer');
-        } else {
-            $container = [$this->container];
-        }
-
-
-        foreach ($container as $a) {
+        foreach ($this->forms as $a) {
 
             $content = [];
             $read = 0;
+            $filter = $props['filter'];
 
-            foreach ($a->drafts()->sortBy('received', 'desc') as $b) {
+            if (count($filter) > 0 && in_array($a->slug(), $filter) === false) {
+                continue;
+            }
+
+            foreach ($a->drafts()->sortBy('received', 'desc')->sortBy('read', 'asc') as $b) {
                 if ($b->read())
                     $read ++;
                 array_push($content, array_merge($b->content()->toArray(), $b->toArray()));
             }
 
-            $out[$a->id()] = [
+            $pagetitle = ($a->parent()) ? $a->parent()->title()->value() : site()->title()->value();
+
+            $out[$a->slug()] = [
                 "content" => $content,
-                "openaccordion" => $a->content()->openaccordion()->value(),
-                "id" => $a->id(),
+                "id" => $a->slug(),
+                "page" => $this->page_id,
                 "uuid" => $a->content()->uuid()->value(),
                 "header" => [
-                    "page" => ($a->parent()) ? $a->parent()->title()->value() : site()->title()->value(),
-                    "name" => $a->name()->value(),
-                    "hide" => $props['hideheader'],
-                    "state" => $this->info('array', $a),
+                    "page" => $pagetitle,
+                    "name" => $pagetitle . " - " .  $a->name()->value(),
+                    "state" => $this->infoPart('array', $a)
                 ]
             ] ;
             

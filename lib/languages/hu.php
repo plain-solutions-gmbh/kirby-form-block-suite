@@ -18,6 +18,8 @@ return [
 	'form.block.inbox.tooltip.unread' 		=> 'Ezt a kérést még nem olvasták el',
 	'form.block.inbox.notinblock'    		=> 'A levélnézet mező csak űrlapblokkokban használható',
 
+	'form.block.migrate.success'    		=> 'Az űrlap adatai most kerültek átvitelre. Kérjük, mentse el az oldalt a munka folytatásához.',
+
 	'form.block.fromfields' 							=> 'Űrlapmezők',
 	'form.block.fromfields.label' 						=> 'Megjelenítendő név',
 	'form.block.fromfields.width' 						=> 'Szélesség',

@@ -17,6 +17,8 @@ return [
 	'form.block.inbox.tooltip.read' 		=> 'This request has already been read',
 	'form.block.inbox.tooltip.unread' 		=> 'This request has not been read yet',
 	'form.block.inbox.notinblock'    		=> 'The mail view field can only used in form blocks',
+	
+	'form.block.migrate.success'    		=> 'Your form data has just been migrated. Please save the page to continue working.',
 
 	'form.block.fromfields' 							=> 'Form fields',
 	'form.block.fromfields.label' 						=> 'Display name',

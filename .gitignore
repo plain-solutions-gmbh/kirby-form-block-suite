@@ -9,3 +9,6 @@
 
 # migration file
 /migrated
+
+# source
+/src

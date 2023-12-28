@@ -30,8 +30,8 @@ Kirby::plugin('microman/formblock', [
     'templates' => [ 'formcontainer' => __DIR__ . "/templates/formcontainer.php" ],
     'blueprints' => [
         'blocks/form' => [
-            'name' => 'form.block.fromfields',
-            'icon' => 'form',
+            'name' => 'form.block.name',
+            'icon' => 'email',
             'tabs' => [
                 'inbox' => FormBlueprint::getInbox(),
                 'form' => FormBlueprint::getForm(),
@@ -42,16 +42,6 @@ Kirby::plugin('microman/formblock', [
         'pages/formcontainer' => FormBlueprint::getBlueprint('pages/formcontainer'),
     ],
     'snippets' => Form::snippets(__DIR__),
-    'hooks' => [
-        'page.update:before' => function ($page, $values, $strings) {
-            $content = json_encode($values);
-            foreach ($page->drafts()->template('formcontainer') as $container) {
-                if(!str_contains($content, $container->slug())) {
-                    $container->delete(true);
-                };
-            }
-        }
-    ],
     'fields' => [
         'mailview' => [
             'props' => [

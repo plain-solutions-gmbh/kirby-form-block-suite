@@ -18,6 +18,8 @@ return [
 	'form.block.inbox.tooltip.unread' 		=> 'Diese Anfrage wurde noch nicht gelesen',
 	'form.block.inbox.notinblock'    		=> 'Das Mailview-Feld darf nur in Form Blocks verwendet werden',
 
+	'form.block.migrate.success'    		=> 'Ihre Formulardaten wurden soeben migriert. Bitte speichern Sie die Seite um weiterzuarbeiten.',
+
 	'form.block.fromfields'    						=> 'Formularfelder',
 	'form.block.fromfields.label'  					=> 'Anzeigename',
 	'form.block.fromfields.width'  					=> 'Breite',

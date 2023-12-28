@@ -1,119 +1,83 @@
 <template>
+  <div>
+    <k-grid style="gap: 0.25rem; --columns: 12">
+      <k-input
+        v-model="content.name"
+        v-bind="field('name')"
+        style="--width: 1/3"
+        type="text"
+        @input="onInput"
+      />
 
-  <div class="k-block-type-form">
+      <k-box
+        v-if="loading"
+        style="--width: 2/3"
+        theme="info"
+        icon="loader"
+        :text="$t('form.block.inbox.loading')"
+      />
 
-    <div class="k-block-type-form-wrapper" :data-state="state"  @click="open">
-
-      <k-input v-model="content.name" name="name" type="text" @input="onInput"/>
-      <k-tag :data-state="status.state">{{$t('form.block.inbox.show')}} ({{status.text}})</k-tag>
-
-    </div>
-
+      <k-box
+        v-else
+        icon="email"
+        style="--width: 2/3"
+        :theme="status.theme"
+        :text="$t('form.block.inbox.show') + ' (' + status.text + ')'"
+        @click.native="open"
+      />
+    </k-grid>
   </div>
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
+      migrate: false,
+      loading: true,
       status: {
         type: Object,
         default: {
           count: "-",
           read: "-",
           fail: "-",
-          state: "wait"
-        }
-      }
-    }
-  },
-  computed: {
-    thisPage () {
-      return this.$attrs.endpoints.model.replace('/pages/', '').replace(/\+/g, '/')
-    }
+          state: "wait",
+        },
+      },
+    };
   },
   destroyed() {
- 
     this.$events.$off("form.update", this.updateCount);
-
   },
-  created () {
+  created() {
+    const $this = this;
+    this.$store.subscribe(function (mutation) {
+      if (mutation.type == "content/STATUS") $this.$events.emit("form.update");
+    });
 
-      const $this = this;
-      this.$store.subscribe(function(mutation) {
-        if (mutation.type =="content/STATUS") 
-          $this.$events.$emit("form.update");
-      })
+    this.content.formid = this.id;
 
-    this.updateCount()
-    
-    this.$events.$on("form.update", this.updateCount);
+    this.updateCount();
 
+    this.$events.on("form.update", this.updateCount);
   },
   methods: {
-
     updateCount() {
-
       const $this = this;
-      this.$api.get("formblock", {
-        action: "info",
-        page_id: this.thisPage,
-        form_id:this.$attrs.id,
-        form_name: this.content.name
-      }).then( (data) => $this.status = data,)
-        .catch(function () {
-          $this.error = $this.$t('form.block.inbox.error');
-        }
-      )
-
+      this.$api
+        .get("formblock", {
+          action: "info",
+          form_id: this.id,
+          params: JSON.stringify({ form_name: this.content.name }),
+        })
+        .then((data) => {
+          $this.status = data;
+          this.loading = false;
+        });
     },
-    onInput (value) {
-
+    onInput(value) {
       this.$emit("update", value);
-
-    }
+    },
   },
-  
 };
 </script>
-
-
-<style lang="scss">
-
-  .k-block-type-form {
-
-    .k-block-type-form-wrapper, .k-input, .k-tag {
-      display: inline-flex;
-      width: auto;
-    }
-
-    .k-tag {
-
-      background-color: var(--color-gray-300);
-
-        &[data-state=new] {
-            color:var(--color-white);
-            background-color: var(--color-green);
-        }
-        &[data-state=ok] {
-            color: var(--color-gray-600);
-        }
-        &[data-state=error] {
-            background-color: var(--color-red);
-            color:var(--color-white);
-        }
-    }
-
-    .k-block-type-form-wrapper {
-      border: 1px solid var(--color-gray-300);
-    }
-
-
-    .k-text-input {
-      padding-left:  0.3rem;
-    }
-    
-  }
-
-</style>

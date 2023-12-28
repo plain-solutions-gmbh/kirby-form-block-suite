@@ -10,7 +10,7 @@ namespace microman;
  * @license   https://license.microman.ch/license/ 
  */
 
- use Kirby\Cms\Block;
+use Kirby\Cms\Block;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
@@ -57,6 +57,7 @@ class Form extends Block
      */
     protected $hash;
 
+
     /**
      * Creates new form block
      *
@@ -70,7 +71,7 @@ class Form extends Block
         //Hands away from panel!
         if (preg_match('/^\/(api|panel)\//', $_SERVER['REQUEST_URI']) > 0) {
             return false;
-        } 
+        }
 
         $this->fields = new FormFields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
 
@@ -119,6 +120,9 @@ class Form extends Block
      */
     private function getDefault(string $path, string $postfix = ""): array
     {
+
+        //ToDo get from Default
+
         $filename = "formblock_default";
 
         if ($out = F::read($path . $filename . $postfix)){
@@ -625,15 +629,21 @@ static function translate($key, $default, $replace = []) {
      */
     private function runProcess()
     {
-        
-        if ($this->isFilled() && $this->isValid() && is_null(get('field_validation'))) {
+
+        if (
+            $this->isFilled() && 
+            $this->isValid() && 
+            is_null(get('field_validation')) &&
+            ($this->id() === get('id'))
+        ) {
             
             $this->request = new FormRequest([
-                'page_id' => $this->parent()->id(),
-                'form_id' => $this->id(),
-                'form_name' => $this->name()->value() ?? $this->id()
-            ]);
-            
+                'page_id'       => $this->parent()->id(),
+                'form_id'       => $this->id(),
+                'form_name'     => $this->name()->value() ?? $this->id(),
+                'allowCreate'   => true
+            ]);    
+
             $request = $this->request->create( [
                 'received' => date('Y-m-d H:i:s', time()),
                 'formdata' => json_encode($this->fieldsWithPlaceholder()),

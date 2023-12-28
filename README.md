@@ -5,7 +5,7 @@ This form plugin for Kirby offers you maximum flexibility and usability.
 It can be used as a block anywhere you were needed. Even multiple times per page.
 With the integrated mailview field you can display requests allover the panel.
 
-![Grid block](./.github/grid-form-block.gif)
+![Grid block](./.github/screenshot-grid-form-block.gif)
 
 
 **Packed with a rich set of features:** 🎉
@@ -18,7 +18,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; You and/or the visitors will receive an email on incoming requests.
 
-⭐️ &nbsp; All the default text elements can be changed in the config or in the panel for each form.
+⭐️ &nbsp; All the default text elements (include mail template) can be changed in the config or in the panel for each form.
 
 ⭐️ &nbsp; Multiple forms allowed per page.
 
@@ -26,11 +26,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Spam protection with an integrated honeypot.
 
-**New in Version 3.4**
-
 ⭐️ &nbsp; Pre-styled form
-
-⭐️ &nbsp; Bug fixes, performance improvement and many more
 
 # Table of content
 
@@ -64,7 +60,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 # Installation
 
-For use with Kirby 3.8+ only! ([update here!](https://github.com/getkirby/kirby))
+For use with Kirby 4.0!
 
 **Manually**
 
@@ -76,7 +72,7 @@ For use with Kirby 3.8+ only! ([update here!](https://github.com/getkirby/kirby)
 
 **Get a license**
 
-You can test this plugin 14 days for free. There's two license available:
+There's two license available:
 
 [Single site license](https://license.microman.ch/?product=801346)
 
@@ -418,16 +414,6 @@ my_custom_message:
 
 # Config
 
-## Enter License Key
-
-> (Obsolete in Version > 3.5.0)!
-
-If you bought your license key. Enter it in the config and reload the Panel:
-
-`'microman.formblock.license' => "[your-key]"`
-
-See [Troubleshooting](#troubleshooting) if it's not working.
-
 ## Email address for outgoing emails
 
 ```php
@@ -549,13 +535,19 @@ Since Version 3.4.8. Trigger when Form is send.
 
 # Troubleshooting
 
-> Please read this Capter carefully before [contacting the support](https://microman.ch/en/microman). 
+> Please read this Chapter carefuly before [contacting the support](https://microman.ch/en/microman). 
 
 ---
 
 **Problem:** How do i use the form bock suite in my kirby environemt:
 
 **Solution:** This plugin is a Kirby block. Please read [this manual](https://getkirby.com/docs/reference/panel/fields/blocks) carefully before you start.
+
+---
+
+**Problem:** The form will not send:
+
+**Solution:** Remove the [custom templates](#customize-the-output) (in case you use it) and try again. If it still not working open the dev tools (F11) of your browser, and check the console. Make a screenshot for further support.
 
 ---
 
@@ -588,11 +580,6 @@ Since Version 3.4.8. Trigger when Form is send.
 - Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.microman.ch)
 - Your license key was already validated by another host: Contact the [support](https://microman.ch/en/microman) to release the linkage.
 - Delete the license file and try again folder: `/site/config/.formblock_license`
-
-In versions < 3.5.0:
-- Reload the Panel
-- Set the license key in your `config.php` like this `'microman.formblock.license' => "[your-key]",`
-- Delete the cache folder: `/site/cache/microman/`
 
 ---
 

@@ -1,11 +1,22 @@
 (function() {
   "use strict";
-  const Form_vue_vue_type_style_index_0_lang = "";
-  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+  var render$4 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", [_c("k-grid", { staticStyle: { "gap": "0.25rem", "--columns": "12" } }, [_c("k-input", _vm._b({ staticStyle: { "--width": "1/3" }, attrs: { "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
+      _vm.$set(_vm.content, "name", $$v);
+    }, expression: "content.name" } }, "k-input", _vm.field("name"), false)), _vm.loading ? _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "icon": "email", "theme": _vm.status.theme, "text": _vm.$t("form.block.inbox.show") + " (" + _vm.status.text + ")" }, nativeOn: { "click": function($event) {
+      return _vm.open.apply(null, arguments);
+    } } })], 1)], 1);
+  };
+  var staticRenderFns$4 = [];
+  render$4._withStripped = true;
+  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render) {
-      options.render = render;
-      options.staticRenderFns = staticRenderFns;
+    if (render2) {
+      options.render = render2;
+      options.staticRenderFns = staticRenderFns2;
       options._compiled = true;
     }
     if (functionalTemplate) {
@@ -55,9 +66,11 @@
       options
     };
   }
-  const _sfc_main$3 = {
+  const __vue2_script$4 = {
     data() {
       return {
+        migrate: false,
+        loading: true,
         status: {
           type: Object,
           default: {
@@ -69,11 +82,6 @@
         }
       };
     },
-    computed: {
-      thisPage() {
-        return this.$attrs.endpoints.model.replace("/pages/", "").replace(/\+/g, "/");
-      }
-    },
     destroyed() {
       this.$events.$off("form.update", this.updateCount);
     },
@@ -81,111 +89,188 @@
       const $this = this;
       this.$store.subscribe(function(mutation) {
         if (mutation.type == "content/STATUS")
-          $this.$events.$emit("form.update");
+          $this.$events.emit("form.update");
       });
+      this.content.formid = this.id;
       this.updateCount();
-      this.$events.$on("form.update", this.updateCount);
+      this.$events.on("form.update", this.updateCount);
     },
     methods: {
       updateCount() {
         const $this = this;
         this.$api.get("formblock", {
           action: "info",
-          page_id: this.thisPage,
-          form_id: this.$attrs.id,
-          form_name: this.content.name
-        }).then((data) => $this.status = data).catch(
-          function() {
-            $this.error = $this.$t("form.block.inbox.error");
-          }
-        );
+          form_id: this.id,
+          params: JSON.stringify({ form_name: this.content.name })
+        }).then((data) => {
+          $this.status = data;
+          this.loading = false;
+        });
       },
       onInput(value) {
         this.$emit("update", value);
       }
     }
   };
-  var _sfc_render$3 = function render() {
-    var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "k-block-type-form" }, [_c("div", { staticClass: "k-block-type-form-wrapper", attrs: { "data-state": _vm.state }, on: { "click": _vm.open } }, [_c("k-input", { attrs: { "name": "name", "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
-      _vm.$set(_vm.content, "name", $$v);
-    }, expression: "content.name" } }), _c("k-tag", { attrs: { "data-state": _vm.status.state } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.show")) + " (" + _vm._s(_vm.status.text) + ")")])], 1)]);
-  };
-  var _sfc_staticRenderFns$3 = [];
-  _sfc_render$3._withStripped = true;
-  var __component__$3 = /* @__PURE__ */ normalizeComponent(
-    _sfc_main$3,
-    _sfc_render$3,
-    _sfc_staticRenderFns$3,
+  const __cssModules$4 = {};
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(
+    __vue2_script$4,
+    render$4,
+    staticRenderFns$4,
     false,
-    null,
+    __vue2_injectStyles$4,
     null,
     null,
     null
   );
-  __component__$3.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/blocks/Form.vue";
-  const Form = __component__$3.exports;
-  const MailList_vue_vue_type_style_index_0_lang = "";
-  const _sfc_main$2 = {
+  function __vue2_injectStyles$4(context) {
+    for (let o in __cssModules$4) {
+      this[o] = __cssModules$4[o];
+    }
+  }
+  __component__$4.options.__file = "src/components/blocks/Form.vue";
+  var Form = /* @__PURE__ */ function() {
+    return __component__$4.exports;
+  }();
+  var render$3 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("k-dialog", _vm._b({ ref: "dialog", staticClass: "k-field-type-page-dialog", on: { "cancel": function($event) {
+      return _vm.$emit("cancel");
+    }, "submit": function($event) {
+      return _vm.$emit("submit");
+    } } }, "k-dialog", _vm.$props, false), [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
+      return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
+        return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
+      }), 0)]) : _c("td", [_vm._v(" " + _vm._s(_vm.current.formdata[key]) + " ")])]);
+    }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table" }, [_vm._v(" " + _vm._s(_vm.current.formdata.summary) + " ")]), _vm.current.error ? _c("k-box", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e()], 1);
+  };
+  var staticRenderFns$3 = [];
+  render$3._withStripped = true;
+  var Form_vue_vue_type_style_index_0_lang = "";
+  const __vue2_script$3 = {
+    extends: "k-dialog",
+    props: {
+      current: {
+        type: Object,
+        default() {
+        }
+      }
+    }
+  };
+  const __cssModules$3 = {};
+  var __component__$3 = /* @__PURE__ */ normalizeComponent(
+    __vue2_script$3,
+    render$3,
+    staticRenderFns$3,
+    false,
+    __vue2_injectStyles$3,
+    null,
+    null,
+    null
+  );
+  function __vue2_injectStyles$3(context) {
+    for (let o in __cssModules$3) {
+      this[o] = __cssModules$3[o];
+    }
+  }
+  __component__$3.options.__file = "src/components/dialog/Form.vue";
+  var MailDialog = /* @__PURE__ */ function() {
+    return __component__$3.exports;
+  }();
+  var render$2 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", { staticClass: "k-mailview-list" }, [!_vm.hideheader ? _c("k-box", { attrs: { "theme": _vm.value.header.state.theme, "icon": _vm.isOpen ? "angle-up" : "angle-down", "text": _vm.headerText }, nativeOn: { "click": function($event) {
+      return _vm.toggleOpen();
+    } } }) : _vm._e(), _vm.isOpen || _vm.hideheader ? _c("k-items", { attrs: { "items": _vm.items } }) : _vm._e()], 1);
+  };
+  var staticRenderFns$2 = [];
+  render$2._withStripped = true;
+  const __vue2_script$2 = {
     props: {
       value: {
         type: Array,
         required: true
       },
-      showuuid: Boolean
+      showuuid: Boolean,
+      hideheader: Boolean
     },
     data() {
       return {
-        data: [],
-        isOpen: this.value.openaccordion == "true"
+        isOpen: false
       };
     },
     computed: {
-      prev() {
-        return this.previewfields;
+      items() {
+        const a = this.value.content;
+        if (a.length === 0) {
+          return [
+            {
+              text: this.$t("form.block.inbox.empty"),
+              theme: "disabled"
+            }
+          ];
+        }
+        return this.value.content;
       },
-      showHeader() {
-        return this.isOpen || this.value.header.hide;
+      headerText() {
+        if (this.showuuid) {
+          return this.value.header.name + " (" + this.value.uuid + ")";
+        }
+        return this.value.header.name;
       }
     },
+    created() {
+      this.isOpen = sessionStorage.getItem(
+        `microman.form.showOpen.${this.value.page}.${this.value.uuid}`
+      ) === "on";
+    },
     methods: {
-      toggleAccordion() {
+      toggleOpen() {
         this.isOpen = !this.isOpen;
-        this.$emit("setAccordion", this.value.id, this.isOpen);
+        sessionStorage.setItem(
+          `microman.form.showOpen.${this.value.page}.${this.value.uuid}`,
+          this.isOpen ? "on" : "off"
+        );
       }
     }
   };
-  var _sfc_render$2 = function render() {
-    var _vm = this, _c = _vm._self._c;
-    return _c("div", { attrs: { "id": "maillist" } }, [_c("table", { staticClass: "k-table k-field-type-mail-table", attrs: { "data-noheader": _vm.showHeader, "aria-expanded": _vm.isOpen } }, [!_vm.value.header.hide ? _c("thead", { staticClass: "k-field-type-mail-table-header", attrs: { "data-state": _vm.value.header.state.state, "aria-controls": `collapse${_vm._uid}` }, on: { "click": function($event) {
-      return _vm.toggleAccordion();
-    } } }, [_c("tr", [_c("th", { staticClass: "k-field-type-mail-header", attrs: { "data-mobile": "" } }, [_c("p", [_vm._v(_vm._s(_vm.value.header.page) + " - " + _vm._s(_vm.value.header.name) + " (" + _vm._s(_vm.value.header.state.text) + ") "), _vm.showuuid ? _c("span", [_vm._v(" (" + _vm._s(_vm.value.uuid) + ")")]) : _vm._e()]), _c("k-icon", { style: _vm.isOpen ? "" : "transform:rotate(180deg);", attrs: { "type": "angle-up" } })], 1)])]) : _vm._e(), _c("tbody", { directives: [{ name: "show", rawName: "v-show", value: _vm.showHeader, expression: "showHeader" }], staticClass: "k-field-type-mail-table-body", attrs: { "id": `collapse${_vm._uid}` } }, [_vm.value.content.length == 0 ? _c("tr", [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item" }, [_vm._v(" " + _vm._s(_vm.$t("form.block.inbox.empty")) + " ")])], 1)]) : _vm._e(), _vm._l(_vm.value.content, function(mail) {
-      return _c("tr", { key: mail.id }, [_c("td", { attrs: { "data-mobile": "" } }, [_c("k-item", { staticClass: "k-field-type-mail-list-item", attrs: { "options": [
-        mail.read == "" ? { icon: "preview", text: _vm.$t("form.block.inbox.asread"), click: () => _vm.$emit("setRead", true, mail) } : { icon: "unread", text: _vm.$t("form.block.inbox.asunread"), click: () => _vm.$emit("setRead", false, mail) },
-        { icon: "trash", text: _vm.$t("form.block.inbox.delete"), click: () => _vm.$emit("deleteMail", mail) }
-      ] }, on: { "click": function($event) {
-        return _vm.$emit("open", mail);
-      } } }, [_c("k-status-icon", { attrs: { "status": mail.status, "tooltip": mail.tooltip } }), _c("header", { staticClass: "k-item-content" }, [_vm._t("default", function() {
-        return [_c("h3", { staticClass: "k-item-title" }, [_vm._v(_vm._s(mail.title))]), _c("p", { staticClass: "k-item-info", domProps: { "innerHTML": _vm._s(mail.desc) } })];
-      })], 2)], 1)], 1)]);
-    }), _vm.value.length == 0 ? _c("tr", [_c("td", [_c("k-item", { staticClass: "k-field-type-page-list-item-empty", attrs: { "text": _vm.$t("form.block.inbox.empty"), "disabled": "true" } })], 1)]) : _vm._e()], 2)])]);
-  };
-  var _sfc_staticRenderFns$2 = [];
-  _sfc_render$2._withStripped = true;
+  const __cssModules$2 = {};
   var __component__$2 = /* @__PURE__ */ normalizeComponent(
-    _sfc_main$2,
-    _sfc_render$2,
-    _sfc_staticRenderFns$2,
+    __vue2_script$2,
+    render$2,
+    staticRenderFns$2,
     false,
-    null,
+    __vue2_injectStyles$2,
     null,
     null,
     null
   );
-  __component__$2.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/MailList.vue";
-  const MailList = __component__$2.exports;
-  const MailView_vue_vue_type_style_index_0_lang = "";
-  const _sfc_main$1 = {
+  function __vue2_injectStyles$2(context) {
+    for (let o in __cssModules$2) {
+      this[o] = __cssModules$2[o];
+    }
+  }
+  __component__$2.options.__file = "src/components/MailList.vue";
+  var MailList = /* @__PURE__ */ function() {
+    return __component__$2.exports;
+  }();
+  var render$1 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { attrs: { "variant": "fields" } }, [_vm.showLicense ? _c("k-formblock-license", { staticStyle: { "--width": "1/1" }, on: { "onSuccess": function($event) {
+      _vm.showLicense = false;
+    } } }) : _vm._e(), _vm._l(_vm.data, function(group) {
+      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", staticStyle: { "--width": "1/1" }, attrs: { "hideheader": _vm.hideheader, "value": group, "showuuid": _vm.isUnique(group) }, on: { "setRead": _vm.setRead, "deleteMail": _vm.deleteMail } });
+    }), _vm.data.length === 0 ? _c("k-box", { staticStyle: { "--width": "1/1" }, attrs: { "theme": "info", "text": _vm.$t("form.block.inbox.empty") } }) : _vm._e()], 2)], 1);
+  };
+  var staticRenderFns$1 = [];
+  render$1._withStripped = true;
+  const __vue2_script$1 = {
     props: {
       value: {
         type: String,
@@ -195,136 +280,104 @@
         type: String,
         default: "DD.MM.YYYY HH:mm"
       },
+      forms: {
+        type: Array,
+        default: () => []
+      },
+      formData: {
+        type: Object,
+        default: () => {
+        }
+      },
       license: Boolean
     },
     data() {
       return {
-        new: [],
-        read: [],
         data: [],
-        current: {
-          formdata: {},
-          formfields: {},
-          attachment: {}
-        },
-        id: 0,
-        parent: false,
+        filter: [],
         loading: true,
-        page: "Keine Seite",
-        showLicense: true
+        showLicense: true,
+        hideheader: false
       };
     },
     computed: {
-      prev() {
-        return this.previewfields;
-      },
-      isUnique() {
-        let uniqueTest = [];
-        let isUnique = true;
-        this.data.forEach((element) => {
-          if (uniqueTest.includes(element.header.name))
-            isUnique = false;
-          uniqueTest.push(element.header.name);
-        });
-        return isUnique;
-      },
-      thisPage() {
+      thispage() {
         return this.$attrs.endpoints.model.replace("/pages/", "").replace(/\+/g, "/");
       }
     },
     created() {
       this.showLicense = this.license;
-      this.findId(this.$parent);
-      this.$events.$on("form.update", this.updateList);
+      if (this.formData.formid) {
+        this.filter = [this.formData.formid];
+        this.hideheader = true;
+      } else {
+        this.filter = this.forms;
+      }
+      this.updateList();
+      this.$events.on("form.update", this.updateList);
     },
     destroyed() {
-      this.$events.$off("form.update", this.updateList);
+      this.$events.off("form.update", this.updateList);
     },
     methods: {
-      findId(parent) {
-        var _a, _b, _c, _d;
-        if (parent) {
-          this.parent = (_d = (_c = (_b = (_a = parent.$parent) == null ? void 0 : _a.$options) == null ? void 0 : _b.propsData) == null ? void 0 : _c.id) != null ? _d : false;
-        } else {
-          this.parent = "";
-        }
-        if (typeof this.parent == "string") {
-          this.updateList();
-          return;
-        }
-        this.findId(parent.$parent);
+      send(action, params, callback) {
+        var _a, _b;
+        this.$api.get("formblock", {
+          action,
+          page_id: this.thispage,
+          request_id: (_a = params == null ? void 0 : params.request) != null ? _a : "",
+          form_id: (_b = params == null ? void 0 : params.form) != null ? _b : "",
+          params: JSON.stringify(params)
+        }).then((data) => {
+          this.loading = false;
+          callback(data);
+        });
+      },
+      isUnique(a) {
+        return this.data.filter((b) => {
+          return a.header.page === b.header.page && a.header.name === b.header.name;
+        }).length > 1;
       },
       updateList() {
         let $this = this;
-        this.$api.get("formblock", {
-          action: "requestsArray",
-          page_id: this.thisPage,
-          form_id: this.parent ? this.parent : "",
-          params: JSON.stringify({ hideheader: this.parent != "" })
-        }).then((data) => {
+        this.send("requestsArray", { filter: this.filter }, (data) => {
           this.data = Object.keys(data).map(function(key) {
             data[key].content = data[key].content.map((req) => {
+              req.formid = key;
               req.attachment = "attachment" in req ? JSON.parse(req.attachment) : false;
               req.formdata = JSON.parse(req.formdata);
               req.formfields = "formfields" in req ? JSON.parse(req.formfields) : false;
-              req.status = $this.getStatus(req);
-              req.tooltip = $this.getTooltip(req);
-              let thisDate = $this.$library.dayjs(req.received, "YYYY-MM-DD HH:mm:ss");
-              req.desc = thisDate.isValid() ? thisDate.format($this.dateformat) : "";
-              req.title = $this.getLabel(req);
+              let thisDate = $this.$library.dayjs(
+                req.received,
+                "YYYY-MM-DD HH:mm:ss"
+              );
+              req.info = thisDate.isValid() ? thisDate.format($this.dateformat) : "";
+              req.text = $this.getLabel(req);
+              req.image = $this.getImage(req);
+              req.buttons = [$this.getButton("info", req)];
+              req.options = [
+                req.read === "" ? $this.getButton("unread", req) : $this.getButton("read", req),
+                $this.getButton("delete", req)
+              ];
               return req;
             });
             return data[key];
           });
-          this.loading = false;
         });
       },
-      openMail(request) {
-        this.current = request;
-        this.$refs.dialog.open();
-      },
-      getDate() {
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-      },
-      setRead(state, request = false) {
-        if (!request)
-          request = this.current;
-        this.$api.get("formblock", {
-          action: "update",
-          form_id: request.parent,
-          request_id: request.slug,
-          params: JSON.stringify({ read: state == false ? "" : this.getDate() })
-        }).then((data) => {
-          if (data) {
-            this.$events.$emit("form.update");
-            this.$refs.dialog.close();
+      setRead(state, item) {
+        this.send(
+          "update",
+          {
+            form: item.formid,
+            request: item.slug,
+            read: state == false ? "" : this.$library.dayjs().format("YYYY-MM-DD HH:mm:ss")
+          },
+          () => {
+            this.$events.emit("form.update");
+            this.$panel.dialog.close();
           }
-        });
-      },
-      setAccordion(form, value) {
-        this.$api.get("formblock", {
-          action: "updateContainer",
-          form_id: form,
-          params: JSON.stringify({ openaccordion: value })
-        }).then(() => {
-          this.$events.$emit("form.update");
-        });
-      },
-      deleteMail(request) {
-        this.$api.get("formblock", {
-          action: "delete",
-          form_id: request.parent,
-          request_id: request.slug
-        }).then(() => {
-          this.$events.$emit("form.update");
-        });
+        );
       },
       getLabel(req) {
         if (req.display)
@@ -333,61 +386,118 @@
           return req.id;
         return this.$helper.string.template(this.value, req.formdata);
       },
-      getStatus(req) {
-        if (req.read)
-          return "unlisted";
-        if (req.error)
-          return "draft";
-        return "listed";
+      getButton(type, item) {
+        if (type === "delete") {
+          return {
+            icon: "trash",
+            text: this.$t("form.block.inbox.delete"),
+            click: () => this.send(
+              "delete",
+              {
+                form: item.formid,
+                request: item.slug
+              },
+              () => {
+                this.$events.emit("form.update");
+              }
+            )
+          };
+        }
+        if (type === "unread") {
+          return {
+            icon: "preview",
+            text: this.$t("form.block.inbox.asread"),
+            click: () => this.setRead(true, item)
+          };
+        }
+        if (type === "read") {
+          return {
+            icon: "hidden",
+            text: this.$t("form.block.inbox.asunread"),
+            click: () => this.setRead(false, item)
+          };
+        }
+        return {
+          icon: "info",
+          click: () => this.$panel.dialog.open({
+            component: "k-mail-dialog",
+            props: {
+              current: item,
+              size: "medium",
+              submitButton: item.read ? {} : this.getButton("unread", item),
+              cancelButton: item.read ? this.getButton("read", item) : {}
+            }
+          })
+        };
       },
-      getTooltip(req) {
-        if (req.error != "")
-          return req.error;
-        if (req.read != "")
-          return this.$t("form.block.inbox.tooltip.read");
-        return this.$t("form.block.inbox.tooltip.unread");
+      getImage(req) {
+        const out = { back: "transparent" };
+        if (req.read)
+          return Object.assign(out, {
+            icon: "circle",
+            color: "info"
+          });
+        if (req.error)
+          return Object.assign(out, {
+            icon: "cancel",
+            color: "negative"
+          });
+        return Object.assign(out, {
+          icon: "circle-filled",
+          color: "positive"
+        });
       }
     }
   };
-  var _sfc_render$1 = function render() {
-    var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "k-field-type-mail-view" }, [_c("k-grid", [_vm.showLicense ? _c("k-column", [_c("k-formblock-license", { on: { "onSuccess": function($event) {
-      _vm.showLicense = false;
-    } } })], 1) : _vm._e(), _c("k-column", [_vm.data ? _vm._l(_vm.data, function(group) {
-      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", attrs: { "value": group, "showuuid": !_vm.isUnique }, on: { "open": _vm.openMail, "setRead": _vm.setRead, "deleteMail": _vm.deleteMail, "setAccordion": _vm.setAccordion } });
-    }) : _vm._e(), _vm.loading ? _c("k-info-field", { attrs: { "text": _vm.$t("form.block.inbox.loading") } }) : _vm._e()], 2)], 1), _c("k-dialog", { ref: "dialog", staticClass: "k-field-type-page-dialog", attrs: { "size": "large" } }, [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
-      return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
-        return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
-      }), 0)]) : _c("td", { domProps: { "innerHTML": _vm._s(_vm.current.formdata[key]) } })]);
-    }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table", domProps: { "innerHTML": _vm._s(_vm.current.formdata.summary) } }), _vm.current.length > 0 ? _c("k-fieldset", { attrs: { "disabled": "true", "fields": _vm.prev }, model: { value: _vm.current, callback: function($$v) {
-      _vm.current = $$v;
-    }, expression: "current" } }) : _vm._e(), _vm.current.error ? _c("k-info-field", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e(), _c("template", { slot: "footer" }, [_c("k-button-group", [_vm.current.read != "" ? _c("k-button", { on: { "click": function($event) {
-      return _vm.setRead(false);
-    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asunread")))]) : _vm._e(), _c("k-button", { attrs: { "icon": "cancel" }, on: { "click": function($event) {
-      return _vm.$refs.dialog.close();
-    } } }, [_vm._v(_vm._s(_vm.$t("close")))]), _vm.current.read == "" ? _c("k-button", { on: { "click": function($event) {
-      return _vm.setRead(true);
-    } } }, [_vm._v(_vm._s(_vm.$t("form.block.inbox.asread")))]) : _vm._e()], 1)], 1)], 2)], 1);
-  };
-  var _sfc_staticRenderFns$1 = [];
-  _sfc_render$1._withStripped = true;
+  const __cssModules$1 = {};
   var __component__$1 = /* @__PURE__ */ normalizeComponent(
-    _sfc_main$1,
-    _sfc_render$1,
-    _sfc_staticRenderFns$1,
+    __vue2_script$1,
+    render$1,
+    staticRenderFns$1,
     false,
-    null,
+    __vue2_injectStyles$1,
     null,
     null,
     null
   );
-  __component__$1.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/fields/MailView.vue";
-  const MailView = __component__$1.exports;
-  const FormLicense_vue_vue_type_style_index_0_lang = "";
-  const _sfc_main = {
+  function __vue2_injectStyles$1(context) {
+    for (let o in __cssModules$1) {
+      this[o] = __cssModules$1[o];
+    }
+  }
+  __component__$1.options.__file = "src/components/fields/MailView.vue";
+  var MailView = /* @__PURE__ */ function() {
+    return __component__$1.exports;
+  }();
+  var render = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", { staticClass: "k-formblock-license" }, [_c("k-box", { attrs: { "theme": "notice" } }, [_vm._v(" This is an unregistered version of the kirby form block suite. "), _vm.doRegister ? _c("span", { staticClass: "link", on: { "click": function($event) {
+      return _vm.$refs.regdialog.open();
+    } } }, [_vm._v("Register now")]) : _vm._e()]), _c("k-dialog", { ref: "regdialog", staticClass: "k-formblock-license-dialog", attrs: { "size": "medium" } }, [_c("k-grid", { attrs: { "gutter": "medium" } }, [_c("k-column", [_c("k-text", { attrs: { "size": "large" } }, [_vm._v(" Get your license "), _c("a", { attrs: { "href": "https://license.microman.ch/?product=801346", "target": "_blank" } }, [_vm._v("here")])])], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Please enter your license code", "help": _vm.supporttext(), "required": "true", "placeholder": "" }, model: { value: _vm.licensekey, callback: function($$v) {
+      _vm.licensekey = $$v;
+    }, expression: "licensekey" } })], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Email", "type": "text", "required": "true", "placeholder": "mail@example.com" }, model: { value: _vm.email, callback: function($$v) {
+      _vm.email = $$v;
+    }, expression: "email" } })], 1), _c("k-column", [_vm.theme ? _c("k-box", { staticClass: "loader-box", attrs: { "theme": _vm.theme } }, [_vm.theme === "notice" ? _c("k-loader") : _vm._e(), _c("span", { staticClass: "loader-text" }, [_vm._v(_vm._s(_vm.notify))])], 1) : _vm._e()], 1)], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "chancel" }, on: { "click": _vm.reset } }, [_vm._v("Close")]), _c("k-button", { attrs: { "disabled": _vm.onLoad || _vm.onSuccess, "icon": "check", "theme": "positive" }, on: { "click": _vm.register } }, [_vm._v("Register")])], 1)], 1)], 2)], 1);
+  };
+  var staticRenderFns = [];
+  render._withStripped = true;
+  var FormLicense_vue_vue_type_style_index_0_lang = "";
+  const __vue2_script = {
     props: {
-      message: String,
-      supportLink: String,
+      message: {
+        type: String,
+        default() {
+          return "";
+        }
+      },
+      supportLink: {
+        type: String,
+        default() {
+          return "";
+        }
+      },
       isError: Boolean,
       doRegister: {
         type: Boolean,
@@ -454,45 +564,37 @@
       }
     }
   };
-  var _sfc_render = function render() {
-    var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "k-formblock-license" }, [_c("k-box", { attrs: { "theme": "notice" } }, [_vm._v(" This is an unregistered version of the kirby form block suite. "), _vm.doRegister ? _c("span", { staticClass: "link", on: { "click": function($event) {
-      return _vm.$refs.regdialog.open();
-    } } }, [_vm._v("Register now")]) : _vm._e()]), _c("k-dialog", { ref: "regdialog", staticClass: "k-formblock-license-dialog", attrs: { "size": "medium" } }, [_c("k-grid", { attrs: { "gutter": "medium" } }, [_c("k-column", [_c("k-text", { attrs: { "size": "large" } }, [_vm._v(" Get your license "), _c("a", { attrs: { "href": "https://license.microman.ch/?product=801346", "target": "_blank" } }, [_vm._v("here")])])], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Please enter your license code", "help": _vm.supporttext(), "required": "true", "placeholder": "" }, model: { value: _vm.licensekey, callback: function($$v) {
-      _vm.licensekey = $$v;
-    }, expression: "licensekey" } })], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Email", "type": "text", "required": "true", "placeholder": "mail@example.com" }, model: { value: _vm.email, callback: function($$v) {
-      _vm.email = $$v;
-    }, expression: "email" } })], 1), _c("k-column", [_vm.theme ? _c("k-box", { staticClass: "loader-box", attrs: { "theme": _vm.theme } }, [_vm.theme === "notice" ? _c("k-loader") : _vm._e(), _c("span", { staticClass: "loader-text" }, [_vm._v(_vm._s(_vm.notify))])], 1) : _vm._e()], 1)], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "chancel" }, on: { "click": _vm.reset } }, [_vm._v("Close")]), _c("k-button", { attrs: { "disabled": _vm.onLoad || _vm.onSuccess, "icon": "check", "theme": "positive" }, on: { "click": _vm.register } }, [_vm._v("Register")])], 1)], 1)], 2)], 1);
-  };
-  var _sfc_staticRenderFns = [];
-  _sfc_render._withStripped = true;
+  const __cssModules = {};
   var __component__ = /* @__PURE__ */ normalizeComponent(
-    _sfc_main,
-    _sfc_render,
-    _sfc_staticRenderFns,
+    __vue2_script,
+    render,
+    staticRenderFns,
     false,
-    null,
+    __vue2_injectStyles,
     null,
     null,
     null
   );
-  __component__.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/FormLicense.vue";
-  const FormLicense = __component__.exports;
+  function __vue2_injectStyles(context) {
+    for (let o in __cssModules) {
+      this[o] = __cssModules[o];
+    }
+  }
+  __component__.options.__file = "src/components/FormLicense.vue";
+  var FormLicense = /* @__PURE__ */ function() {
+    return __component__.exports;
+  }();
   window.panel.plugin("microman/formblock", {
     fields: {
       mailview: MailView
     },
     components: {
       "k-mail-list": MailList,
+      "k-mail-dialog": MailDialog,
       "k-formblock-license": FormLicense
     },
     blocks: {
       form: Form
-    },
-    icons: {
-      form: '<path d="M6.9,13.6H2.2c-0.6,0-1.1-0.5-1.1-1.1V3.1C1.1,2.5,1.6,2,2.2,2h8.4c0.6,0,1.1,0.5,1.1,1.1v5.8 c0,0.3,0.2,0.5,0.5,0.5s0.5-0.2,0.5-0.5V3.1c0-1.2-0.9-2.1-2.1-2.1H2.2C1,1,0.1,1.9,0.1,3.1v9.5c0,1.2,0.9,2.1,2.1,2.1h4.7 c0.3,0,0.5-0.2,0.5-0.5C7.5,13.8,7.2,13.6,6.9,13.6z M9,4.1H3.8c-0.3,0-0.5,0.2-0.5,0.5c0,0.3,0.2,0.5,0.5,0.5H9 c0.3,0,0.5-0.2,0.5-0.5C9.6,4.4,9.3,4.1,9,4.1z M9.6,7.8c0-0.3-0.2-0.5-0.5-0.5H3.8c-0.3,0-0.5,0.2-0.5,0.5c0,0.3,0.2,0.5,0.5,0.5H9 C9.3,8.3,9.6,8.1,9.6,7.8z M3.8,10.4c-0.3,0-0.5,0.2-0.5,0.5c0,0.3,0.2,0.5,0.5,0.5h2.1c0.3,0,0.5-0.2,0.5-0.5 c0-0.3-0.2-0.5-0.5-0.5H3.8z M15.8,9.5c-0.2-0.2-0.5-0.2-0.7,0l-3.9,3.9l-1.8-1.8c-0.2-0.2-0.5-0.2-0.7,0c-0.2,0.2-0.2,0.5,0,0.7 l2,2c0,0.1,0.1,0.1,0.1,0.1c0.2,0.2,0.5,0.2,0.7,0l4.3-4.3C16,10,16,9.7,15.8,9.5z"/>',
-      send: '<path d="M15.8,0.7C15.8,0.7,15.8,0.7,15.8,0.7C15.8,0.7,15.8,0.6,15.8,0.7c0-0.1,0-0.1,0-0.1c0,0,0-0.1,0-0.1c0,0,0,0,0,0 c0,0,0,0,0-0.1c0,0,0,0,0,0c0,0,0-0.1-0.1-0.1c0,0,0,0-0.1-0.1c0,0,0,0,0,0c0,0,0,0-0.1,0c0,0,0,0,0,0c0,0-0.1,0-0.1,0c0,0,0,0,0,0 c0,0,0,0-0.1,0c0,0,0,0,0,0c0,0,0,0-0.1,0c0,0,0,0,0,0c0,0-0.1,0-0.1,0L0.5,5.7C0.3,5.8,0.2,5.9,0.2,6.2c0,0.2,0.1,0.4,0.3,0.5 l6,2.9l2.9,6c0.1,0.2,0.3,0.3,0.5,0.3c0,0,0,0,0,0c0.2,0,0.4-0.1,0.5-0.3l5.5-14.6C15.8,0.8,15.8,0.8,15.8,0.7 C15.8,0.8,15.8,0.8,15.8,0.7C15.8,0.8,15.8,0.7,15.8,0.7z M13.2,2L6.7,8.5L2,6.2L13.2,2z M9.8,14L7.5,9.3L14,2.8L9.8,14z"/>',
-      unread: '<path d="M15.72,8.44c0-0.26-0.11-0.52-0.3-0.71c-0.37-0.37-1.04-0.37-1.41,0c-0.08,0.08-0.13,0.18-0.18,0.28L13.82,8 c-0.78,1.17-2.98,4-5.82,4c-2.83,0-5.02-2.82-5.81-3.99c-0.01,0-0.01,0-0.02,0c-0.05-0.1-0.11-0.2-0.19-0.28 c-0.37-0.37-1.04-0.37-1.41,0C0.38,7.92,0.28,8.18,0.28,8.44c0,0.27,0.1,0.52,0.29,0.71c0,0.01-0.01,0.01-0.01,0.02 C1.55,10.64,4.23,14,8,14c3.92,0,6.68-3.66,7.56-5.01l-0.02-0.01C15.65,8.82,15.72,8.64,15.72,8.44z"/>'
     }
   });
 })();
