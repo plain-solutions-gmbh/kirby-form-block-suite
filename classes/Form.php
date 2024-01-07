@@ -631,10 +631,10 @@ static function translate($key, $default, $replace = []) {
     {
 
         if (
+            ($this->id() === get('id')) &&
             $this->isFilled() && 
             $this->isValid() && 
-            is_null(get('field_validation')) &&
-            ($this->id() === get('id'))
+            is_null(get('field_validation'))
         ) {
             
             $this->request = new FormRequest([

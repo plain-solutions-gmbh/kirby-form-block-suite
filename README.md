@@ -522,14 +522,29 @@ If you disable this function, you'il lose some features
 
 ## Hook Success
 
-Since Version 3.4.8. Trigger when Form is send.
-
 ```php
 'hooks' => [
   'formblock.success:after' => function (\microman\FormRequest $request) {
       //Your code
   },
+  
 ]
+```
+
+## Hook Validate
+
+Since Version 4.0.1. Triggers when a form field is validating.
+
+`$errors`is an array of all occures errors. You can add or remove errors.
+
+```php
+'formblock.validation:before' => function (string $type, string $value, array $errors): array
+  {
+  if ($type === 'say_hello' && $value !== 'hello') {
+    $errors[] = "You should say 'hello'";
+  }
+  return $errors;
+}
 ```
 
 

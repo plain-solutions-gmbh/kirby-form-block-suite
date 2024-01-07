@@ -343,7 +343,15 @@ class FormField extends Block
             $messages[$rule] = $v['msg'] ?? NULL;
         }
 
-        return V::errors($this->value(), $rules, $messages);
+        $errors = V::errors($this->value(), $rules, $messages);
+
+        return kirby()->apply('formblock.validation:before', [
+            'type'          => $this->type(true),
+            'value'         => $this->value(),
+            'errors'        => $errors,
+            'field'         => $this
+
+        ], 'errors');
 
     }
 
