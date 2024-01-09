@@ -7,5 +7,4 @@ assignees: ''
 
 ---
 
-- [ ] The installation does not contain any [custom templates](https://github.com/youngcut/kirby-form-block-suite?tab=readme-ov-file#customize-the-output)
-- [ ] No solution in the [chapter _Troubleshooting_](https://github.com/youngcut/kirby-form-block-suite?tab=readme-ov-file#troubleshooting) could solve my problem.
+I confirm that the Troubleshooting chapter does not solve my problem and that installation does not contain any custom form templates.
