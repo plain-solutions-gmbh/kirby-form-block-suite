@@ -189,7 +189,7 @@ class FormBlueprint
      */
     private static function mergeFormfields(string $formblockfolder, array $out, array $customfields): array
     {
-        foreach (Dir::read($formblockfolder, [], true) as $f) {
+        foreach (Dir::read($formblockfolder, null, true) as $f) {
 
             //Convert formblock to array
             $this_block = Yaml::read($f);
