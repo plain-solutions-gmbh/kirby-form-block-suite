@@ -13,10 +13,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.k-field-type-page-dialog-table tr > td:first-child {
-  width: 1px;
-  white-space: nowrap;
-}
 .k-field-type-page-dialog-table .field_summary {
   display: none;
 }
