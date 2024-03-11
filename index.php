@@ -45,9 +45,9 @@ Kirby::plugin('microman/formblock', [
     'fields' => [
         'mailview' => [
             'props' => [
-                'parent' => function () {
-                    return false;
-                },
+                'license' => function (bool $license = false) {
+                    return $license ? FormLicense::licenseText() : '';
+                }
             ]
         ],
     ],
@@ -91,6 +91,15 @@ Kirby::plugin('microman/formblock', [
                 },
             ],
         ]
+    ],
+    'areas' => [
+        'formblocks'  => function() {
+            return [
+                'dialogs'   => [
+                    'formblock/register' => FormLicense::dialog()
+                ]
+            ];
+        }
     ],
     'translations' => [
         'en' => require __DIR__ . '/lib/languages/en.php',

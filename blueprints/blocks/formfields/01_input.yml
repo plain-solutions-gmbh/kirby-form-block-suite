@@ -32,7 +32,7 @@ fields:
     columns:
       validate:
         width: 1/4
-        label: form.block.fromfields.input.validate.validate
+        label: form.block.fromfields.input.validate
       msg:
         width: 3/4
         label: form.block.fromfields.input.validate.msg

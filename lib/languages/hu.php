@@ -46,7 +46,6 @@ return [
 	'form.block.fromfields.input.placeholder' 			=> 'Helykitöltő',
 	'form.block.fromfields.input.default'				=> 'Alapértelmezett',
 	'form.block.fromfields.input.validate' 				=> 'Validáció',
-	'form.block.fromfields.input.validate' 				=> 'Validáció',
 	'form.block.fromfields.input.validate.msg' 			=> 'Hiba üzenet',
 	'form.block.fromfields.input.fields' 				=> 'Validáció típusa',
 	'form.block.fromfields.input.fields.alpha' 			=> 'Csak szöveg',
@@ -135,4 +134,17 @@ return [
 	'form.block.message.send_button'			=> 'Küldés',
 	'form.block.message.loading'                => 'Feltöltés ({{percent}})',
 	'form.block.message.success_message'		=> '<p>Köszönjük kérését, a lehető leghamarabb keresni fogunk.</p>',
+
+	'form.block.license.info.standalone' 	=> 'A Kirby Form Block Suite licencét még nem aktiválták',
+	'form.block.license.info.premium' 		=> 'A Kirby Form Block Suite egy prémium szolgáltatás',
+	'form.block.license.info.link' 			=> 'Kérjük, aktiválja licencét',
+	'form.block.license.error.common' 		=> 'Valami rosszul sült el. Próbálja meg később, vagy lépjen kapcsolatba az ügyfélszolgálattal.',
+	'form.block.license.error.connection' 	=> 'Nincs kapcsolat a licenckiszolgálóval. Próbálja meg később, vagy lépjen kapcsolatba az ügyfélszolgálattal',
+	'form.block.license.error.support' 		=> 'Kapcsolat: {{support}}',
+	'form.block.license.error.origin' 		=> 'A licenc csak a {{eredet}}-vel együtt érvényes',
+	'form.block.license.error.invalid' 		=> 'Ez a licenckulcs érvénytelen',
+	'form.block.license.error.blocked' 		=> 'A licenc letiltásra került',
+	'form.block.license.error.limit' 		=> 'Ezt a licencet már hozzárendelték a maximálisan elérhető domainekhez',
+	'form.block.license.error.test' 		=> 'A licenc eszköz jelenleg teszt üzemmódban van. Kérjük, próbálja meg később újra.'
+
 ];

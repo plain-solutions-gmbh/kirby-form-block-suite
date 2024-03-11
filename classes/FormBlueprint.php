@@ -83,9 +83,8 @@ class FormBlueprint
             'fields' => [
                 'formid' => ['type' => 'hidden'],
                 'mailview' => [
-                    //You can find the license validation in the file: lib/FormLicense.php
-                    "license" => !FormLicense::checkLicense(),
-                    'type' => 'mailview'
+                    'type' => 'mailview',
+                    'license' => true
                 ]
             ]
         ];

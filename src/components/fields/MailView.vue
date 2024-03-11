@@ -9,9 +9,9 @@
 
     <k-grid v-else variant="fields">
       <k-formblock-license
-        v-if="showLicense"
+        v-if="license.length > 0"
         style="--width: 1/1"
-        @onSuccess="showLicense = false"
+        :text="license"
       />
 
       <k-mail-list
@@ -55,14 +55,18 @@ export default {
       type: Object,
       default: () => {},
     },
-    license: Boolean,
+    license: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
   },
   data() {
     return {
       data: [],
       filter: [],
       loading: true,
-      showLicense: true,
       hideheader: false,
     };
   },
@@ -74,8 +78,6 @@ export default {
     },
   },
   created() {
-    this.showLicense = this.license;
-
     if (this.formData.formid) {
       this.filter = [this.formData.formid];
       this.hideheader = true;

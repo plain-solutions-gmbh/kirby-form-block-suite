@@ -46,7 +46,6 @@ return [
 	'form.block.fromfields.input.placeholder' 			=> 'Placeholder',
 	'form.block.fromfields.input.default'				=> 'Default',
 	'form.block.fromfields.input.validate' 				=> 'Validation',
-	'form.block.fromfields.input.validate' 				=> 'Validation',
 	'form.block.fromfields.input.validate.msg' 			=> 'Error message',
 	'form.block.fromfields.input.fields' 				=> 'Validation type',
 	'form.block.fromfields.input.fields.alpha' 			=> 'Text only',
@@ -136,4 +135,15 @@ return [
 	'form.block.message.loading'                => 'Uploading ({{percent}})',
 	'form.block.message.success_message'		=> '<p>Thank you {{name}}. We will get back to you as soon as possible.</p>',
 
+	'form.block.license.info.standalone' 		=> 'The license for the Kirby Form Block Suite is not yet activated',
+	'form.block.license.info.premium' 			=> 'Kirby Form Block Suite is a premium feature',
+	'form.block.license.info.link' 				=> 'Please activate your license',
+	'form.block.license.error.common' 			=> 'Something went wrong. Try later or contact support.',
+	'form.block.license.error.connection' 		=> 'No connection to the license server. Try later or contact support',
+	'form.block.license.error.support' 			=> 'Contact: {{support}}',
+	'form.block.license.error.origin' 			=> 'The license is only valid in combination with {{origin}}',
+	'form.block.license.error.invalid' 			=> 'This license key is invalid',
+	'form.block.license.error.blocked' 			=> 'The license has been blocked',
+	'form.block.license.error.limit' 			=> 'This license has already been assigned to the maximum available domains',
+	'form.block.license.error.test' 			=> 'The license tool is currently in test mode. Please try again later.'
 ];

@@ -46,7 +46,6 @@ return [
 	'form.block.fromfields.input.placeholder'			=> 'Platzhalter',
 	'form.block.fromfields.input.default'				=> 'Vordefiniert',
 	'form.block.fromfields.input.validate'				=> 'Validierung',
-	'form.block.fromfields.input.validate.validate'		=> 'Validierung',
 	'form.block.fromfields.input.validate.msg'			=> 'Fehlermeldung',
 	'form.block.fromfields.input.fields'				=> 'Validierungstyp',
 	'form.block.fromfields.input.fields.alpha'			=> 'Nur Text',
@@ -136,6 +135,16 @@ return [
 	'form.block.message.loading'                    => 'Hochladen ({{percent}})',
 	'form.block.message.success_message'			=> 'Danke {{ name }}. Wir werden uns schnellst möglich bei dir melden.',
 
-
+	'form.block.license.info.standalone'	=> 'Die Lizenz für das Kirby Form Block Suite ist noch nicht aktiviert.',
+	'form.block.license.info.premium'		=> 'Kirby Form Block Suite ist ein Premium Feature',
+	'form.block.license.info.link' 				=> 'Bitte aktiviere deine Lizenz',
+	'form.block.license.error.common'		=> 'Etwas ist schiefgelaufen. Versuche es später oder kontaktiere den Support.',
+	'form.block.license.error.connection'	=> 'Keine Verbindung zum Lizenzserver. Versuche es später oder kontaktiere den Support.',
+	'form.block.license.error.support'		=> 'Kontaktiere: {{support}}',
+	'form.block.license.error.origin'		=> 'Der Lizenz ist nur in Kombination mit {{origin}} gültig.',
+	'form.block.license.error.invalid'		=> 'Dieser Lizenzschlüssel ist ungültig',
+	'form.block.license.error.blocked'		=> 'Die Lizenz wurde blockiert',
+	'form.block.license.error.limit'		=> 'Diese Lizenz wurde bereits den maximal verfügbaren Domains zugewiesen.',
+	'form.block.license.error.test'			=> 'Das Lizenztool ist derzeit im Test-Modus. Versuche es später nochmals.'
 
 ];

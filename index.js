@@ -262,9 +262,7 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { attrs: { "variant": "fields" } }, [_vm.showLicense ? _c("k-formblock-license", { staticStyle: { "--width": "1/1" }, on: { "onSuccess": function($event) {
-      _vm.showLicense = false;
-    } } }) : _vm._e(), _vm._l(_vm.data, function(group) {
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { attrs: { "variant": "fields" } }, [_vm.license.length > 0 ? _c("k-formblock-license", { staticStyle: { "--width": "1/1" }, attrs: { "text": _vm.license } }) : _vm._e(), _vm._l(_vm.data, function(group) {
       return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", staticStyle: { "--width": "1/1" }, attrs: { "hideheader": _vm.hideheader, "value": group, "showuuid": _vm.isUnique(group) }, on: { "setRead": _vm.setRead, "deleteMail": _vm.deleteMail } });
     }), _vm.data.length === 0 ? _c("k-box", { staticStyle: { "--width": "1/1" }, attrs: { "theme": "info", "text": _vm.$t("form.block.inbox.empty") } }) : _vm._e()], 2)], 1);
   };
@@ -289,14 +287,18 @@
         default: () => {
         }
       },
-      license: Boolean
+      license: {
+        type: String,
+        default() {
+          return "";
+        }
+      }
     },
     data() {
       return {
         data: [],
         filter: [],
         loading: true,
-        showLicense: true,
         hideheader: false
       };
     },
@@ -306,7 +308,6 @@
       }
     },
     created() {
-      this.showLicense = this.license;
       if (this.formData.formid) {
         this.filter = [this.formData.formid];
         this.hideheader = true;
@@ -473,93 +474,39 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-formblock-license" }, [_c("k-box", { attrs: { "theme": "notice" } }, [_vm._v(" This is an unregistered version of the kirby form block suite. "), _vm.doRegister ? _c("span", { staticClass: "link", on: { "click": function($event) {
-      return _vm.$refs.regdialog.open();
-    } } }, [_vm._v("Register now")]) : _vm._e()]), _c("k-dialog", { ref: "regdialog", staticClass: "k-formblock-license-dialog", attrs: { "size": "medium" } }, [_c("k-grid", { attrs: { "gutter": "medium" } }, [_c("k-column", [_c("k-text", { attrs: { "size": "large" } }, [_vm._v(" Get your license "), _c("a", { attrs: { "href": "https://license.microman.ch/?product=801346", "target": "_blank" } }, [_vm._v("here")])])], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Please enter your license code", "help": _vm.supporttext(), "required": "true", "placeholder": "" }, model: { value: _vm.licensekey, callback: function($$v) {
-      _vm.licensekey = $$v;
-    }, expression: "licensekey" } })], 1), _c("k-column", [_c("k-text-field", { attrs: { "label": "Email", "type": "text", "required": "true", "placeholder": "mail@example.com" }, model: { value: _vm.email, callback: function($$v) {
-      _vm.email = $$v;
-    }, expression: "email" } })], 1), _c("k-column", [_vm.theme ? _c("k-box", { staticClass: "loader-box", attrs: { "theme": _vm.theme } }, [_vm.theme === "notice" ? _c("k-loader") : _vm._e(), _c("span", { staticClass: "loader-text" }, [_vm._v(_vm._s(_vm.notify))])], 1) : _vm._e()], 1)], 1), _c("template", { slot: "footer" }, [_c("k-button-group", [_c("k-button", { attrs: { "icon": "chancel" }, on: { "click": _vm.reset } }, [_vm._v("Close")]), _c("k-button", { attrs: { "disabled": _vm.onLoad || _vm.onSuccess, "icon": "check", "theme": "positive" }, on: { "click": _vm.register } }, [_vm._v("Register")])], 1)], 1)], 2)], 1);
+    return _vm.msg.length > 0 ? _c("k-box", { staticClass: "k-formblock-license", attrs: { "theme": _vm.state } }, [_vm._v(" " + _vm._s(_vm.$t(_vm.msg)) + " "), _vm.state === "notice" ? _c("span", { attrs: { "href": "#" }, on: { "click": function($event) {
+      return _vm.dialog();
+    } } }, [_vm._v(_vm._s(_vm.$t("form.block.license.info.link")))]) : _vm._e()]) : _vm._e();
   };
   var staticRenderFns = [];
   render._withStripped = true;
   var FormLicense_vue_vue_type_style_index_0_lang = "";
   const __vue2_script = {
     props: {
-      message: {
+      text: {
         type: String,
         default() {
           return "";
-        }
-      },
-      supportLink: {
-        type: String,
-        default() {
-          return "";
-        }
-      },
-      isError: Boolean,
-      doRegister: {
-        type: Boolean,
-        default() {
-          return true;
-        }
-      },
-      doSupport: {
-        type: Boolean,
-        default() {
-          return true;
         }
       }
     },
     data() {
       return {
-        onLoad: false,
-        onError: false,
-        onSuccess: false,
-        licensekey: "",
-        email: "",
-        notify: ""
+        state: "notice",
+        msg: this.text
       };
     },
-    computed: {
-      theme() {
-        if (this.onError) {
-          return "negative";
-        }
-        if (this.onSuccess) {
-          return "positive";
-        }
-        if (this.onLoad) {
-          return "notice";
-        }
-        return false;
-      }
-    },
     methods: {
-      supporttext() {
-        return "Keep in mind: The domain of this Kirby instance will be linked to the license. If the license is already assigned by mistake, <a href='https://microman.ch/en/microman' target='_blank'>contact the support</a>";
-      },
-      reset() {
-        this.licensekey = this.email = this.notify = "";
-        this.onError = this.onLoad = false;
-        if (this.onSuccess) {
-          this.$emit("onSuccess");
-        }
-        this.$refs.regdialog.close();
-      },
-      async register() {
-        this.onError = this.onSuccess = false;
-        this.onLoad = true;
-        this.notify = "Checking your license code. Please wait...";
-        this.$api.get("formblock/license", {
-          key: this.licensekey,
-          email: this.email
-        }).then((data) => {
-          this.onLoad = false;
-          this.onError = data.error;
-          this.onSuccess = data.success;
-          this.notify = data.text;
+      dialog() {
+        const $this = this;
+        this.$dialog("formblock/register", {
+          on: {
+            success(t) {
+              $this.msg = t.message;
+              $this.state = "positive";
+              $this.$panel.dialog.close();
+            }
+          }
         });
       }
     }

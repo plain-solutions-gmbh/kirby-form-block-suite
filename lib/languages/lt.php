@@ -46,7 +46,6 @@ return [
 	'form.block.fromfields.input.placeholder' 			=> 'Placeholder',
 	'form.block.fromfields.input.default'				=> 'Default',
 	'form.block.fromfields.input.validate' 				=> 'Validation',
-	'form.block.fromfields.input.validate' 				=> 'Validation',
 	'form.block.fromfields.input.validate.msg' 			=> 'Error message',
 	'form.block.fromfields.input.fields' 				=> 'Validation type',
 	'form.block.fromfields.input.fields.alpha' 			=> 'Text only',
@@ -136,5 +135,17 @@ return [
 	'form.block.message.send_button'			=> 'Siųsti',
 	'form.block.message.loading'                => 'Uploading ({{percent}})',
 	'form.block.message.success_message'		=> '<p>Thank you {{ name }}. We will get back to you as soon as possible.</p>',
+
+	'form.block.licence.info.standalone' 	=> 'Kirby Form Block Suite licencija dar nėra aktyvuota',
+	'form.block.license.info.link' 			=> 'Prašome aktyvuoti jūsų licenciją',
+	'form.block.license.info.premium' 		=> 'Kirby Form Block Suite is a premium feature',
+	'form.block.licence.error.common' 		=> 'Kažkas nutiko ne taip. Pabandykite vėliau arba kreipkitės į palaikymo tarnybą.',
+	'form.block.licence.error.connection' 	=> 'Nėra ryšio su licencijų serveriu. Pabandykite vėliau arba kreipkitės į palaikymo tarnybą',
+	'form.block.licence.error.support' 		=> "Susisiekite su: {{support}}",
+	'form.block.license.error.origin' 		=> 'Licencija galioja tik kartu su {{origin}}',
+	'form.block.license.error.invalid' 		=> "Šis licencijos raktas negalioja",
+	"form.block.license.error.blocked" 		=> "Licencija užblokuota",
+	"form.block.license.error.limit" 		=> "Ši licencija jau priskirta maksimaliam galimų domenų skaičiui",
+	'form.block.license.error.test' 		=> 'Šiuo metu licencijos įrankis veikia bandomuoju režimu. Prašome pabandyti dar kartą vėliau.'
 
 ];
