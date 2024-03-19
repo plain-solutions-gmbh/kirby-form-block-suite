@@ -65,14 +65,14 @@ return [
     'form.block.fromfields.textarea.row'                => 'Number of rows',
     'form.block.fromfields.textarea.man'                => 'Max. characters',
 
-    'form.block.fromfields.checkbox'                    => 'Multiple selection',
+    'form.block.fromfields.checkbox'                    => 'Checkbox inputs',
     'form.block.fromfields.checkbox.columns'            => 'Number of columns',
     'form.block.fromfields.checkbox.options'            => 'Options',
     'form.block.fromfields.checkbox.options.label'      => 'Display name',
     'form.block.fromfields.checkbox.options.slug'       => 'Unique identifier',
     'form.block.fromfields.checkbox.options.selected'   => 'Selected',
 
-    'form.block.fromfields.radio'                       => 'Selection',
+    'form.block.fromfields.radio'                       => 'Radio group',
     'form.block.fromfields.radio.columns'               => 'Number of columns',
     'form.block.fromfields.radio.default'               => 'Selected',
     'form.block.fromfields.radio.default.help'          => 'Reopen dialog if not current.',

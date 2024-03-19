@@ -65,14 +65,14 @@ return [
     'form.block.fromfields.textarea.row'                 => 'Nombre de lignes',
     'form.block.fromfields.textarea.man'                 => 'Nb max. de caractères',
 
-    'form.block.fromfields.checkbox'                     => 'Sélection multiple',
+    'form.block.fromfields.checkbox'                     => 'Cases à cocher',
     'form.block.fromfields.checkbox.columns'             => 'Nombre de colonnes',
     'form.block.fromfields.checkbox.options'             => 'Options',
     'form.block.fromfields.checkbox.options.label'       => 'Nom d’affichage',
     'form.block.fromfields.checkbox.options.slug'        => 'Identifiant unique',
     'form.block.fromfields.checkbox.options.selected'    => 'Sélectionné',
 
-    'form.block.fromfields.radio'                        => 'Sélection',
+    'form.block.fromfields.radio'                        => 'Boutons radio',
     'form.block.fromfields.radio.columns'                => 'Nombre de colonnes',
     'form.block.fromfields.radio.default'                => 'Sélection par défaut',
     'form.block.fromfields.radio.default.help'           => 'Réouvrir le dialogue si non actuel.',
