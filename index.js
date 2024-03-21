@@ -1,22 +1,10 @@
 (function() {
   "use strict";
-  var render$4 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", [_c("k-grid", { staticStyle: { "gap": "0.25rem", "--columns": "12" } }, [_c("k-input", _vm._b({ staticStyle: { "--width": "1/3" }, attrs: { "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
-      _vm.$set(_vm.content, "name", $$v);
-    }, expression: "content.name" } }, "k-input", _vm.field("name"), false)), _vm.loading ? _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "icon": "email", "theme": _vm.status.theme, "text": _vm.$t("form.block.inbox.show") + " (" + _vm.status.text + ")" }, nativeOn: { "click": function($event) {
-      return _vm.open.apply(null, arguments);
-    } } })], 1)], 1);
-  };
-  var staticRenderFns$4 = [];
-  render$4._withStripped = true;
-  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
     var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-    if (render2) {
-      options.render = render2;
-      options.staticRenderFns = staticRenderFns2;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
       options._compiled = true;
     }
     if (functionalTemplate) {
@@ -66,7 +54,7 @@
       options
     };
   }
-  const __vue2_script$4 = {
+  const _sfc_main$4 = {
     data() {
       return {
         migrate: false,
@@ -83,17 +71,16 @@
       };
     },
     destroyed() {
-      this.$events.$off("form.update", this.updateCount);
+      window.panel.events.off("form.update", this.updateCount);
     },
     created() {
-      const $this = this;
       this.$store.subscribe(function(mutation) {
         if (mutation.type == "content/STATUS")
-          $this.$events.emit("form.update");
+          window.panel.events.emit("form.update");
       });
       this.content.formid = this.id;
       this.updateCount();
-      this.$events.on("form.update", this.updateCount);
+      window.panel.events.on("form.update", this.updateCount);
     },
     methods: {
       updateCount() {
@@ -112,30 +99,41 @@
       }
     }
   };
-  const __cssModules$4 = {};
+  var _sfc_render$4 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", [_c("k-grid", { staticStyle: { "gap": "0.25rem", "--columns": "12" } }, [_c("k-input", _vm._b({ staticStyle: { "--width": "1/3" }, attrs: { "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
+      _vm.$set(_vm.content, "name", $$v);
+    }, expression: "content.name" } }, "k-input", _vm.field("name"), false)), _vm.loading ? _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "icon": "email", "theme": _vm.status.theme, "text": _vm.$t("form.block.inbox.show") + " (" + _vm.status.text + ")" }, nativeOn: { "click": function($event) {
+      return _vm.open.apply(null, arguments);
+    } } })], 1)], 1);
+  };
+  var _sfc_staticRenderFns$4 = [];
+  _sfc_render$4._withStripped = true;
   var __component__$4 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$4,
-    render$4,
-    staticRenderFns$4,
+    _sfc_main$4,
+    _sfc_render$4,
+    _sfc_staticRenderFns$4,
     false,
-    __vue2_injectStyles$4,
+    null,
     null,
     null,
     null
   );
-  function __vue2_injectStyles$4(context) {
-    for (let o in __cssModules$4) {
-      this[o] = __cssModules$4[o];
+  __component__$4.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/blocks/Form.vue";
+  const Form = __component__$4.exports;
+  const Form_vue_vue_type_style_index_0_lang = "";
+  const _sfc_main$3 = {
+    extends: "k-dialog",
+    props: {
+      current: {
+        type: Object,
+        default() {
+        }
+      }
     }
-  }
-  __component__$4.options.__file = "src/components/blocks/Form.vue";
-  var Form = /* @__PURE__ */ function() {
-    return __component__$4.exports;
-  }();
-  var render$3 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
+  };
+  var _sfc_render$3 = function render() {
+    var _vm = this, _c = _vm._self._c;
     return _c("k-dialog", _vm._b({ ref: "dialog", staticClass: "k-field-type-page-dialog", on: { "cancel": function($event) {
       return _vm.$emit("cancel");
     }, "submit": function($event) {
@@ -146,50 +144,21 @@
       }), 0)]) : _c("td", [_vm._v(" " + _vm._s(_vm.current.formdata[key]) + " ")])]);
     }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table" }, [_vm._v(" " + _vm._s(_vm.current.formdata.summary) + " ")]), _vm.current.error ? _c("k-box", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e()], 1);
   };
-  var staticRenderFns$3 = [];
-  render$3._withStripped = true;
-  var Form_vue_vue_type_style_index_0_lang = "";
-  const __vue2_script$3 = {
-    extends: "k-dialog",
-    props: {
-      current: {
-        type: Object,
-        default() {
-        }
-      }
-    }
-  };
-  const __cssModules$3 = {};
+  var _sfc_staticRenderFns$3 = [];
+  _sfc_render$3._withStripped = true;
   var __component__$3 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$3,
-    render$3,
-    staticRenderFns$3,
+    _sfc_main$3,
+    _sfc_render$3,
+    _sfc_staticRenderFns$3,
     false,
-    __vue2_injectStyles$3,
+    null,
     null,
     null,
     null
   );
-  function __vue2_injectStyles$3(context) {
-    for (let o in __cssModules$3) {
-      this[o] = __cssModules$3[o];
-    }
-  }
-  __component__$3.options.__file = "src/components/dialog/Form.vue";
-  var MailDialog = /* @__PURE__ */ function() {
-    return __component__$3.exports;
-  }();
-  var render$2 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-mailview-list" }, [!_vm.hideheader ? _c("k-box", { attrs: { "theme": _vm.value.header.state.theme, "icon": _vm.isOpen ? "angle-up" : "angle-down", "text": _vm.headerText }, nativeOn: { "click": function($event) {
-      return _vm.toggleOpen();
-    } } }) : _vm._e(), _vm.isOpen || _vm.hideheader ? _c("k-items", { attrs: { "items": _vm.items } }) : _vm._e()], 1);
-  };
-  var staticRenderFns$2 = [];
-  render$2._withStripped = true;
-  const __vue2_script$2 = {
+  __component__$3.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/dialog/Form.vue";
+  const MailDialog = __component__$3.exports;
+  const _sfc_main$2 = {
     props: {
       value: {
         type: Array,
@@ -238,37 +207,27 @@
       }
     }
   };
-  const __cssModules$2 = {};
+  var _sfc_render$2 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-mailview-list" }, [!_vm.hideheader ? _c("k-box", { attrs: { "theme": _vm.value.header.state.theme, "icon": _vm.isOpen ? "angle-up" : "angle-down", "text": _vm.headerText }, nativeOn: { "click": function($event) {
+      return _vm.toggleOpen();
+    } } }) : _vm._e(), _vm.isOpen || _vm.hideheader ? _c("k-items", { attrs: { "items": _vm.items } }) : _vm._e()], 1);
+  };
+  var _sfc_staticRenderFns$2 = [];
+  _sfc_render$2._withStripped = true;
   var __component__$2 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$2,
-    render$2,
-    staticRenderFns$2,
+    _sfc_main$2,
+    _sfc_render$2,
+    _sfc_staticRenderFns$2,
     false,
-    __vue2_injectStyles$2,
+    null,
     null,
     null,
     null
   );
-  function __vue2_injectStyles$2(context) {
-    for (let o in __cssModules$2) {
-      this[o] = __cssModules$2[o];
-    }
-  }
-  __component__$2.options.__file = "src/components/MailList.vue";
-  var MailList = /* @__PURE__ */ function() {
-    return __component__$2.exports;
-  }();
-  var render$1 = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { attrs: { "variant": "fields" } }, [_vm.license.length > 0 ? _c("k-formblock-license", { staticStyle: { "--width": "1/1" }, attrs: { "text": _vm.license } }) : _vm._e(), _vm._l(_vm.data, function(group) {
-      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", staticStyle: { "--width": "1/1" }, attrs: { "hideheader": _vm.hideheader, "value": group, "showuuid": _vm.isUnique(group) }, on: { "setRead": _vm.setRead, "deleteMail": _vm.deleteMail } });
-    }), _vm.data.length === 0 ? _c("k-box", { staticStyle: { "--width": "1/1" }, attrs: { "theme": "info", "text": _vm.$t("form.block.inbox.empty") } }) : _vm._e()], 2)], 1);
-  };
-  var staticRenderFns$1 = [];
-  render$1._withStripped = true;
-  const __vue2_script$1 = {
+  __component__$2.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/MailList.vue";
+  const MailList = __component__$2.exports;
+  const _sfc_main$1 = {
     props: {
       value: {
         type: String,
@@ -315,10 +274,10 @@
         this.filter = this.forms;
       }
       this.updateList();
-      this.$events.on("form.update", this.updateList);
+      window.panel.events.on("form.update", this.updateList);
     },
     destroyed() {
-      this.$events.off("form.update", this.updateList);
+      window.panel.events.off("form.update", this.updateList);
     },
     methods: {
       send(action, params, callback) {
@@ -375,7 +334,7 @@
             read: state == false ? "" : this.$library.dayjs().format("YYYY-MM-DD HH:mm:ss")
           },
           () => {
-            this.$events.emit("form.update");
+            window.panel.events.emit("form.update");
             this.$panel.dialog.close();
           }
         );
@@ -399,7 +358,7 @@
                 request: item.slug
               },
               () => {
-                this.$events.emit("form.update");
+                window.panel.events.emit("form.update");
               }
             )
           };
@@ -450,38 +409,28 @@
       }
     }
   };
-  const __cssModules$1 = {};
+  var _sfc_render$1 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { attrs: { "variant": "fields" } }, [_vm.license.length > 0 ? _c("k-formblock-license", { staticStyle: { "--width": "1/1" }, attrs: { "text": _vm.license } }) : _vm._e(), _vm._l(_vm.data, function(group) {
+      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", staticStyle: { "--width": "1/1" }, attrs: { "hideheader": _vm.hideheader, "value": group, "showuuid": _vm.isUnique(group) }, on: { "setRead": _vm.setRead, "deleteMail": _vm.deleteMail } });
+    }), _vm.data.length === 0 ? _c("k-box", { staticStyle: { "--width": "1/1" }, attrs: { "theme": "info", "text": _vm.$t("form.block.inbox.empty") } }) : _vm._e()], 2)], 1);
+  };
+  var _sfc_staticRenderFns$1 = [];
+  _sfc_render$1._withStripped = true;
   var __component__$1 = /* @__PURE__ */ normalizeComponent(
-    __vue2_script$1,
-    render$1,
-    staticRenderFns$1,
+    _sfc_main$1,
+    _sfc_render$1,
+    _sfc_staticRenderFns$1,
     false,
-    __vue2_injectStyles$1,
+    null,
     null,
     null,
     null
   );
-  function __vue2_injectStyles$1(context) {
-    for (let o in __cssModules$1) {
-      this[o] = __cssModules$1[o];
-    }
-  }
-  __component__$1.options.__file = "src/components/fields/MailView.vue";
-  var MailView = /* @__PURE__ */ function() {
-    return __component__$1.exports;
-  }();
-  var render = function() {
-    var _vm = this;
-    var _h = _vm.$createElement;
-    var _c = _vm._self._c || _h;
-    return _vm.msg.length > 0 ? _c("k-box", { staticClass: "k-formblock-license", attrs: { "theme": _vm.state } }, [_vm._v(" " + _vm._s(_vm.$t(_vm.msg)) + " "), _vm.state === "notice" ? _c("span", { attrs: { "href": "#" }, on: { "click": function($event) {
-      return _vm.dialog();
-    } } }, [_vm._v(_vm._s(_vm.$t("form.block.license.info.link")))]) : _vm._e()]) : _vm._e();
-  };
-  var staticRenderFns = [];
-  render._withStripped = true;
-  var FormLicense_vue_vue_type_style_index_0_lang = "";
-  const __vue2_script = {
+  __component__$1.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/fields/MailView.vue";
+  const MailView = __component__$1.exports;
+  const FormLicense_vue_vue_type_style_index_0_lang = "";
+  const _sfc_main = {
     props: {
       text: {
         type: String,
@@ -511,26 +460,26 @@
       }
     }
   };
-  const __cssModules = {};
+  var _sfc_render = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _vm.msg.length > 0 ? _c("k-box", { staticClass: "k-formblock-license", attrs: { "theme": _vm.state } }, [_vm._v(" " + _vm._s(_vm.$t(_vm.msg)) + " "), _vm.state === "notice" ? _c("span", { attrs: { "href": "#" }, on: { "click": function($event) {
+      return _vm.dialog();
+    } } }, [_vm._v(_vm._s(_vm.$t("form.block.license.info.link")))]) : _vm._e()]) : _vm._e();
+  };
+  var _sfc_staticRenderFns = [];
+  _sfc_render._withStripped = true;
   var __component__ = /* @__PURE__ */ normalizeComponent(
-    __vue2_script,
-    render,
-    staticRenderFns,
+    _sfc_main,
+    _sfc_render,
+    _sfc_staticRenderFns,
     false,
-    __vue2_injectStyles,
+    null,
     null,
     null,
     null
   );
-  function __vue2_injectStyles(context) {
-    for (let o in __cssModules) {
-      this[o] = __cssModules[o];
-    }
-  }
-  __component__.options.__file = "src/components/FormLicense.vue";
-  var FormLicense = /* @__PURE__ */ function() {
-    return __component__.exports;
-  }();
+  __component__.options.__file = "/Users/romangsponer/Cloud/_sites/plugin-env/site/plugins/kirby-form-block-suite/src/components/FormLicense.vue";
+  const FormLicense = __component__.exports;
   window.panel.plugin("microman/formblock", {
     fields: {
       mailview: MailView

@@ -17,7 +17,7 @@
 
 <?php if($block->showForm()): ?>
   
-    <form class="formblock" method="post" id="<?= $block->id() ?>" novalidate enctype="multipart/form-data">
+    <form class="formblock" method="post" id="formblock_<?= str_replace('-', '', $block->id()) ?>" novalidate enctype="multipart/form-data">
 
         <?= $block->template('fields') ?>
         

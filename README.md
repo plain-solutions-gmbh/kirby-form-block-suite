@@ -28,6 +28,8 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Pre-styled form
 
+⭐️ &nbsp; Full language support for English, German, Italian, French, Lithuanian & Hungarian
+
 # Table of content
 
 - [Overview](#overview)
@@ -60,7 +62,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 # Installation
 
-For use with Kirby 4.0!
+For use with Kirby > 4.0 only!
 
 **Manually**
 
@@ -96,9 +98,7 @@ For a secure migration, please follow these steps:
 
 # How to use?
 
-## Allow the form block in your blueprint
-
-Just put `form` in your fieldsets of your blocks field:
+Just create a block field in your blueprint and add `form` to the fieldsets props:
 
 ```yml
 fields:
@@ -106,10 +106,17 @@ fields:
     type: blocks
     fieldsets:
       - form
-      ...
 ```
 
-If you're not familiar with the kirby block field, [check this out](https://getkirby.com/docs/reference/panel/fields/blocks).
+Then output the block field in your templates with:
+
+```php
+
+<?= $my_block->toBlocks() =>
+
+```
+
+> If you're not familiar with the kirby block field, [check this out](https://getkirby.com/docs/reference/panel/fields/blocks).
 
 ## Using the built-in styling
 
@@ -117,9 +124,7 @@ For a quick start with nice-looking forms, we integrated a styling based on [BEM
 
 To use the built-in styling, add the following line into the head element of your website before your styling: `<?= snippet('blocks/formcore/styles') ?>`
 
-**Change the default colors**
-
-Add and modify following code to your CSS:
+To change the default colors, add this lines to your stylesheed:
 
 ```css
 :root {
@@ -134,11 +139,13 @@ Add and modify following code to your CSS:
 
 ## Create a form block
 
-After inserting a form block, you can **set a name** for your form. By clicking on the **Show requests** button, a drawer is open with following tabs:
+After inserting a form block, you can **set a name** for your form.
+
+By clicking on the **Show requests** button, a drawer is open with following tabs:
 
 - **Inbox:** Contains the Mailview field for the current form block.
 - **Form fields:** Manage the form fields that will be displayed to the visitors. You can add more types of form fields. (more later)
-- **Options:** Sets the behavior on receipt of a request and other options.
+- **Options:** Sets the behavior of the form. This can also be used for custom settings.
 
 ## Set up your form fields
 
@@ -360,12 +367,11 @@ _Output:_
 
 ## Extend options
 
-To give more options to the editor, you can add fields into the **options tab**. As you will see in the [next capture](#messages), you can give your editors here the ability to overwrite the default text blocks.
+To give more options to the editor, you can add/modify fields of the **options tab**. As you will see in the [next capture](#messages), you can give your editors here the ability to overwrite the default text blocks.
 
 To modify fields in the option tab, copy `site/plugins/kirby-form-field/blueprints/snippets/form_options.yml` to `site/blueprints/snippets` and edit it:
 
 ```xml
-
 invalid_message:
   label: Custom success message
   type: writer
@@ -377,7 +383,20 @@ my_custom_message:
 
 ```
 
-> There are also `form_confirm.yml` and `form_notify.yml` in that snippets folder. DO NOT modify them! Better disable the underlying function [in the config](#disable-functions).
+You can do the same with `form_confirm.yml` and `form_notify.yml`. For example (> v4.1.0), if you like to give the opurtunity to set the reply adress, add these lines to `form_notify.yml`:
+
+
+```xml
+notify_reply:
+  label: Reply
+  type: email
+  when:
+    enable_notify: true
+```
+
+Same works for confirm. 
+
+To disable confirmation or notification use [the config](#disable-functions).
 
 ## Messages
 
@@ -550,7 +569,7 @@ Since Version 4.0.1. Triggers when a form field is validating.
 
 # Troubleshooting
 
-> Please read this Chapter carefuly before [contacting the support](https://microman.ch/en/microman). 
+> Please read this Chapter carefuly before you [open an issue](https://github.com/youngcut/kirby-form-block-suite/issues/new/choose). 
 
 ---
 
@@ -593,8 +612,8 @@ Since Version 4.0.1. Triggers when a form field is validating.
 **Solutions:**
 - If you haven't got a license yet? Get a [single site license](https://license.microman.ch/?product=801346) or an [infinite site license](https://license.microman.ch/?product=803284).
 - Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.microman.ch)
-- Your license key was already validated by another host: Contact the [support](https://microman.ch/en/microman) to release the linkage.
-- Delete the license file and try again folder: `/site/config/.formblock_license`
+- Your license key was already validated by another host: Send me [an email](mailto:kirby@microman.ch) **with your license key** to release the assigment.
+- Delete the license file and try again. Folder: `/site/config/.formblock_license`
 
 ---
 

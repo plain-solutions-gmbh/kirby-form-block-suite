@@ -361,10 +361,11 @@ class Form extends Block
      * 
      * @return string
      */
-    public function message($key, $replaceArray = []): string
+    public function message($key, $replaceArray = [], $fallback = NULL): string
     {
+        $replaceArray = A::merge($this->fieldsWithPlaceholder('value'), $replaceArray);
 
-        return self::translate($key, $this->__call($key), A::merge($this->fieldsWithPlaceholder('value'), $replaceArray));
+        return self::translate($key, $this->__call($key), $replaceArray, $fallback);
 
     }
 
@@ -378,14 +379,14 @@ class Form extends Block
      * @return string
      */
 
-static function translate($key, $default, $replace = []) {
+static function translate($key, $default, $replace = [], $fallback = NULL) {
 
     $output = Str::template(
         $default
             ->or(option( 'microman.formblock.translations.' . self::getLang() . '.' . $key))
             ->or(I18n::translate('form.block.message.' . $key, "", self::getLang()))
             ->or(option( 'microman.formblock.translations.en.' . $key))
-            ->or(I18n::translate('form.block.message.' . $key, "Translation for '". $key. "' not found.", "en"))
+            ->or(I18n::translate('form.block.message.' . $key, $fallback ?? "Translation for '". $key. "' not found.", "en"))
         , $replace);
 
     return nl2br($output);
@@ -426,6 +427,22 @@ static function translate($key, $default, $replace = []) {
 
     }
 
+    private function getEmail() {
+
+        if ($email = $this->form_field('email', 'value')) {
+            return $email;
+        }
+
+        $emails = $this->fields()->filter('inputtype', 'email');
+        
+        if ($emails->count() === 0) {
+            throw new Exception("You need at least one field that is use for an email.");
+        }
+
+        return $emails->first()->value();
+
+    }
+
 
     /******************/
     /** Send Methods **/
@@ -437,25 +454,26 @@ static function translate($key, $default, $replace = []) {
      * @param string|NULL $body Mailtext - set custom notification body if not set
      * @param string|NULL $recipent Recipent - set custom notification email if not set
      */
-    public function sendNotification($body = NULL, $recipient = NULL)
+    public function sendNotification($body = NULL, $to = NULL)
     {
         if (option('microman.formblock.disable_notify')) {
             return;
         }
 
-        if (is_null($body)) {
-            $body = $this->message('notify_body');
+        $to ??= $this->message('notify_email');
+
+        if(empty($to) ) {
+            $to = option('microman.formblock.from_email');
         }
 
-        if (is_null($recipient)) {
-            $recipient = $this->message('notify_email');
-        }
+        $from = $this->message('notify_from', [], $this->getEmail());
+        $body ??= $this->message('notify_body');
 
         try {
 
             $emailData = [
-                'from' => option('microman.formblock.from_email'),
-                'to' => explode(';', $recipient),
+                'from' => $from,
+                'to' => explode(';', $to),
                 'body' => [
                     'text' => Str::unhtml($body),
                 ],
@@ -467,8 +485,10 @@ static function translate($key, $default, $replace = []) {
                 $emailData["body"]['html'] = $body;
             }
 
-            if ($replyTo = $this->form_field('email', 'value')) {
-                $emailData['replyTo'] = $replyTo;
+            $reply = $this->message('notify_reply', [], $from);
+
+            if ($reply !== $from) {
+                $emailData['replyTo'] = $reply;
             }
 
             site()->kirby()->email($emailData);
@@ -485,35 +505,43 @@ static function translate($key, $default, $replace = []) {
      * Send confirmation email to visitor - returns error message if failed
      *
      * @param string|NULL $body Mailtext - set custom notification body if not set
-     * @param string|NULL $reply Reply - set custom reply email if not set
+     * @param string|NULL $from Reply - set custom reply email if not set
      */
-    public function sendConfirmation($body = NULL, $reply = NULL)
+    public function sendConfirmation($body = NULL, $from = NULL)
     {
 
         if (option('microman.formblock.disable_confirm')) {
             return;
         }
 
-        if (is_null($body)) {
-            $body = $this->message('confirm_body');
+        $from ??= $this->message('confirm_email', [], '');
+
+        if(empty($from) ) {
+            $from = option('microman.formblock.from_email');
         }
 
-        if (is_null($reply)) {
-            $reply = $this->message('confirm_email');
-        }
+        $body ??= $this->message('confirm_body');
 
         try {
 
             $emailData = [
-                'from' => option('microman.formblock.from_email'),
-                'to' => $this->form_field('email', 'value'),
-                'replyTo' => explode(';', $reply),
+                'from' => $from,
+                'to' => $this->getEmail(),
                 'subject' => $this->message('confirm_subject'),
                 'body' => [
                     'text' => Str::unhtml($body),
-                    'html' => $body
                 ]
             ];
+
+            if (option('microman.formblock.disable_html') === false) {
+                $emailData["body"]['html'] = $body;
+            }
+
+            $reply = $this->message('confirm_reply', [], $from);
+
+            if ($reply !== $from) {
+                $emailData['replyTo'] = $reply;
+            }
 
             site()->kirby()->email($emailData);
 

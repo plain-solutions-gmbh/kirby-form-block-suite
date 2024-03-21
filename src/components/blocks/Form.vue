@@ -47,19 +47,19 @@ export default {
     };
   },
   destroyed() {
-    this.$events.$off("form.update", this.updateCount);
+    window.panel.events.off("form.update", this.updateCount);
   },
   created() {
     const $this = this;
     this.$store.subscribe(function (mutation) {
-      if (mutation.type == "content/STATUS") $this.$events.emit("form.update");
+      if (mutation.type == "content/STATUS") window.panel.events.emit("form.update");
     });
 
     this.content.formid = this.id;
 
     this.updateCount();
 
-    this.$events.on("form.update", this.updateCount);
+    window.panel.events.on("form.update", this.updateCount);
   },
   methods: {
     updateCount() {

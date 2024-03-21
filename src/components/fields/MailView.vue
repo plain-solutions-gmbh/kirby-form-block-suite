@@ -87,10 +87,10 @@ export default {
 
     this.updateList();
 
-    this.$events.on("form.update", this.updateList);
+    window.panel.events.on("form.update", this.updateList);
   },
   destroyed() {
-    this.$events.off("form.update", this.updateList);
+    window.panel.events.off("form.update", this.updateList);
   },
   methods: {
     send(action, params, callback) {
@@ -162,7 +162,7 @@ export default {
               : this.$library.dayjs().format("YYYY-MM-DD HH:mm:ss"),
         },
         () => {
-          this.$events.emit("form.update");
+          window.panel.events.emit("form.update");
           this.$panel.dialog.close();
         }
       );
@@ -187,7 +187,7 @@ export default {
                 request: item.slug,
               },
               () => {
-                this.$events.emit("form.update");
+                window.panel.events.emit("form.update");
               }
             ),
         };

@@ -218,7 +218,7 @@ class FormRequest
             site()->kirby()->impersonate('kirby');
             $this->request->delete();
 
-            if($this->container->empty()) {
+            if($this->container->hasDrafts() === false) {
                 $this->container->delete();
             }
             

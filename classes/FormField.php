@@ -87,8 +87,9 @@ class FormField extends Block
      */
     private function request($slug = NULL)
     {
-        if (is_null($slug))
+        if (is_null($slug)) {
             return get();
+        }
 
         return get(is_string($slug) ? $slug : $slug->toString()) ?: "";
     }
