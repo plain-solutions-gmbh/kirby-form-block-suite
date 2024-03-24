@@ -429,7 +429,9 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
     private function getEmail() {
 
-        if ($email = $this->form_field('email', 'value')) {
+        $email_field = option('microman.formblock.email_field', 'email');
+
+        if ($email = $this->form_field($email_field, 'value')) {
             return $email;
         }
 

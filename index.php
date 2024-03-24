@@ -25,6 +25,7 @@ Kirby::plugin('microman/formblock', [
         'disable_confirm' => false,
         'disable_notify' => false,
         'disable_html' => false,
+        'email_field' => 'email',
         'dynamic_validation' => true
     ],
     'templates' => [ 'formcontainer' => __DIR__ . "/templates/formcontainer.php" ],

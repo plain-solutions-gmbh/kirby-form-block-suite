@@ -539,6 +539,19 @@ If you disable this function, you'il lose some features
 - No upload process bar
 - The form will not be centered after sending
 
+
+## Email field
+
+For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
+
+```php
+'microman.formblock' => [
+  'email_field' => 'email',
+],
+```
+
+If no field with this id is found, the plugin takes the first field with the field type ´email´.
+
 ## Hook Success
 
 ```php
