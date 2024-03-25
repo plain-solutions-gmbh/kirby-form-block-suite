@@ -84,18 +84,6 @@ There's two license available:
 
 > If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
-
-**Important migration information!**
-
-This Plugin _should_ be compatible with older Versions of Kirby Form Block (Suite)
-
-For a secure migration, please follow these steps:
-
-1. Make a backup! No liability for data loss!
-2. Delete the folder of the preview Kirby form block plugin.
-3. If you customized the templates, delete old customization in your site folder and [Customize the output](#customize-the-output) again.
-
-
 # How to use?
 
 Just create a block field in your blueprint and add `form` to the fieldsets props:
@@ -524,7 +512,7 @@ Change custom texts like this:
 
 ## Dynamic validation
 
-Since Version 3.0 the form is validated dynamically (No reload of the page on submit). You can disable this function like this:
+The form is validated dynamically (No reload of the page on submit). You can disable this function like this:
 
 ```php
 'microman.formblock' => [
@@ -542,7 +530,7 @@ If you disable this function, you'il lose some features
 
 ## Email field
 
-For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
+Since Version 4.1.0. For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
 
 ```php
 'microman.formblock' => [
@@ -565,7 +553,7 @@ If no field with this id is found, the plugin takes the first field with the fie
 
 ## Hook Validate
 
-Since Version 4.0.1. Triggers when a form field is validating.
+Triggers when a form field is validating.
 
 `$errors`is an array of all occures errors. You can add or remove errors.
 
