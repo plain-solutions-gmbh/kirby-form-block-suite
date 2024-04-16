@@ -105,7 +105,8 @@ Kirby::plugin('microman/formblock', [
     'translations' => [
         'en' => require __DIR__ . '/lib/languages/en.php',
         'de' => require __DIR__ . '/lib/languages/de.php',
-	    'lt' => require __DIR__ . '/lib/languages/lt.php',
-	    'hu' => require __DIR__ . '/lib/languages/hu.php',
+	'lt' => require __DIR__ . '/lib/languages/lt.php',
+	'hu' => require __DIR__ . '/lib/languages/hu.php',
+	'fr' => require __DIR__ . '/lib/languages/fr.php',
     ]
 ]);

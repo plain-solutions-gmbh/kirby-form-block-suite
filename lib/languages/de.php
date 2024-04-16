@@ -2,7 +2,7 @@
 
 return [
 	'form.block.name'    					=> 'Formular',
-	'form.block.default.help'				=> 'Leer lassen für Standarttext',
+	'form.block.default.help'				=> 'Leer lassen für Standardtext',
 	'form.block.inbox'    					=> 'Posteingang',
 	'form.block.inbox.empty'    			=> 'Keine Emails zum Anzeigen',
 	'form.block.inbox.asread'    			=> 'Als gelesen markieren',
