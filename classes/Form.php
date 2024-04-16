@@ -462,7 +462,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             return;
         }
 
-        $to ??= $this->message('notify_email');
+        $to ??= $this->message('notify_email', [], "");
 
         if(empty($to) ) {
             $to = option('microman.formblock.from_email');
