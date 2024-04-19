@@ -471,11 +471,15 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
         $from = $this->message('notify_from', [], $this->getEmail());
         $body ??= $this->message('notify_body');
 
+        if (is_array($to) === false) {
+            $to = explode(';', $to);
+        }
+
         try {
 
             $emailData = [
                 'from' => $from,
-                'to' => explode(';', $to),
+                'to' => $to,
                 'body' => [
                     'text' => Str::unhtml($body),
                 ],
