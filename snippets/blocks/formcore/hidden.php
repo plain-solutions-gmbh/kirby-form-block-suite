@@ -1,6 +1,17 @@
-<div class="formfield__hpot">
-    <label for="<?= $form->honeypotId() ?>" aria-hidden="true"> <?= ucfirst($form->honeypotId()) ?></label>
-    <input type="search" id="<?= $form->honeypotId() ?>" name="<?= $form->honeypotId() ?>" aria-hidden="true" value="" autocomplete="off" tabindex="1000" required />
+<?php $hpot = $form->honeypotId(); ?>
+
+<div class="formfield__hpot" aria-hidden="true">
+    <label for="<?= $hpot ?>"> <?= ucfirst($hpot) ?></label>
+    <input 
+		type="search" 
+		id="<?= $hpot ?>"
+		name="<?= $hpot ?>"
+		data-form="field"
+		value=""
+		autocomplete="off"
+		tabindex="1000"
+		required 
+	/>
 </div>
 
 <style>

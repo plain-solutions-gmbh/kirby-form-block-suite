@@ -157,6 +157,7 @@ The placeholders in **Display title** is taken from the data the visitor enter i
 |4|Radio| ![radio](./.github/radio.png)|
 |5|Checkbox| ![checkbox](./.github/checkbox.png)|
 |6|Attachment | ![attachment](./.github/attachment.png)|
+|7|Captcha<br>(< 4.2.0) | ![captcha](./.github/captcha.png)|
 
 > **Note for attachment field type:**  To increase the maximum file size set the `upload_max_filesize`, `post_max_size` and `memory_limit` to desiered values in your php.ini.
 

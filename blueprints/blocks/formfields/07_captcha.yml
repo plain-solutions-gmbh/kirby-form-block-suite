@@ -1,0 +1,22 @@
+name: form.block.fromfields.captcha
+icon: bug
+
+fields:
+  slug:
+    type: hidden
+    default: captcha-input
+  placeholder:
+    type: hidden
+  required:
+    default: true
+    type: hidden
+  ask:
+    label: form.block.fromfields.captcha.ask
+    type: text
+    help: form.block.default.help
+  fail:
+    label: form.block.fromfields.captcha.fail
+    type: text
+    help: form.block.default.help
+  autofill:
+    type: hidden

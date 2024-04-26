@@ -47,6 +47,7 @@ class FormField extends Block
      */
     protected $files;
 
+
     /**
      * Creates a field
      * 
@@ -332,16 +333,35 @@ class FormField extends Block
         if (!is_null($this->files) )
             return $this->validateFile();
 
+
+
+        if ($this->required() && empty($this->value())) {
+
+            return ['required' => $this->message('required_fail')];
+
+        } 
+
         //Validate Requirement
         $validator = $this->validate()->toStructure()->toArray();
 
-        if ($this->required()) 
-            array_push($validator, ['validate' => 'different', 'different' => '', 'msg' => $this->message('required_fail')]);
+        //Validate spam protection
+        if ($this->type(true) === "captcha" ) {
+
+            $calc = array_sum(explode('_', get('captcha-id')));
+
+            array_push($validator, [
+                'validate' => 'same',
+                'same' => strval($calc),
+                'msg' => $this->fail()->or($this->message('captcha_fail'))
+            ]);
+
+        }
+
 
         foreach ($validator as $v) {
             $rule = Str::lower($v['validate']);
             $rules[$rule] = [isset($v[$rule]) ? $v[$rule] : "" ];
-            $messages[$rule] = $v['msg'] ?? NULL;
+            $messages[$rule] = empty($v['msg']) ? t('error.validation.' . $v['validate']) : $v['msg'];
         }
 
         $errors = V::errors($this->value(), $rules, $messages);

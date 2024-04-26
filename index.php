@@ -61,6 +61,7 @@ Kirby::plugin('microman/formblock', [
             'method' => "POST",
             'action'  => function () {
 
+
                 //Get Page
                 if ((get('page') ?? "site") === 'site') {
                     $page = site();
@@ -70,8 +71,18 @@ Kirby::plugin('microman/formblock', [
                 site()->visit($page, get('lang'));
                 $rendered_page = page()->render();
                 preg_match('/\<\!--\[Startvalidation:' . get('id') . '\]--\>(.*?)\<\!--\[Endvalidation\]--\>/s', $rendered_page, $out);
+
+                if (empty($out)) {
+                    return json_encode([
+                        'state'             => "fatal",
+                        'error_message'     => t('form.block.message.fatal_message'),
+                        'success_message'   => "",
+                        'redirect'          => "",
+                        'fields'            => []
+                    ]);
+                }
+
                 return end($out);
-                    
                 
             }
         ]
@@ -103,10 +114,10 @@ Kirby::plugin('microman/formblock', [
         }
     ],
     'translations' => [
-        'en' => require __DIR__ . '/lib/languages/en.php',
-        'de' => require __DIR__ . '/lib/languages/de.php',
-	'lt' => require __DIR__ . '/lib/languages/lt.php',
-	'hu' => require __DIR__ . '/lib/languages/hu.php',
-	'fr' => require __DIR__ . '/lib/languages/fr.php',
+        'en' => Data::read(__DIR__ . '/i18n/en.json'),
+        'de' => Data::read(__DIR__ . '/i18n/de.json'),
+        'lt' => Data::read(__DIR__ . '/i18n/lt.json'),
+        'hu' => Data::read(__DIR__ . '/i18n/hu.json'),
+        'fr' => Data::read(__DIR__ . '/i18n/fr.json'),
     ]
 ]);
