@@ -558,14 +558,18 @@ Triggers when a form field is validating.
 
 `$errors`is an array of all occures errors. You can add or remove errors.
 
+This example shows an error message on entering specific email adresses.
+
 ```php
-'formblock.validation:before' => function (string $type, string $value, array $errors): array
+'hooks' => [
+  'formblock.validation:before' => function (string $slug, string $value, array $errors): array
   {
-  if ($type === 'say_hello' && $value !== 'hello') {
-    $errors[] = "You should say 'hello'";
+    if ($slug === 'email' && in_array($value, [ 'mail_1@spam.com', 'mail_2@spam.com' ])) {
+      array_push($errors, "This is an invalid email adress.");
+    }
+    return $errors;
   }
-  return $errors;
-}
+]
 ```
 
 

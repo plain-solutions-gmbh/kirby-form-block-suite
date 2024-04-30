@@ -456,30 +456,30 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
      * @param string|NULL $body Mailtext - set custom notification body if not set
      * @param string|NULL $recipent Recipent - set custom notification email if not set
      */
-    public function sendNotification($body = NULL, $to = NULL)
+    public function sendNotification($body = NULL, $mail = NULL)
     {
         if (option('microman.formblock.disable_notify')) {
             return;
         }
 
-        $to ??= $this->message('notify_email', [], "");
+        $mail ??= $this->message('notify_email', [], "");
 
-        if(empty($to) ) {
-            $to = option('microman.formblock.from_email');
+        if(empty($mail) ) {
+            $mail = option('microman.formblock.from_email');
         }
 
-        $from = $this->message('notify_from', [], $this->getEmail());
+        if (is_array($mail) === false) {
+            $mail = explode(';', $mail);
+        }
+
         $body ??= $this->message('notify_body');
-
-        if (is_array($to) === false) {
-            $to = explode(';', $to);
-        }
 
         try {
 
             $emailData = [
-                'from' => $from,
-                'to' => $to,
+                'from' => $mail,
+                'to' => $mail,
+                'replyTo' => $this->message('notify_reply', [], $this->getEmail()),
                 'body' => [
                     'text' => Str::unhtml($body),
                 ],
@@ -489,12 +489,6 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
             if (option('microman.formblock.disable_html') === false) {
                 $emailData["body"]['html'] = $body;
-            }
-
-            $reply = $this->message('notify_reply', [], $from);
-
-            if ($reply !== $from) {
-                $emailData['replyTo'] = $reply;
             }
 
             site()->kirby()->email($emailData);

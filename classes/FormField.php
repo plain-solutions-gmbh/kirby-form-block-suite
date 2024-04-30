@@ -370,7 +370,8 @@ class FormField extends Block
             'type'          => $this->type(true),
             'value'         => $this->value(),
             'errors'        => $errors,
-            'field'         => $this
+            'field'         => $this,
+            'slug'          => $this->slug()
 
         ], 'errors');
 

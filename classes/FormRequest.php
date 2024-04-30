@@ -373,7 +373,7 @@ class FormRequest
                 continue;
             }
 
-            foreach ($a->drafts()->sortBy('received', 'desc')->sortBy('read', 'asc') as $b) {
+            foreach ($a->drafts()->sortBy('received', 'desc') as $b) {
                 if ($b->read())
                     $read ++;
                 array_push($content, array_merge($b->content()->toArray(), $b->toArray()));
