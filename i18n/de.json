@@ -136,5 +136,6 @@
   "form.block.fromfields.captcha": "Spamschutz",
   "form.block.fromfields.captcha.info": "Nur einmal pro Formular verwenden!",
   "form.block.fromfields.captcha.fail": "Meldung bei falscher Eingabe",
-  "form.block.fromfields.captcha.ask": "Aufgabendefinition"
+  "form.block.fromfields.captcha.ask": "Aufgabendefinition",
+  "form.block.options.notify_placeholder": "Name <mail@domain.ch>"
 }

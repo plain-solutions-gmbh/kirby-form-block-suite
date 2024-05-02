@@ -427,6 +427,11 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
     }
 
+    /**
+     * Get email aderss from the form
+     *
+     * @return string
+     */
     private function getEmail() {
 
         $email_field = option('microman.formblock.email_field', 'email');
@@ -445,6 +450,44 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
     }
 
+    /**
+     * parse Email to array
+     *
+     * @return array
+     */
+    function parseEmail($input, $fallback = NULL) {
+
+
+        if (empty($input)) {
+            $input = $fallback ?? option('microman.formblock.from_email');
+        }
+
+        if (is_array($input)) {
+            return $input;
+        }
+
+        $result = [];
+
+        $input = explode(';', $input);
+
+        foreach ($input as $part) {
+            
+            preg_match('/(?:([^\<]+)<([^>]+)>|([^,\s]+))/', $part, $match);
+
+            // If email address and name are present
+            if (!empty($match[1]) && !empty($match[2])) {
+                $result[$match[2]] = trim($match[1]);
+            }
+            // If only email address is present
+            elseif (!empty($match[3])) {
+                $result[$match[3]] = '';
+            }
+
+        }
+    
+        return $result;
+    }
+
 
     /******************/
     /** Send Methods **/
@@ -456,29 +499,28 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
      * @param string|NULL $body Mailtext - set custom notification body if not set
      * @param string|NULL $recipent Recipent - set custom notification email if not set
      */
-    public function sendNotification($body = NULL, $mail = NULL)
+    public function sendNotification($body = NULL, $to = NULL)
     {
         if (option('microman.formblock.disable_notify')) {
             return;
         }
 
-        $mail ??= $this->message('notify_email', [], "");
+        //Get email
+        $to ??= $this->parseEmail(
+            $this->message('notify_email', [], "")
+        );
 
-        if(empty($mail) ) {
-            $mail = option('microman.formblock.from_email');
-        }
-
-        if (is_array($mail) === false) {
-            $mail = explode(';', $mail);
-        }
+        $from = $this->parseEmail(
+            $this->message('notify_from', [], "")
+        );
 
         $body ??= $this->message('notify_body');
 
         try {
 
             $emailData = [
-                'from' => $mail,
-                'to' => $mail,
+                'from' => $from,
+                'to' => $to,
                 'replyTo' => $this->message('notify_reply', [], $this->getEmail()),
                 'body' => [
                     'text' => Str::unhtml($body),
@@ -514,11 +556,16 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             return;
         }
 
-        $from ??= $this->message('confirm_email', [], '');
 
-        if(empty($from) ) {
-            $from = option('microman.formblock.from_email');
-        }
+        $from ??= $this->parseEmail(
+            $this->message('confirm_email', [], "")
+        );
+
+
+        $to = $this->parseEmail(
+            $this->message('confirm_to', [], ""),
+            $this->getEmail()
+        );
 
         $body ??= $this->message('confirm_body');
 
@@ -526,7 +573,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
             $emailData = [
                 'from' => $from,
-                'to' => $this->getEmail(),
+                'to' => $to,
                 'subject' => $this->message('confirm_subject'),
                 'body' => [
                     'text' => Str::unhtml($body),
@@ -537,9 +584,9 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
                 $emailData["body"]['html'] = $body;
             }
 
-            $reply = $this->message('confirm_reply', [], $from);
+            $reply = $this->message('confirm_reply', [], "");
 
-            if ($reply !== $from) {
+            if (!empty($reply)) {
                 $emailData['replyTo'] = $reply;
             }
 

@@ -5,7 +5,7 @@ enable_notify:
 notify_email:
   label: form.block.options.notify_email
   type: text
-  pattern: ^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$
+  placeholder: form.block.options.notify_placeholder
   help: form.block.options.email.help
   width: 1/2
   when:

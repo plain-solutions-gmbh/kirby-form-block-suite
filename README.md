@@ -413,10 +413,16 @@ To disable confirmation or notification use [the config](#disable-functions).
 | file_maxnumber | No more than {{maxnumber}} may be uploaded. |
 | file_required | Choose at least one File to upload. |
 | file_fatal | Something went wrong with the upload. Error no.  {{ error }}. |
-| notify_body | {{ name }} send a request:{{ summary }} |
+| notify_email | Name \<mail@domain.com\> |
+| notify_from | {{ name }} \<{{ email }}> |
+| notify_reply | {{ email }} |
 | notify_subject | Request from website. |
-| confirm_body | Thank you for your request, we will get back to you as soon as possible. |
+| notify_body | {{ name }} send a request:{{ summary }} |
+| confirm_to | {{ name }} \<{{ email }}\> |
+| confirm_email | Name \<mail@domain.com\>  |
+| confirm_reply | no-reply@domain.com |
 | confirm_subject | Your request |
+| confirm_body | Thank you for your request, we will get back to you as soon as possible. |
 | send_button | Send |
 | loading | Uploading ({{percent}}) |
 
@@ -429,7 +435,7 @@ To disable confirmation or notification use [the config](#disable-functions).
     'from_email' => ["info@example.com" => "John Doe"]
 ],
 ```
-Default: `no-reply@[the root url of your website]`
+Default: `no-reply@[the root url of your website]`. This is the backup email adress for following messages: `notify_email`, `notify_from` and `confirm_email`.
 
 > If the domain is differ from the website domain [check the DMARC](https://de.wikipedia.org/wiki/DMARC) to ensure that the emails will not rejected.
 

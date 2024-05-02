@@ -136,5 +136,6 @@
   "form.block.fromfields.captcha": "Apsauga nuo šiukšlių",
   "form.block.fromfields.captcha.info": "Naudokite tik vieną kartą vienoje formoje!",
   "form.block.fromfields.captcha.fail": "Pranešimas neteisingai įvedus",
-  "form.block.fromfields.captcha.ask": "Užduoties apibrėžimas"
+  "form.block.fromfields.captcha.ask": "Užduoties apibrėžimas",
+  "form.block.options.notify_placeholder": "Vardas <mail@domain.ch>"
 }
