@@ -629,6 +629,14 @@ This example shows an error message on entering specific email adresses.
 
 ---
 
+**Problem:** Problem with the validation
+
+**Solutions:**
+- Check if the symbolic link _media/plugins/microman/formblock/formblock.js_ is working properly.
+- There's a known incompatibility issue with the _Ahmet Bora's Minify HTML compression plugin_. We working on a solution.
+
+---
+
 If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/youngcut/kirby-form-block-suite/issues) or send me a [private message](https://microman.ch/en/microman).
 
 **I hope you will enjoy this plugin.**
