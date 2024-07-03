@@ -633,7 +633,7 @@ This example shows an error message on entering specific email adresses.
 
 **Solutions:**
 - Check if the symbolic link _media/plugins/microman/formblock/formblock.js_ is working properly.
-- There's a known incompatibility issue with the _Ahmet Bora's Minify HTML compression plugin_. We working on a solution.
+- There's a [known](https://github.com/youngcut/kirby-form-block-suite/issues/15) incompatibility issue with the _Ahmet Bora's Minify HTML compression plugin_. We working on a solution.
 
 ---
 

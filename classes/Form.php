@@ -521,7 +521,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             $emailData = [
                 'from' => $from,
                 'to' => $to,
-                'replyTo' => $this->message('notify_reply', [], $this->getEmail()),
+                'replyTo' => $this->message('notify_reply', [], $from),
                 'body' => [
                     'text' => Str::unhtml($body),
                 ],
