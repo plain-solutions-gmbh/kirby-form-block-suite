@@ -521,13 +521,19 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             $emailData = [
                 'from' => $from,
                 'to' => $to,
-                'replyTo' => $this->message('notify_reply', [], $from),
                 'body' => [
                     'text' => Str::unhtml($body),
                 ],
                 'subject' => $this->message('notify_subject'),
                 'attachments' => $this->attachments
             ];
+
+
+            $reply = $this->message('notify_reply', [], "");
+
+            if (!empty($reply)) {
+                $emailData['replyTo'] = $reply;
+            }
 
             if (option('microman.formblock.disable_html') === false) {
                 $emailData["body"]['html'] = $body;
