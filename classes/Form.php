@@ -446,7 +446,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             throw new Exception("You need at least one field that is use for an email.");
         }
 
-        return $emails->first()->value() ?? "";
+        return $emails->first()?->value() ?? "";
 
     }
 
