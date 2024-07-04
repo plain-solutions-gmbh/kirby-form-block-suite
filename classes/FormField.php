@@ -160,6 +160,12 @@ class FormField extends Block
             return implode(', ', array_map(fn($f) => f::safeName($f['name']), $this->files));
         }
 
+        // Prefill value from query string variable matching slug
+        $slug = (string) $this->content()->slug();
+        if(isset($_GET[$slug]) && ($value = $_GET[$slug])){
+            return Escape::html($value);
+        }
+
         return $raw ? $this->content()->value() : Escape::html($this->content()->value());
     }
 
