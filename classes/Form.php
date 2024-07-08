@@ -432,7 +432,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
      *
      * @return string
      */
-    private function getEmail() {
+    private function getEmail($forReplyTo = false) {
 
         $email_field = option('microman.formblock.email_field', 'email');
 
@@ -442,11 +442,11 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
 
         $emails = $this->fields()->filter('inputtype', 'email');
         
-        if ($emails->count() === 0) {
+        if ($emails->count() === 0 && !$forReplyTo) {
             throw new Exception("You need at least one field that is use for an email.");
         }
 
-        return $emails->first()->value();
+        return $emails->first()?->value() ?? "";
 
     }
 
@@ -529,7 +529,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             ];
 
 
-            $reply = $this->message('notify_reply', [], "");
+            $reply = $this->message('notify_reply', [], $this->getEmail($forReplyTo = true));
 
             if (!empty($reply)) {
                 $emailData['replyTo'] = $reply;
