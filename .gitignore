@@ -4,9 +4,6 @@
 # npm modules
 /node_modules
 
-# Composer files
-/vendor
-
 # migration file
 /migrated
 

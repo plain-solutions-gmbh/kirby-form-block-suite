@@ -1,13 +1,6 @@
 <?php
 
-load([
-    'microman\\FormBlueprint' => '/classes/FormBlueprint.php',
-    'microman\\Form' => '/classes/Form.php',
-    'microman\\FormRequest' => '/classes/FormRequest.php',
-    'microman\\FormFields' => '/classes/FormFields.php',
-    'microman\\FormField' => '/classes/FormField.php',
-    'microman\\FormLicense' => '/classes/FormLicense.php',
-], __DIR__);
+@include_once __DIR__ . '/vendor/autoload.php';
 
 use microman\Form;
 use microman\FormLicense;

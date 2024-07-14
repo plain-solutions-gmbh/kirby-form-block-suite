@@ -2,19 +2,27 @@
     "name": "microman/kirby-form-block-suite",
     "description": "Contactform based on Kirby blocks.",
     "type": "kirby-plugin",
-    "version": "4.3.2",
+    "version": "4.3.3",
     "license": "proprietary",
     "authors": [{
         "name": "Roman Gsponer",
         "email": "kirby@microman.ch"
     }],
     "require": {
-        "getkirby/composer-installer": "^1.2",
-        "getkirby/cms": "^4.0"
+		"getkirby/composer-installer": "^1.2.1"
     },
-    "config": {
-        "allow-plugins": {
-            "getkirby/composer-installer": true
+	"config": {
+		"optimize-autoloader": true,
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	},
+	"extra": {
+		"kirby-cms-path": false
+	},
+    "autoload": {
+        "psr-4": {
+            "microman\\": "classes/"
         }
     }
 }
