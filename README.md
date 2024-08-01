@@ -383,7 +383,10 @@ notify_reply:
     enable_notify: true
 ```
 
-Same works for confirm. 
+Same works for BCC and the confirmation email:
+- `notify_bcc`
+- `confirm_reply`
+- `confirm_bcc`
 
 To disable confirmation or notification use [the config](#disable-functions).
 

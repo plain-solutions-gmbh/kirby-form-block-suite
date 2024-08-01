@@ -528,11 +528,14 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
                 'attachments' => $this->attachments
             ];
 
-
             $reply = $this->message('notify_reply', [], $this->getEmail($forReplyTo = true));
-
             if (!empty($reply)) {
                 $emailData['replyTo'] = $reply;
+            }
+
+            $bcc = $this->message('notify_bcc', [], "");
+            if (!empty($bcc)) {
+                $emailData['bcc'] = $bcc;
             }
 
             if (option('microman.formblock.disable_html') === false) {
@@ -591,9 +594,13 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
             }
 
             $reply = $this->message('confirm_reply', [], "");
-
             if (!empty($reply)) {
                 $emailData['replyTo'] = $reply;
+            }
+
+            $bcc = $this->message('confirm_bcc', [], "");
+            if (!empty($bcc)) {
+                $emailData['bcc'] = $bcc;
             }
 
             site()->kirby()->email($emailData);
