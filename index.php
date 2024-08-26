@@ -54,7 +54,6 @@ Kirby::plugin('microman/formblock', [
             'method' => "POST",
             'action'  => function () {
 
-
                 //Get Page
                 if ((get('page') ?? "site") === 'site') {
                     $page = site();

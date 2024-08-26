@@ -291,7 +291,7 @@ fields:
 
 _site/theme/snippets/blocks/formfields/info.php_
 ```xml
-<div class="info-field" id="<?= $formfield->slug() ?>" style="background:<?= $formfield->color() ?>">
+<div class="info-field" data-form="field" id="<?= $formfield->slug() ?>" style="background:<?= $formfield->color() ?>">
     
     <?php if($formfield->title()->isNotEmpty()): ?>  
         <h3><?= $formfield->title() ?></h3>
@@ -301,6 +301,8 @@ _site/theme/snippets/blocks/formfields/info.php_
 
 </div>
 ```
+
+> Make sure your element contains the attribute `data-form="field"`.
 
 Et voilà. You just created a new form field type:
 

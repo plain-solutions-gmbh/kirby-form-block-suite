@@ -86,7 +86,7 @@ class FormField extends Block
      * 
      * @return array|string
      */
-    private function request($slug = NULL)
+    private function request($slug = null)
     {
         if (is_null($slug)) {
             return get();
@@ -280,7 +280,7 @@ class FormField extends Block
      * Get Selected options as Array or by $prop
      * 
      * @param array $prop
-     * @return array|NULL
+     * @return array|null
      */
     public function selectedOptions($prop = 'label')
     {

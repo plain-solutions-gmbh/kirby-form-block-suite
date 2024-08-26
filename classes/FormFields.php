@@ -85,7 +85,7 @@ class FormFields extends Blocks
         if ($field = $this->findBy('slug', str_replace('_', '-', $key)))
             return $field;
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -113,7 +113,7 @@ class FormFields extends Blocks
      * @param string $attr What value to return
      * @return string|array
      */
-    public function errorFields($attr = NULL)
+    public function errorFields($attr = null)
     {
         $errors = [];
 
@@ -157,7 +157,7 @@ class FormFields extends Blocks
     public function checkHoneypot($hpId): bool
     {
         
-        if ((get($hpId) === NULL || get($hpId) !== "") && $this->isFilled()) {
+        if ((get($hpId) === null || get($hpId) !== "") && $this->isFilled()) {
             $this->isFilled = false;
             return false;
         };

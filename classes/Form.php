@@ -191,7 +191,7 @@ class Form extends Block
      * 
      * @return array|object
      */
-    public function form_field(string $slug, $attrs= NULL)
+    public function form_field(string $slug, $attrs= null)
     {
         if (is_null($attrs)) {
             return $this->fields()->$slug();
@@ -218,7 +218,7 @@ class Form extends Block
      *
      * @return array|object
      */
-    public function fields($attrs = NULL)
+    public function fields($attrs = null)
     {
         if (is_null($attrs)) {
             return $this->fields;
@@ -361,7 +361,7 @@ class Form extends Block
      * 
      * @return string
      */
-    public function message($key, $replaceArray = [], $fallback = NULL): string
+    public function message($key, $replaceArray = [], $fallback = null): string
     {
         $replaceArray = A::merge($this->fieldsWithPlaceholder('value'), $replaceArray);
 
@@ -379,7 +379,7 @@ class Form extends Block
      * @return string
      */
 
-static function translate($key, $default, $replace = [], $fallback = NULL) {
+static function translate($key, $default, $replace = [], $fallback = null) {
 
     $output = Str::template(
         $default
@@ -455,7 +455,7 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
      *
      * @return array
      */
-    function parseEmail($input, $fallback = NULL) {
+    function parseEmail($input, $fallback = null) {
 
 
         if (empty($input)) {
@@ -496,10 +496,10 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
     /**
      * Send notification email to operator - returns error message if failed
      *
-     * @param string|NULL $body Mailtext - set custom notification body if not set
-     * @param string|NULL $recipent Recipent - set custom notification email if not set
+     * @param string|null $body Mailtext - set custom notification body if not set
+     * @param string|null $recipent Recipent - set custom notification email if not set
      */
-    public function sendNotification($body = NULL, $to = NULL)
+    public function sendNotification($body = null, $to = null)
     {
         if (option('microman.formblock.disable_notify')) {
             return;
@@ -552,10 +552,10 @@ static function translate($key, $default, $replace = [], $fallback = NULL) {
     /**
      * Send confirmation email to visitor - returns error message if failed
      *
-     * @param string|NULL $body Mailtext - set custom notification body if not set
-     * @param string|NULL $from Reply - set custom reply email if not set
+     * @param string|null $body Mailtext - set custom notification body if not set
+     * @param string|null $from Reply - set custom reply email if not set
      */
-    public function sendConfirmation($body = NULL, $from = NULL)
+    public function sendConfirmation($body = null, $from = null)
     {
 
         if (option('microman.formblock.disable_confirm')) {

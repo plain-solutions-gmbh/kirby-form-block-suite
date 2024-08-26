@@ -168,7 +168,7 @@ class FormLicense
             }
 
             if (array_key_exists('support', $response['placeholder'])) {
-                $text .= ' ' . I18n::template('form.block.license.error.support', NULL, $response["placeholder"]);
+                $text .= ' ' . I18n::template('form.block.license.error.support', null, $response["placeholder"]);
             }
             static::fail($text);
         }
