@@ -78,8 +78,8 @@ export function FormBlock(config, formElement) {
 
             if (fieldElement !== null) {
                 fieldElement.dataset.valid = field.is_valid;
-                fieldElement.querySelector('[aria-describedby]').toggleAttribute('invalid', !field.is_valid);
-                fieldElement.querySelector('[data-form="fields_error"]').outerHTML = field.message;
+                fieldElement.querySelector('[aria-describedby]')?.toggleAttribute('invalid', !field.is_valid);
+                fieldElement.querySelector('[data-form="fields_error"]')?.outerHTML = field.message;
             }
 
         });
