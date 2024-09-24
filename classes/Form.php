@@ -521,12 +521,20 @@ static function translate($key, $default, $replace = [], $fallback = null) {
             $emailData = [
                 'from' => $from,
                 'to' => $to,
-                'body' => [
-                    'text' => Str::unhtml($body),
-                ],
                 'subject' => $this->message('notify_subject'),
                 'attachments' => $this->attachments
             ];
+
+            if($template = option('microman.formblock.email_template_notification')) {
+                $emailData['template'] = $template;
+                $emailData['data'] = compact('body');
+            }else {
+                if (option('microman.formblock.disable_html') === false) {
+                    $emailData["body"]['html'] = $body;
+                }
+
+                $emailData['body']['text'] = Str::unhtml($body);
+            }
 
             $reply = $this->message('notify_reply', [], $this->getEmail($forReplyTo = true));
             if (!empty($reply)) {
@@ -536,10 +544,6 @@ static function translate($key, $default, $replace = [], $fallback = null) {
             $bcc = $this->message('notify_bcc', [], "");
             if (!empty($bcc)) {
                 $emailData['bcc'] = $bcc;
-            }
-
-            if (option('microman.formblock.disable_html') === false) {
-                $emailData["body"]['html'] = $body;
             }
 
             site()->kirby()->email($emailData);
@@ -584,13 +588,17 @@ static function translate($key, $default, $replace = [], $fallback = null) {
                 'from' => $from,
                 'to' => $to,
                 'subject' => $this->message('confirm_subject'),
-                'body' => [
-                    'text' => Str::unhtml($body),
-                ]
             ];
 
-            if (option('microman.formblock.disable_html') === false) {
-                $emailData["body"]['html'] = $body;
+            if($template = option('microman.formblock.email_template_confirmation')) {
+                $emailData['template'] = $template;
+                $emailData['data'] = compact('body');
+            }else {
+                if (option('microman.formblock.disable_html') === false) {
+                    $emailData["body"]['html'] = $body;
+                }
+
+                $emailData['body']['text'] = Str::unhtml($body);
             }
 
             $reply = $this->message('confirm_reply', [], "");
