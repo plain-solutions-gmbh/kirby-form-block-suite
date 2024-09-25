@@ -50,9 +50,9 @@ export default {
     window.panel.events.off("form.update", this.updateCount);
   },
   created() {
-    const $this = this;
     this.$store.subscribe(function (mutation) {
-      if (mutation.type == "content/STATUS") window.panel.events.emit("form.update");
+      if (mutation.type == "content/STATUS")
+        window.panel.events.emit("form.update");
     });
 
     this.content.formid = this.id;

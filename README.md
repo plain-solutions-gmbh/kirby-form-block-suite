@@ -22,6 +22,8 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Multiple forms allowed per page.
 
+⭐️ &nbsp; Templating for outgoing emails.
+
 ⭐️ &nbsp; Create a new form field type with ease by added just 2 files (Blueprint & Template).
 
 ⭐️ &nbsp; Spam protection with an integrated honeypot.
@@ -503,6 +505,19 @@ Functions like _notification email_ or _confirmation email_ can be disabled:
 
 The corresponding function will be no longer executed and in the panel the tab/fields won't be visible anymore.
 
+## Email templating
+
+Since Version 4.3.6 you can set the templates for outgoing emails like this:
+
+```php
+'microman.formblock' => [
+  'email_template_confirmation' => require kirby()->root('site') . '/templates/emails/confirmation.php',
+  'email_template_notification' => `
+    { name } has sent you a message
+  `
+],
+```
+
 ## Translations
 
 Change custom texts like this:
@@ -540,9 +555,10 @@ If you disable this function, you'il lose some features
 - The form will not be centered after sending
 
 
+
 ## Email field
 
-Since Version 4.1.0. For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
+For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
 
 ```php
 'microman.formblock' => [
