@@ -8,9 +8,9 @@
 
 ?>
 
-<p><?= "${text} ${add1} + ${add2}" ?></p>
+<p><?= "{$text} {$add1} + {$add2}" ?></p>
 
-<input class="formfield--hidden" type="hidden" name="captcha-id" value="<?= "${add1}_${add2}" ?>">
+<input class="formfield--hidden" type="hidden" name="captcha-id" value="<?= "{$add1}_{$add2}" ?>">
 
 <input
     class="formfield__input"

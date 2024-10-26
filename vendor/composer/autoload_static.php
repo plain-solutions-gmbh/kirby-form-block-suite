@@ -22,6 +22,12 @@ class ComposerStaticInitcdf2c876f02b13skr9b845a8b588ad5e
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'microman\\Form' => __DIR__ . '/../..' . '/classes/Form.php',
+        'microman\\FormBlueprint' => __DIR__ . '/../..' . '/classes/FormBlueprint.php',
+        'microman\\FormField' => __DIR__ . '/../..' . '/classes/FormField.php',
+        'microman\\FormFields' => __DIR__ . '/../..' . '/classes/FormFields.php',
+        'microman\\FormLicense' => __DIR__ . '/../..' . '/classes/FormLicense.php',
+        'microman\\FormRequest' => __DIR__ . '/../..' . '/classes/FormRequest.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

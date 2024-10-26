@@ -7,4 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'microman\\Form' => $baseDir . '/classes/Form.php',
+    'microman\\FormBlueprint' => $baseDir . '/classes/FormBlueprint.php',
+    'microman\\FormField' => $baseDir . '/classes/FormField.php',
+    'microman\\FormFields' => $baseDir . '/classes/FormFields.php',
+    'microman\\FormLicense' => $baseDir . '/classes/FormLicense.php',
+    'microman\\FormRequest' => $baseDir . '/classes/FormRequest.php',
 );
