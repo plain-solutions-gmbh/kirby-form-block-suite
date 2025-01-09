@@ -119,8 +119,8 @@ class FormBlueprint
                     ],
                     'info' => static::getInfoText()
                 ],
-                (static::isEnabled('notify')) ?  Yaml::read(__DIR__ . "/../blueprints/snippets/form_notify.yml") : [],
-                (static::isEnabled('confirm')) ?  Yaml::read(__DIR__ . "/../blueprints/snippets/form_confirm.yml") : [],
+                (static::isEnabled('notify')) ? static::getBlueprint('snippets/form_notify') : [],
+                (static::isEnabled('confirm')) ? static::getBlueprint('snippets/form_confirm') : [],
                 static::getBlueprint('snippets/form_options')
             )
         ];
