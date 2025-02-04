@@ -12,7 +12,6 @@ namespace microman;
 
 use Kirby\Cms\Blocks;
 use Kirby\Http\Environment;
-use Kirby\Filesystem\F;
 
 class FormFields extends Blocks
 {

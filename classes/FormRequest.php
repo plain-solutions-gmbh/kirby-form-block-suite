@@ -10,15 +10,9 @@ namespace microman;
  * @license   https://license.microman.ch/license/ 
  */
 
-use Kirby\Cms\Page;
-use Kirby\Cms\Site;
-use Kirby\Cms\Template;
 use Kirby\Toolkit\I18n;
-use Kirby\Toolkit\F;
-use Kirby\Uuid\Uuid;
 use Kirby\Http\Request\Files;
-
-use Kirby\Exception\Exception;
+use Kirby\Filesystem\F;
 
 class FormRequest
 {

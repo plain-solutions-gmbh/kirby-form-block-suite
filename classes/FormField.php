@@ -11,12 +11,10 @@ namespace microman;
  */
 
 use Kirby\Cms\Block;
-use Kirby\Cms\Structure;
+use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\V;
-use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
-use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\Escape;
 use Kirby\Http\Request\Files;
 use Kirby\Filesystem\Mime;
@@ -36,7 +34,7 @@ class FormField extends Block
     /**
      * Visitor send some values
      *
-     * @var Bool
+     * @var Array
      */
     protected $errors;
 
@@ -157,7 +155,7 @@ class FormField extends Block
 
         
         if (!is_null($this->files)) {
-            return implode(', ', array_map(fn($f) => f::safeName($f['name']), $this->files));
+            return implode(', ', array_map(fn($f) => F::safeName($f['name']), $this->files));
         }
 
         // Prefill value from query string variable matching slug
@@ -455,7 +453,7 @@ class FormField extends Block
      */
     public function isValid(): bool
     {
-        return count($this->errors) == 0;
+        return count($this->errors) === 0;
     }
 
     /**

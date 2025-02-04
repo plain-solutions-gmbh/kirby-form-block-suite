@@ -9,7 +9,7 @@ use microman\FormBlueprint;
 use Kirby\Cms\App as Kirby;
 use Kirby\Data\Data;
 
-Kirby::plugin('microman/formblock', [
+$setup = [
     'options' => [ 
         'from_email' => 'no-reply@' . Kirby::instance()->environment()->host(),
         'placeholders' => FormBlueprint::getPlaceholders(),
@@ -112,5 +112,11 @@ Kirby::plugin('microman/formblock', [
         'hu' => Data::read(__DIR__ . '/i18n/hu.json'),
         'fr' => Data::read(__DIR__ . '/i18n/fr.json'),
     ]
-],
-license: FormLicense::licenseObj());
+];
+
+//Extend downwards compatibility
+if (version_compare(Kirby::version() ?? '0.0.0', '4.9.9', '>')) {
+    Kirby::plugin('microman/formblock', $setup, license: FormLicense::licenseObj());
+} else {
+    Kirby::plugin('microman/formblock', $setup);
+}

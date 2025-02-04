@@ -373,7 +373,7 @@ class Form extends Block
      * Get translatin from options or translation files.
      *
      * @param string $key 
-     * @param string $default if set, return it. 
+     * @param object $default if set, return it. 
      * @param array $replaceArray Additional array for replacing
      * 
      * @return string

@@ -12,7 +12,6 @@ namespace microman;
 
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
-use Kirby\Toolkit\Str;
 use Kirby\Data\Yaml;
 
 class FormBlueprint

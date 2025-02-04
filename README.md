@@ -64,8 +64,6 @@ With the integrated mailview field you can display requests allover the panel.
 
 # Installation
 
-For use with Kirby > 4.0 only!
-
 **Manually**
 
 [Download](https://github.com/youngcut/kirby-form-block-suite/archive/refs/heads/main.zip) and copy the plugin into your plugin folder: `/site/plugins/`
@@ -159,7 +157,7 @@ The placeholders in **Display title** is taken from the data the visitor enter i
 |4|Radio| ![radio](./.github/radio.png)|
 |5|Checkbox| ![checkbox](./.github/checkbox.png)|
 |6|Attachment | ![attachment](./.github/attachment.png)|
-|7|Captcha<br>(< 4.2.0) | ![captcha](./.github/captcha.png)|
+|7|Captcha | ![captcha](./.github/captcha.png)|
 
 > **Note for attachment field type:**  To increase the maximum file size set the `upload_max_filesize`, `post_max_size` and `memory_limit` to desiered values in your php.ini.
 
@@ -376,7 +374,7 @@ my_custom_message:
 
 ```
 
-You can do the same with `form_confirm.yml` and `form_notify.yml`. For example (> v4.1.0), if you like to give the opurtunity to set the reply adress, add these lines to `form_notify.yml`:
+You can do the same with `form_confirm.yml` and `form_notify.yml`. For example, if you like to give the opurtunity to set the reply adress, add these lines to `form_notify.yml`:
 
 
 ```xml
@@ -507,7 +505,7 @@ The corresponding function will be no longer executed and in the panel the tab/f
 
 ## Email templating
 
-Since Version 4.3.6 you can set the templates for outgoing emails like this:
+You can set the templates for outgoing emails like this:
 
 ```php
 'microman.formblock' => [
