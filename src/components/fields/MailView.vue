@@ -224,27 +224,29 @@ export default {
       };
     },
     getImage(req) {
-      const out = { back: "transparent" };
-
+      
       //Readed
       if (req.read)
-        return Object.assign(out, {
+        return {
           icon: "circle",
-          color: "info",
-        });
+          color: "yellow",
+          back: "transparent"
+        };
 
       //Error
       if (req.error)
-        return Object.assign(out, {
+        return {
           icon: "cancel",
-          color: "negative",
-        });
+          color: "red",
+          back: "transparent"
+        };
 
       //New
-      return Object.assign(out, {
+      return {
         icon: "circle-filled",
-        color: "positive",
-      });
+        color: "green",
+        back: "transparent"
+      };
     },
   },
 };

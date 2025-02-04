@@ -7,7 +7,7 @@ use microman\FormLicense;
 use microman\FormRequest;
 use microman\FormBlueprint;
 use Kirby\Cms\App as Kirby;
-use Kirby\Filesystem\Dir as Dir;
+use Kirby\Data\Data;
 
 Kirby::plugin('microman/formblock', [
     'options' => [ 
@@ -112,4 +112,5 @@ Kirby::plugin('microman/formblock', [
         'hu' => Data::read(__DIR__ . '/i18n/hu.json'),
         'fr' => Data::read(__DIR__ . '/i18n/fr.json'),
     ]
-]);
+],
+license: FormLicense::licenseObj());

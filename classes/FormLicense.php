@@ -23,7 +23,6 @@ use Kirby\Cms\App;
 use Kirby\Data\Json;
 use Kirby\Panel\Field;
 use Kirby\Http\Remote;
-use Kirby\Filesystem\F;
 use Kirby\Toolkit\V;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\I18n;
@@ -32,17 +31,35 @@ use Kirby\Exception\Exception;
 class FormLicense
 {
     protected static bool $checked = false;
-    protected static string $productid = '801346';
+    public const ID = '801346';
+    public const LINK = 'https://license.microman.ch/?product=801346';
+    public const API = 'https://license.microman.ch/';
 
     public  static function licenseText(): string
     {
         return static::checkLicense() ? '' : 'form.block.license.info.standalone';
     }
 
-    private static function checkLicense(): bool
+    public static function licenseObj(): array
+    {
+        return [
+            'name'      => "Microman",
+            'link'      => static::LINK,
+            'status'    => static::checkLicense(false) ? null : [
+                'value'     => 'missing',
+                'theme'     => 'negative',
+                'label'     => t('license.unregistered.label'),
+                'icon'      => 'alert',
+                'dialog'    => 'formblock/register',
+
+            ]
+        ];
+    }
+
+    private static function checkLicense(bool $trueAfterCheck = true): bool
     {
 
-        if (static::$checked === true) {
+        if ($trueAfterCheck && static::$checked === true) {
             return true;
         }
 
@@ -80,7 +97,7 @@ class FormLicense
                 $system = App::instance()->system();
                 $local  = $system->isLocal();
                 $text = I18n::template('license.activate.' . ($local ? 'local' : 'domain'), ['host' => $system->indexUrl()]);
-                $link = 'https://license.microman.ch/?product=' . FormLicense::productid();
+                $link = FormLicense::LINK;
     
                 return [
                     'component' => 'k-form-dialog',
@@ -149,7 +166,7 @@ class FormLicense
         $licensedata = static::licensedata($key, $email);
 
         try {
-            $request = new Remote("https://license.microman.ch/", [
+            $request = new Remote(static::API, [
                 "method" => "POST",
                 "data" => $licensedata,
                 "timeout" => 5,
@@ -188,16 +205,12 @@ class FormLicense
     private static function licensedata(string $key, string $email): array
     {
         return [
-            "product" => static::productid(),
+            "product" => static::ID,
             "key" => $key,
             "email" => Str::lower(trim($email)),
             "site" => App::instance()
                 ->system()
                 ->indexUrl(),
         ];
-    }
-    public static function productid(): string
-    {
-        return static::$productid;
     }
 }
