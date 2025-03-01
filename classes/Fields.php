@@ -1,19 +1,19 @@
 <?php
 
-namespace microman;
+namespace Plain\Formblock;
 
 /**
  * @package   Kirby Form Block Suite
- * @author    Roman Gsponer <kirby@microman.ch>
- * @link      https://microman.ch/
+ * @author    Roman Gsponer <support@plain-solutions.net>
+ * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://license.microman.ch/license/ 
+ * @license   https://plain-solutions.net/terms/ 
  */
 
-use Kirby\Cms\Blocks;
+use Kirby\Cms\Blocks as KirbyBlock;
 use Kirby\Http\Environment;
 
-class FormFields extends Blocks
+class Fields extends KirbyBlock
 {
 
     /**
@@ -51,7 +51,7 @@ class FormFields extends Blocks
         foreach ($params as $formfield) {
 
             $this->add(
-                new FormField(
+                new Field(
                     [
                         "content" => $formfield['content'],
                         'id' => $formfield['id'],

@@ -1,16 +1,16 @@
 <?php
 
-namespace microman;
+namespace Plain\Formblock;
 
 /**
  * @package   Kirby Form Block Suite
- * @author    Roman Gsponer <kirby@microman.ch>
- * @link      https://microman.ch/
+ * @author    Roman Gsponer <support@plain-solutions.net>
+ * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://license.microman.ch/license/ 
+ * @license   https://plain-solutions.net/terms/ 
  */
 
-use Kirby\Cms\Block;
+use Kirby\Cms\Block as KirbyBlock;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\V;
@@ -18,9 +18,8 @@ use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Escape;
 use Kirby\Http\Request\Files;
 use Kirby\Filesystem\Mime;
-use microman\Form;
 
-class FormField extends Block
+class Field extends KirbyBlock
 {
 
     /**

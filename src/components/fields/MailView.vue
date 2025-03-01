@@ -7,13 +7,7 @@
       :text="$t('form.block.inbox.loading')"
     />
 
-    <k-grid v-else variant="fields">
-      <k-formblock-license
-        v-if="license.length > 0"
-        style="--width: 1/1"
-        :text="license"
-      />
-
+    <k-grid v-else variant="fields" :style="{gap:'var(--spacing-2)'}">
       <k-mail-list
         v-for="group in data"
         :key="group.slug"
@@ -33,6 +27,7 @@
         :text="$t('form.block.inbox.empty')"
       />
     </k-grid>
+    <k-plain-license prefix="formblock" />
   </div>
 </template>
 
@@ -54,12 +49,6 @@ export default {
     formData: {
       type: Object,
       default: () => {},
-    },
-    license: {
-      type: String,
-      default() {
-        return "";
-      },
     },
   },
   data() {
@@ -145,7 +134,6 @@ export default {
             ];
             return req;
           });
-
           return data[key];
         });
       });
@@ -224,13 +212,12 @@ export default {
       };
     },
     getImage(req) {
-      
       //Readed
       if (req.read)
         return {
           icon: "circle",
           color: "yellow",
-          back: "transparent"
+          back: "transparent",
         };
 
       //Error
@@ -238,14 +225,14 @@ export default {
         return {
           icon: "cancel",
           color: "red",
-          back: "transparent"
+          back: "transparent",
         };
 
       //New
       return {
         icon: "circle-filled",
         color: "green",
-        back: "transparent"
+        back: "transparent",
       };
     },
   },

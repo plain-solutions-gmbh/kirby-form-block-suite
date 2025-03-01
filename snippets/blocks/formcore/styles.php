@@ -1,1 +1,1 @@
-<?= css(kirby()->url('media') . '/plugins/microman/formblock/formblock.css') ?>
+<?= css(kirby()->url('media') . '/plugins/plain/formblock/formblock.css') ?>

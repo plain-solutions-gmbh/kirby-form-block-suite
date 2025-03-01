@@ -1,6 +1,6 @@
 <script type="module">
 
-  import {FormBlock} from '<?= kirby()->url('media') . '/plugins/microman/formblock/formblock.js' ?>';
+  import {FormBlock} from '<?= kirby()->url('media') . '/plugins/plain/formblock/formblock.js' ?>';
 
   let formObject = document.getElementById('formblock_<?= str_replace('-', '', $form->id()) ?>');
 

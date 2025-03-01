@@ -38,7 +38,6 @@ With the integrated mailview field you can display requests allover the panel.
 - [Table of content](#table-of-content)
 - [Installation](#installation)
 - [How to use?](#how-to-use)
-  - [Allow the form block in your blueprint](#allow-the-form-block-in-your-blueprint)
   - [Using the built-in styling](#using-the-built-in-styling)
 - [Set up your form block](#set-up-your-form-block)
   - [Create a form block](#create-a-form-block)
@@ -54,33 +53,37 @@ With the integrated mailview field you can display requests allover the panel.
   - [Messages](#messages)
 - [Config](#config)
   - [Email address for outgoing emails](#email-address-for-outgoing-emails)
+  - [Plain text emails](#plain-text-emails)
   - [Honeypot](#honeypot)
   - [Placeholders](#placeholders)
   - [Disable Functions](#disable-functions)
+  - [Email templating](#email-templating)
   - [Translations](#translations)
   - [Dynamic validation](#dynamic-validation)
+  - [Email field](#email-field)
+  - [Hook Success](#hook-success)
+  - [Hook Validate](#hook-validate)
 - [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 
 # Installation
 
 **Manually**
 
-[Download](https://github.com/youngcut/kirby-form-block-suite/archive/refs/heads/main.zip) and copy the plugin into your plugin folder: `/site/plugins/`
+[Download](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/archive/refs/heads/main.zip) and copy the plugin into your plugin folder: `/site/plugins/`
 
 **With Composer**
 
-`composer require microman/kirby-form-block-suite`
+`composer require getplain/kirby-form-block-suite`
 
 **Get a license**
 
 There's two license available:
 
-[Single site license](https://license.microman.ch/?product=801346)
+[Single site license](https://plain-solutions.net/?product=801346)
 
-[Infinite license](https://license.microman.ch/?product=803284)
-
-[See also the other plugins](https://license.microman.ch/)
+[See also the other plugins](https://plain-solutions.net/)
 
 > If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
@@ -436,7 +439,7 @@ To disable confirmation or notification use [the config](#disable-functions).
 ## Email address for outgoing emails
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
     'from_email' => ["info@example.com" => "John Doe"]
 ],
 ```
@@ -452,11 +455,11 @@ By default the plugin will use HTML for the body of the confirm/notification ema
 You can disable it this way:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
     'disable_html' => false
 ],
 ```
-_Thanks to [felix](https://github.com/youngcut/kirby-form-block-suite/pull/27)_
+_Thanks to [felix](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/pull/27)_
 
 ## Honeypot
 
@@ -465,7 +468,7 @@ The form block plugin insert a hidden honeypot field into the form to prevent bo
 You can change the order and the kind of context with this setting.
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'honeypot_variants' => ["email", "name", "url"]
 ],
 ```
@@ -476,7 +479,7 @@ In addition to the incoming form data, extra placeholders can be defined. (Which
 For example, to determine the IP address of the sender:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'placeholders' => [
     'ip' => [
       'label' => "IP address",
@@ -495,7 +498,7 @@ You can use placeholders everywhere (mails, text blocks, as display name) like t
 Functions like _notification email_ or _confirmation email_ can be disabled:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'disable_confirm' => true,
   'disable_notify' => true,
 ],
@@ -508,7 +511,7 @@ The corresponding function will be no longer executed and in the panel the tab/f
 You can set the templates for outgoing emails like this:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'email_template_confirmation' => require kirby()->root('site') . '/templates/emails/confirmation.php',
   'email_template_notification' => `
     { name } has sent you a message
@@ -521,7 +524,7 @@ You can set the templates for outgoing emails like this:
 Change custom texts like this:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'translations' => [
     'en' => [
         'success_message' => 'Your beautiful request has been sent.'
@@ -540,7 +543,7 @@ Change custom texts like this:
 The form is validated dynamically (No reload of the page on submit). You can disable this function like this:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'dynamic_validation' => false,
 ],
 ```
@@ -559,7 +562,7 @@ If you disable this function, you'il lose some features
 For the confirmation or the notification email it's nessaissary to have a field, that contains the visitors email adress. You can set the email field id like this:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'email_field' => 'email',
 ],
 ```
@@ -570,7 +573,7 @@ If no field with this id is found, the plugin takes the first field with the fie
 
 ```php
 'hooks' => [
-  'formblock.success:after' => function (\microman\FormRequest $request) {
+  'formblock.success:after' => function (\Plain\Formblock\Request $request) {
       //Your code
   },
   
@@ -600,7 +603,8 @@ This example shows an error message on entering specific email adresses.
 
 # Troubleshooting
 
-> Please read this Chapter carefuly before you [open an issue](https://github.com/youngcut/kirby-form-block-suite/issues/new/choose). 
+> DEPRECATION-WARNING: Option prefix changed since version 5.0.2 (old: micorman.* | new: plain.*)
+> Please read this Chapter carefuly before you [open an issue](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/issues). 
 
 ---
 
@@ -629,7 +633,7 @@ This example shows an error message on entering specific email adresses.
 **Solution:** Your site is **not** multilingual. Or Kirby don't know the language of the visitor. Set a default language manually:
 
 ```php
-'microman.formblock' => [
+'plain.formblock' => [
   'default_language' => 'de'
 ]
 
@@ -641,31 +645,27 @@ This example shows an error message on entering specific email adresses.
 **Problem:** Error to validate license key
 
 **Solutions:**
-- If you haven't got a license yet? Get a [single site license](https://license.microman.ch/?product=801346) or an [infinite site license](https://license.microman.ch/?product=803284).
-- Your server needs a connection to the license server: [https://license.mircroman.ch](https://license.microman.ch)
-- Your license key was already validated by another host: Send me [an email](mailto:kirby@microman.ch) **with your license key** to release the assigment.
-- Delete the license file and try again. Folder: `/site/config/.formblock_license`
+- If you haven't got a license yet? Get a [single site license](https://plain-solutions.net/?product=801346).
+- Your server needs a connection to the license server: [https://plain-solutions.net](https://plain-solutions.net)
+- Your license key was already validated by another host: Send me [an email](mailto:kirby@plain-solutions.net) **with your license key** to release the assigment.
+- Delete the license file `/site/config/.formblock_license` and try again. 
 
 ---
 
 **Problem:** Problem with the validation
 
 **Solutions:**
-- Check if the symbolic link _media/plugins/microman/formblock/formblock.js_ is working properly.
-- There's a [known](https://github.com/youngcut/kirby-form-block-suite/issues/15) incompatibility issue with the _Ahmet Bora's Minify HTML compression plugin_. We working on a solution.
+- Check if the symbolic link _media/plugins/plain/formblock/formblock.js_ is working properly.
+- There's a [known](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/issues/15) incompatibility issue with the _Ahmet Bora's Minify HTML compression plugin_. We working on a solution.
 
 ---
 
-If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/youngcut/kirby-form-block-suite/issues) or send me a [private message](https://microman.ch/en/microman).
+If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/issues) or send me a [private message](https://plain-solutions.net/support).
 
 **I hope you will enjoy this plugin.**
 
-## License
+# License
 
-This is a free trial version of Kirby Form Block Suite Plugin, which grants you the right to use the plugin for testing purposes. If you wish to use this plugin on one website or if you intend to use it for commercial purposes, you must [purchase a license](https://license.microman.ch/?product=801346).
+By using this project, you agree to the terms and conditions outlined in our [Terms of Service](https://plain-solutions.net/terms). 
 
-A license is required for those who wish to use the plugin to generate revenue, including but not limited to: e-commerce websites, affiliate marketing websites, and websites that require payment to access content. Licenses are non-transferable and cannot be shared with other users or websites.
-
-By downloading and using this plugin, you agree to the [terms and conditions of the License Agreement](https://license.microman.ch/license/). Failure to comply with the terms of the License Agreement may result in revocation of your license and legal action.
-
-To purchase a license or learn more about our licensing options, please visit our [website](https://microman.ch) or contact us at [Contact Email](mailto:kirby@micorman.ch). Thank you for your interest in Kirby Form Block Suite Plugin!
+To acquire a license for this project, please visit our [Licensing Page](https://plain-solutions.net/801346).

@@ -50,7 +50,6 @@ export default {
     window.panel.events.off("form.update", this.updateCount);
   },
   created() {
-
     window.panel.events.on("content/STATUS", function (mutation) {
       if (mutation.type == "content/STATUS")
         window.panel.events.emit("form.update");

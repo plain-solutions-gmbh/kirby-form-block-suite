@@ -53,14 +53,14 @@ export default {
   created() {
     this.isOpen =
       sessionStorage.getItem(
-        `microman.form.showOpen.${this.value.page}.${this.value.uuid}`
+        `plain.form.showOpen.${this.value.page}.${this.value.uuid}`
       ) === "on";
   },
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
       sessionStorage.setItem(
-        `microman.form.showOpen.${this.value.page}.${this.value.uuid}`,
+        `plain.form.showOpen.${this.value.page}.${this.value.uuid}`,
         this.isOpen ? "on" : "off"
       );
     },

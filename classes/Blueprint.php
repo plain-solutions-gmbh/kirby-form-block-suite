@@ -1,54 +1,26 @@
 <?php
 
-namespace microman;
+namespace Plain\Formblock;
 
 /**
  * @package   Kirby Form Block Suite
- * @author    Roman Gsponer <kirby@microman.ch>
- * @link      https://microman.ch/
+ * @author    Roman Gsponer <support@plain-solutions.net>
+ * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://license.microman.ch/license/ 
+ * @license   https://plain-solutions.net/terms/ 
  */
 
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
 use Kirby\Data\Yaml;
 
-class FormBlueprint
+class Blueprint
 {
-
-        /**
-     * Get form tab
-     * 
-     * @return array
-     **/
-    /*
-    public static function getBlock(): array
-    {
-        return [
-            'name' => 'form.block.fromfields',
-            'icon' => 'form',
-            'fields' => [
-                'id' => [
-                    'type' => 'select',
-                    'default' => [
-                        'id' => ''
-                    ],
-                    'options' => [
-                        'type'  => 'query',
-                        'query' => 'site.drafts',
-                        'text'  => '{{page.name}}'
-                    ]
-                ]                
-            ]
-        ];
-    }
-    */
 
     /**
      * Get Blueprint as array
      * 
-     * @param Array $path Filename or path of Bluepring
+     * @param Array $path Filename or path of Blueprint
      * 
      * @return array
      */
@@ -82,8 +54,7 @@ class FormBlueprint
             'fields' => [
                 'formid' => ['type' => 'hidden'],
                 'mailview' => [
-                    'type' => 'mailview',
-                    'license' => true
+                    'type' => 'mailview'
                 ]
             ]
         ];
@@ -251,7 +222,7 @@ class FormBlueprint
                     return $table;
                 }
             ]
-        ], kirby()->option('microman.formblock.placeholders') ?? []);
+        ], kirby()->option('plain.formblock.placeholders') ?? []);
     }
 
     /**
@@ -263,7 +234,8 @@ class FormBlueprint
      */
     private static function isEnabled($fnc): bool
     {
-        return empty(kirby()->option("microman.formblock.disable_$fnc"));
+        $option_value = ".formblock.disable_$fnc";
+        return empty(kirby()->option("plain.$option_value"));
     }
 
 }

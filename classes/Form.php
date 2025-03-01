@@ -1,13 +1,13 @@
 <?php
 
-namespace microman;
+namespace Plain\Formblock;
 
 /**
  * @package   Kirby Form Block Suite
- * @author    Roman Gsponer <kirby@microman.ch>
- * @link      https://microman.ch/
+ * @author    Roman Gsponer <support@plain-solutions.net>
+ * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://license.microman.ch/license/ 
+ * @license   https://plain-solutions.net/terms/ 
  */
 
 use Kirby\Cms\Block;
@@ -24,7 +24,7 @@ class Form extends Block
     /**
      * Formfields
      *
-     * @var \Microman\FormFields
+     * @var \Plain\Fields
      */
     protected $fields;
 
@@ -73,7 +73,7 @@ class Form extends Block
             return false;
         }
 
-        $this->fields = new FormFields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
+        $this->fields = new Fields($this->formfields()->toBlocks()->toArray(), $this->parent(), $this->id());
 
         //Resolve Honeypot
         if (!$this->fields->checkHoneypot($this->honeypotId())) {
@@ -94,7 +94,7 @@ class Form extends Block
         if ($lang = kirby()->language()) 
             return $lang->code();
 
-        return option('microman.formblock.default_language');
+        return option('plain.formblock.default_language');
 
     }
 
@@ -150,7 +150,7 @@ class Form extends Block
             $postfix = "_" . self::getLang() . ".json";
 
             if(count($defaults = $this->getDefault(site()->kirby()->root('config') . "/", $postfix)) == 0){
-                $defaults = $this->getDefault(__DIR__ . "/../config/", $postfix);
+                $defaults = $this->getDefault(__DIR__ . "/../lib/defaults/", $postfix);
             };
         
             if (!isset($defaults[0]['content'])) {
@@ -262,10 +262,10 @@ class Form extends Block
     public function fieldsWithPlaceholder($attr = 'value'): array
     {
         $fields = [];
-        foreach (option('microman.formblock.placeholders') as $placeholder => $item) {
+        foreach (option('plain.formblock.placeholders') as $placeholder => $item) {
 
             if (!isset($item['value']) || !($item['value'] instanceof \Closure)) {
-                throw new Exception("Check microman.formblock.placeholders.$placeholder in config.");
+                throw new Exception("Check plain.formblock.placeholders.$placeholder in config.");
             }
             $item['value'] = $item['value']($this->fields);
             $fields[$placeholder] = $attr ? $item[$attr] : $item;
@@ -281,7 +281,7 @@ class Form extends Block
      */
     public function honeypotId(): string
     {
-        $out = option('microman.formblock.honeypot_variants');
+        $out = option('plain.formblock.honeypot_variants');
 
         foreach ($this->fields() as $field) {
             $out = array_diff($out, [$field->autofill(), $field->slug()]);
@@ -342,7 +342,7 @@ class Form extends Block
      */
     public function showForm(): bool
     {
-        if(!option('microman.formblock.dynamic_validation'))
+        if(!option('plain.formblock.dynamic_validation'))
             return (!$this->isFilled() || !$this->isValid()) && !$this->isFatal();
 
         return (!$this->isFilled());
@@ -383,9 +383,9 @@ static function translate($key, $default, $replace = [], $fallback = null) {
 
     $output = Str::template(
         $default
-            ->or(option( 'microman.formblock.translations.' . self::getLang() . '.' . $key))
+            ->or(option('plain.formblock.translations.' . self::getLang() . '.' . $key))
             ->or(I18n::translate('form.block.message.' . $key, "", self::getLang()))
-            ->or(option( 'microman.formblock.translations.en.' . $key))
+            ->or(option('plain.formblock.translations.en.' . $key))
             ->or(I18n::translate('form.block.message.' . $key, $fallback ?? "Translation for '". $key. "' not found.", "en"))
         , $replace);
 
@@ -434,7 +434,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
      */
     private function getEmail($forReplyTo = false) {
 
-        $email_field = option('microman.formblock.email_field', 'email');
+        $email_field = option('plain.formblock.email_field', 'email');
 
         if ($email = $this->form_field($email_field, 'value')) {
             return $email;
@@ -459,7 +459,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
 
 
         if (empty($input)) {
-            $input = $fallback ?? option('microman.formblock.from_email');
+            $input = $fallback ?? option('plain.formblock.from_email');
         }
 
         if (is_array($input)) {
@@ -501,7 +501,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
      */
     public function sendNotification($body = null, $to = null)
     {
-        if (option('microman.formblock.disable_notify')) {
+        if (option('plain.formblock.disable_notify')) {
             return;
         }
 
@@ -525,11 +525,11 @@ static function translate($key, $default, $replace = [], $fallback = null) {
                 'attachments' => $this->attachments
             ];
 
-            if($template = option('microman.formblock.email_template_notification')) {
+            if($template = option('plain.formblock.email_template_notification')) {
                 $emailData['template'] = $template;
                 $emailData['data'] = compact('body');
             }else {
-                if (option('microman.formblock.disable_html') === false) {
+                if (option('plain.formblock.disable_html') === false) {
                     $emailData["body"]['html'] = $body;
                 }
 
@@ -565,7 +565,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
     public function sendConfirmation($body = null, $from = null)
     {
 
-        if (option('microman.formblock.disable_confirm')) {
+        if (option('plain.formblock.disable_confirm')) {
             return;
         }
 
@@ -590,11 +590,11 @@ static function translate($key, $default, $replace = [], $fallback = null) {
                 'subject' => $this->message('confirm_subject'),
             ];
 
-            if($template = option('microman.formblock.email_template_confirmation')) {
+            if($template = option('plain.formblock.email_template_confirmation')) {
                 $emailData['template'] = $template;
                 $emailData['data'] = compact('body');
             }else {
-                if (option('microman.formblock.disable_html') === false) {
+                if (option('plain.formblock.disable_html') === false) {
                     $emailData["body"]['html'] = $body;
                 }
 
@@ -658,7 +658,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
         if ($template == 'form_success' && !$this->isSuccess())
             return '<div class="formblock__message--hidden" data-form="form_success"></div>';
                 
-        if(!option('microman.formblock.dynamic_validation')) {
+        if(!option('plain.formblock.dynamic_validation')) {
             
             if ($template == "script")
                 return "";
@@ -733,7 +733,7 @@ static function translate($key, $default, $replace = [], $fallback = null) {
             is_null(get('field_validation'))
         ) {
             
-            $this->request = new FormRequest([
+            $this->request = new Request([
                 'page_id'       => $this->parent()->id(),
                 'form_id'       => $this->id(),
                 'form_name'     => $this->name()->value() ?? $this->id(),
@@ -754,12 +754,12 @@ static function translate($key, $default, $replace = [], $fallback = null) {
                 $this->attachments = $this->request->uploadFiles($this->attachmentFields());
                 
                 // Send notification mail
-                if (!option('microman.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
+                if (!option('plain.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
                     $this->sendNotification();
                 }
                 
                 // Send confirmation mail
-                if (!option('microman.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
+                if (!option('plain.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
                     $this->sendConfirmation();
                 }
                 

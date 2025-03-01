@@ -2,16 +2,16 @@ import Form from "./components/blocks/Form.vue";
 import MailDialog from "./components/dialog/Form.vue";
 import MailList from "./components/MailList.vue";
 import MailView from "./components/fields/MailView.vue";
-import FormLicense from "./components/FormLicense.vue";
+import PlainLicense from "./components/PlainLicense.vue";
 
-window.panel.plugin("microman/formblock", {
+window.panel.plugin("plain/formblock", {
   fields: {
     mailview: MailView,
   },
   components: {
     "k-mail-list": MailList,
     "k-mail-dialog": MailDialog,
-    "k-formblock-license": FormLicense,
+    "k-plain-license": PlainLicense,
   },
   blocks: {
     form: Form,
