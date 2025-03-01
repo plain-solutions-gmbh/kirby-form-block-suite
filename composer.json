@@ -3,7 +3,7 @@
     "description": "Contactform based on Kirby blocks.",
     "type": "kirby-plugin",
     "version": "5.0.2",
-    "license": "Proprietary",
+    "license": "GPL-3.0-only",
 	"homepage": "https://plain-solutions.net/801346",
 	"authors": [
 		{
