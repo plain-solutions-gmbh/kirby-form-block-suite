@@ -4,8 +4,9 @@
 # npm modules
 /node_modules
 
+#Symbolic Links
+*.lnk
+*.symlink
+
 # migration file
 /migrated
-
-# source
-/src
