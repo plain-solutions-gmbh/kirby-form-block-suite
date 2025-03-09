@@ -75,7 +75,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 **With Composer**
 
-`composer require getplain/kirby-form-block-suite`
+`composer require plain/kirby-form-block-suite`
 
 **Get a license**
 
