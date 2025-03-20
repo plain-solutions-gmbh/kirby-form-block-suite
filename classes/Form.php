@@ -174,7 +174,7 @@ class Form extends Block
      * 
      * @return string
      */
-    private function parseString($value): string
+    private function parseString($value): ?string
     {
         if (!(is_null($value))) {
             return (is_string($value)) ? $value : $value->value();
