@@ -1,13 +1,22 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="k-mailview-list">
-    <k-box
-      v-if="!hideheader"
-      :theme="value.header.state.theme"
-      :icon="isOpen ? 'angle-up' : 'angle-down'"
-      :text="headerText"
-      @click.native="toggleOpen()"
-    />
+    <div v-if="!hideheader" class="k-mailview-list-header">
+      <k-button
+        icon="download"
+        variant="filled"
+        :link="value.header.download"
+        :theme="value.header.state.theme"
+        :download="true"
+      ></k-button>
+
+      <k-box
+        :theme="value.header.state.theme"
+        :icon="isOpen ? 'angle-up' : 'angle-down'"
+        :text="headerText"
+        @click.native="toggleOpen()"
+      />
+    </div>
 
     <k-items v-if="isOpen || hideheader" :items="items" />
   </div>
@@ -67,3 +76,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.k-mailview-list-header {
+  position: relative;
+}
+
+.k-mailview-list-header > .k-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--spacing-1);
+}
+</style>

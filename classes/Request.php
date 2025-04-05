@@ -10,9 +10,13 @@ namespace Plain\Formblock;
  * @license   https://plain-solutions.net/terms/ 
  */
 
+use Kirby\Cms\App;
 use Kirby\Toolkit\I18n;
 use Kirby\Http\Request\Files;
 use Kirby\Filesystem\F;
+use Kirby\Toolkit\A;
+use Kirby\Toolkit\Str;
+use Kirby\Uuid\Uuid;
 
 class Request
 {
@@ -338,11 +342,48 @@ class Request
                     "fail" => $this->infoPart('fail', $container),
                     "state" => $this->infoPart('state', $container),
                     "theme" => $this->infoPart('theme', $container),
-                    "text" => $this->infoPart('text', $container),
+                    "text" => $this->infoPart('text', $container)
                 ];
         }
                     
         
+    }
+
+    private function downloadLink($form_id, $title) {
+        return A::join([
+            kirby()->url(),
+            'form',
+            'download',
+            csrf(),
+            $this->page_id,
+            $form_id,
+            Str::slug($title)
+        ], '/') . '.csv';
+    }
+
+    public function download()
+    {
+
+        $output = null;
+
+        function parseField($field) {
+            $array = json_decode($field->value(), true);
+            unset($array['summary']);
+            return array_values($array);
+        }
+
+        foreach ($this->container->drafts()->sortBy('received', 'desc') as $b) {
+
+            $content = $b->content();
+            $received = $content->received()->toValue();
+            $id = $content->slug();
+
+            $output ??= A::join(['ID', ...parseField($content->formfields()), 'Received'], ';') . "\n";
+            $output .= A::join([$id, ...parseField($content->formdata()), $received], ';') . "\n";
+            
+        }
+        
+        return $output;
     }
 
     /**
@@ -374,6 +415,7 @@ class Request
             }
 
             $pagetitle = ($a->parent()) ? $a->parent()->title()->value() : site()->title()->value();
+            $formtitle = $pagetitle . " - " .  $a->name()->value();
 
             $out[$a->slug()] = [
                 "content" => $content,
@@ -382,8 +424,9 @@ class Request
                 "uuid" => $a->content()->uuid()->value(),
                 "header" => [
                     "page" => $pagetitle,
-                    "name" => $pagetitle . " - " .  $a->name()->value(),
-                    "state" => $this->infoPart('array', $a)
+                    "name" => $formtitle,
+                    "state" => $this->infoPart('array', $a),
+                    "download" => $this->downloadLink($a->slug(), $formtitle)
                 ]
             ] ;
             

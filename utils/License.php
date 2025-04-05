@@ -102,7 +102,7 @@ class License
     private function isValid(): bool
     {
 
-        if ($this->isValid !== null){
+        if ($this->isValid !== null) {
             return $this->isValid;
         }
 
@@ -130,7 +130,7 @@ class License
         }
 
         $prefix = $this->prefix;
-        $lang = App::instance()->user()?->language() ?? App::instance()->panelLanguage();
+        $lang = App::instance()->user()?->language() ?? App::instance()->currentLanguage()->code();
 
         return A::merge($extends, [
             'api' => [

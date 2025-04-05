@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use Kirby\Toolkit\Str;
+use Plain\Formblock\Request;
 
 return [ 
     [
@@ -22,11 +25,29 @@ return [
                     'error_message'     => t('form.block.message.fatal_message'),
                     'success_message'   => "",
                     'redirect'          => "",
-                    'fields'            => []
+                    'fields'            => [],
                 ]);
             }
 
             return end($out);
+            
+        }
+    ],
+    [
+        'pattern' => 'form/download/(:all)',
+        'action' => function ($params) {
+
+            [$csrf, $page_id, $form_id, $filename] = Str::split($params, '/');
+
+            if (csrf($csrf) === false) {
+                return go('error');
+            }
+
+            header('Content-Type: text/csv');
+            header("Content-Disposition: attachment;filename={$filename}");
+            
+            $formRequest = new Request(compact('page_id', 'form_id'));
+            return $formRequest->download();
             
         }
     ]

@@ -7,7 +7,7 @@
       :text="$t('form.block.inbox.loading')"
     />
 
-    <k-grid v-else variant="fields" :style="{gap:'var(--spacing-2)'}">
+    <k-grid v-else variant="fields" :style="{ gap: 'var(--spacing-2)' }">
       <k-mail-list
         v-for="group in data"
         :key="group.slug"

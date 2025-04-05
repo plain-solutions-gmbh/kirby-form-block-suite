@@ -24,6 +24,8 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Templating for outgoing emails.
 
+⭐️ &nbsp; Export forms as CSV (Since 5.1.0).
+
 ⭐️ &nbsp; Create a new form field type with ease by added just 2 files (Blueprint & Template).
 
 ⭐️ &nbsp; Spam protection with an integrated honeypot.
