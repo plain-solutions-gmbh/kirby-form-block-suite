@@ -1,6 +1,6 @@
 <div class="formblock__message--error" data-form="form_error">
 
-    <p class="formblock__message__text"><?= $form->errorMessage() ?></p>
+    <div class="formblock__message__text"><?= $form->errorMessage() ?></div>
 
     <?php if(!$form->isValid()): ?>
 

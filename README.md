@@ -81,11 +81,19 @@ With the integrated mailview field you can display requests allover the panel.
 
 **Get a license**
 
-There's two license available:
-
-[Single site license](https://plain-solutions.net/?product=801346)
+[Klick here to obtain a license](https://plain-solutions.net/?product=801346)
 
 [See also the other plugins](https://plain-solutions.net/)
+
+**Validate your license**
+
+*Important notes: If you’re working in a development environment, please activate the license on the public domain. Licenses are tied to the domain they are first activated on.*
+
+To validate your license key click on this button:
+
+<img src="./.github/license.png" width="200" />
+
+...or go to *System* in the Panel and click on `plain/formblock` in the Plugins section. (Kirby > 5.0.0). You’ll be guided through the validation process from there.
 
 > If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
@@ -622,6 +630,13 @@ This example shows an error message on entering specific email adresses.
 
 ---
 
+**Problem:** Uncaught TypeError (in dev tool console)
+
+**Solution:** Some servers have problems resolving symbolic links. In this case, contact your hosting.
+If it is impossible to activate symbolic links, copy the content of `site/plugins/kirby-form-block-suite/assets` to `media/plugins/plain/formblock`.
+
+---
+
 **Problem:** Got an error by saving the form in panel:
 
 ![errorfields](./.github/error_fields.png)
@@ -640,17 +655,17 @@ This example shows an error message on entering specific email adresses.
 ]
 
 ```
-> This will be ignored for Multilingual sites.
+> This will be ignored for multilingual sites.
 
 ---
 
 **Problem:** Error to validate license key
 
 **Solutions:**
-- If you haven't got a license yet? Get a [single site license](https://plain-solutions.net/?product=801346).
+- If you haven't got a license yet? Get a [license](https://plain-solutions.net/?product=801346).
 - Your server needs a connection to the license server: [https://plain-solutions.net](https://plain-solutions.net)
 - Your license key was already validated by another host: Send me [an email](mailto:kirby@plain-solutions.net) **with your license key** to release the assigment.
-- Delete the license file `/site/config/.formblock_license` and try again. 
+- Delete the license file `/site/config/.formblock_license` (if present) and try again. 
 
 ---
 

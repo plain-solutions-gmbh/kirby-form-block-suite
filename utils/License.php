@@ -79,7 +79,7 @@ class License
         }
         return [
             'title'     => $this->title,
-            'cta'       => 'license.activate.label',
+            'cta'       => I18n::translate('license.activate.label'),
             'dialog'    => $this->prefix . "/register"
         ];
     }
