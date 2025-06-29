@@ -38,6 +38,8 @@ return [
         'action' => function ($params) {
 
             [$csrf, $page_id, $form_id, $filename] = Str::split($params, '/');
+            
+            $page_id = str_replace('__DS__', '/', $page_id);
 
             if (csrf($csrf) === false) {
                 return go('error');

@@ -106,7 +106,9 @@ class Request
 
         site()->kirby()->impersonate('kirby');
 
-        $this->container = $this->page->createChild([
+        $this->container = $this->page->childrenAndDrafts()->findBy('slug', $props['form_id']);
+
+        $this->container ??= $this->page->createChild([
             'slug' => $props['form_id'],
             'template' => 'formcontainer',
             'content' => [ 
@@ -350,12 +352,15 @@ class Request
     }
 
     private function downloadLink($form_id, $title) {
+
+        $encodedPageId = str_replace('/', '__DS__', $this->page_id);
+
         return A::join([
             kirby()->url(),
             'form',
             'download',
             csrf(),
-            $this->page_id,
+            $encodedPageId,
             $form_id,
             Str::slug($title)
         ], '/') . '.csv';
