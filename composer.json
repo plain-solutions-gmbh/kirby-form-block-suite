@@ -2,7 +2,7 @@
     "name": "plain/kirby-form-block-suite",
     "description": "Contactform based on Kirby blocks.",
     "type": "kirby-plugin",
-    "version": "5.1.3",
+    "version": "5.1.4",
     "license": "GPL-3.0-only",
 	"homepage": "https://plain-solutions.net/801346",
 	"authors": [
