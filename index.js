@@ -1,1 +1,437 @@
-(function(){"use strict";var g=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",[n("k-grid",{staticStyle:{gap:"0.25rem","--columns":"12"}},[n("k-input",t._b({staticStyle:{"--width":"1/3"},attrs:{type:"text"},on:{input:t.onInput},model:{value:t.content.name,callback:function(i){t.$set(t.content,"name",i)},expression:"content.name"}},"k-input",t.field("name"),!1)),t.loading?n("k-box",{staticStyle:{"--width":"2/3"},attrs:{theme:"info",icon:"loader",text:t.$t("form.block.inbox.loading")}}):n("k-box",{staticStyle:{"--width":"2/3"},attrs:{icon:"email",theme:t.status.theme,text:t.$t("form.block.inbox.show")+" ("+t.status.text+")"},nativeOn:{click:function(i){return t.open.apply(null,arguments)}}})],1)],1)},$=[];function d(t,e,n,i,a,r,_,W){var s=typeof t=="function"?t.options:t;e&&(s.render=e,s.staticRenderFns=n,s._compiled=!0),i&&(s.functional=!0),r&&(s._scopeId="data-v-"+r);var o;if(_?(o=function(l){l=l||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,!l&&typeof __VUE_SSR_CONTEXT__!="undefined"&&(l=__VUE_SSR_CONTEXT__),a&&a.call(this,l),l&&l._registeredComponents&&l._registeredComponents.add(_)},s._ssrRegister=o):a&&(o=W?function(){a.call(this,(s.functional?this.parent:this).$root.$options.shadowRoot)}:a),o)if(s.functional){s._injectStyles=o;var G=s.render;s.render=function(K,v){return o.call(v),G(K,v)}}else{var m=s.beforeCreate;s.beforeCreate=m?[].concat(m,o):[o]}return{exports:t,options:s}}const y={data(){return{migrate:!1,loading:!0,status:{type:Object,default:{count:"-",read:"-",fail:"-",state:"wait"}}}},destroyed(){window.panel.events.off("form.update",this.updateCount)},created(){window.panel.events.on("content/STATUS",function(t){t.type=="content/STATUS"&&window.panel.events.emit("form.update")}),this.content.formid=this.id,this.updateCount(),window.panel.events.on("form.update",this.updateCount)},methods:{updateCount(){const t=this;this.$api.get("formblock",{action:"info",form_id:this.id,params:JSON.stringify({form_name:this.content.name})}).then(e=>{t.status=e,this.loading=!1})},onInput(t){this.$emit("update",t)}}},u={};var k=d(y,g,$,!1,b,null,null,null);function b(t){for(let e in u)this[e]=u[e]}var w=function(){return k.exports}(),x=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("k-dialog",t._b({ref:"dialog",staticClass:"k-field-type-page-dialog",on:{cancel:function(i){return t.$emit("cancel")},submit:function(i){return t.$emit("submit")}}},"k-dialog",t.$props,!1),[n("k-headline",[t._v(t._s(t.current.title))]),t.current.formfields?n("div",[n("table",{staticClass:"k-field-type-page-dialog-table"},t._l(t.current.formfields,function(i,a){return n("tr",{key:a,class:"field_"+a},[n("td",[t._v(t._s(i))]),t.current.attachment[a]?n("td",[n("ul",{staticClass:"k-field-type-page-dialog-linklist"},t._l(t.current.attachment[a],function(r){return n("li",{key:r.tmp_name},[n("a",{staticClass:"k-field-type-page-dialog-link",attrs:{href:r.location,download:r.name}},[n("k-icon",{attrs:{type:"attachment"}}),t._v(" "+t._s(r.name)+" ")],1)])}),0)]):n("td",[t._v(" "+t._s(t.current.formdata[a])+" ")])])}),0)]):n("div",{staticClass:"k-field-type-page-dialog-table"},[t._v(" "+t._s(t.current.formdata.summary)+" ")]),t.current.error?n("k-box",{attrs:{text:t.current.error,theme:"negative"}}):t._e()],1)},S=[],Q="";const O={extends:"k-dialog",props:{current:{type:Object,default(){}}}},c={};var C=d(O,x,S,!1,M,null,null,null);function M(t){for(let e in c)this[e]=c[e]}var R=function(){return C.exports}(),D=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"k-mailview-list"},[t.hideheader?t._e():n("div",{staticClass:"k-mailview-list-header"},[n("k-button",{attrs:{icon:"download",variant:"filled",link:t.value.header.download,theme:t.value.header.state.theme,download:!0}}),n("k-box",{attrs:{theme:t.value.header.state.theme,icon:t.isOpen?"angle-up":"angle-down",text:t.headerText},nativeOn:{click:function(i){return t.toggleOpen()}}})],1),t.isOpen||t.hideheader?n("k-items",{attrs:{items:t.items}}):t._e()],1)},T=[],Z="";const Y={props:{value:{type:Array,required:!0},showuuid:Boolean,hideheader:Boolean},data(){return{isOpen:!1}},computed:{items(){return this.value.content.length===0?[{text:this.$t("form.block.inbox.empty"),theme:"disabled"}]:this.value.content},headerText(){return this.showuuid?this.value.header.name+" ("+this.value.uuid+")":this.value.header.name}},created(){this.isOpen=sessionStorage.getItem(`plain.form.showOpen.${this.value.page}.${this.value.uuid}`)==="on"},methods:{toggleOpen(){this.isOpen=!this.isOpen,sessionStorage.setItem(`plain.form.showOpen.${this.value.page}.${this.value.uuid}`,this.isOpen?"on":"off")}}},f={};var B=d(Y,D,T,!1,j,null,null,null);function j(t){for(let e in f)this[e]=f[e]}var L=function(){return B.exports}(),F=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"k-field-type-mail-view"},[t.loading?n("k-box",{attrs:{theme:"info",icon:"loader",text:t.$t("form.block.inbox.loading")}}):n("k-grid",{style:{gap:"var(--spacing-2)"},attrs:{variant:"fields"}},[t._l(t.data,function(i){return n("k-mail-list",{key:i.slug,staticClass:"k-table k-field-type-mail-table",staticStyle:{"--width":"1/1"},attrs:{hideheader:t.hideheader,value:i,showuuid:t.isUnique(i)},on:{setRead:t.setRead,deleteMail:t.deleteMail}})}),t.data.length===0?n("k-box",{staticStyle:{"--width":"1/1"},attrs:{theme:"info",text:t.$t("form.block.inbox.empty")}}):t._e()],2),n("k-plain-license",{attrs:{prefix:"formblock"}})],1)},N=[];const E={props:{value:{type:String,default:""},dateformat:{type:String,default:"DD.MM.YYYY HH:mm"},forms:{type:Array,default:()=>[]},formData:{type:Object,default:()=>{}}},data(){return{data:[],filter:[],loading:!0,hideheader:!1}},computed:{thispage(){return this.$attrs.endpoints.model.replace("/pages/","").replace(/\+/g,"/")}},created(){this.formData.formid?(this.filter=[this.formData.formid],this.hideheader=!0):this.filter=this.forms,this.updateList(),window.panel.events.on("form.update",this.updateList)},destroyed(){window.panel.events.off("form.update",this.updateList)},methods:{send(t,e,n){var i,a;this.$api.get("formblock",{action:t,page_id:this.thispage,request_id:(i=e==null?void 0:e.request)!=null?i:"",form_id:(a=e==null?void 0:e.form)!=null?a:"",params:JSON.stringify(e)}).then(r=>{this.loading=!1,n(r)})},isUnique(t){return this.data.filter(e=>t.header.page===e.header.page&&t.header.name===e.header.name).length>1},updateList(){let t=this;this.send("requestsArray",{filter:this.filter},e=>{this.data=Object.keys(e).map(function(n){return e[n].content=e[n].content.map(i=>{i.formid=n,i.attachment="attachment"in i?JSON.parse(i.attachment):!1,i.formdata=JSON.parse(i.formdata),i.formfields="formfields"in i?JSON.parse(i.formfields):!1;let a=t.$library.dayjs(i.received,"YYYY-MM-DD HH:mm:ss");return i.info=a.isValid()?a.format(t.dateformat):"",i.text=t.getLabel(i),i.image=t.getImage(i),i.buttons=[t.getButton("info",i)],i.options=[i.read===""?t.getButton("unread",i):t.getButton("read",i),t.getButton("delete",i)],i}),e[n]})})},setRead(t,e){this.send("update",{form:e.formid,request:e.slug,read:t==!1?"":this.$library.dayjs().format("YYYY-MM-DD HH:mm:ss")},()=>{window.panel.events.emit("form.update"),this.$panel.dialog.close()})},getLabel(t){return t.display?t.display:this.value?this.$helper.string.template(this.value,t.formdata):t.id},getButton(t,e){return t==="delete"?{icon:"trash",text:this.$t("form.block.inbox.delete"),click:()=>this.send("delete",{form:e.formid,request:e.slug},()=>{window.panel.events.emit("form.update")})}:t==="unread"?{icon:"preview",text:this.$t("form.block.inbox.asread"),click:()=>this.setRead(!0,e)}:t==="read"?{icon:"hidden",text:this.$t("form.block.inbox.asunread"),click:()=>this.setRead(!1,e)}:{icon:"info",click:()=>this.$panel.dialog.open({component:"k-mail-dialog",props:{current:e,size:"medium",submitButton:e.read?{}:this.getButton("unread",e),cancelButton:e.read?this.getButton("read",e):{}}})}},getImage(t){return t.read?{icon:"circle",color:"yellow",back:"transparent"}:t.error?{icon:"cancel",color:"red",back:"transparent"}:{icon:"circle-filled",color:"green",back:"transparent"}}}},h={};var H=d(E,F,N,!1,I,null,null,null);function I(t){for(let e in h)this[e]=h[e]}var U=function(){return H.exports}(),A=function(){var t=this,e=t.$createElement,n=t._self._c||e;return t.license!==null?n("div",{staticClass:"k-plain-license",style:t.containerStyle,on:{click:t.showDialog}},[n("k-text",{style:t.textStyle,attrs:{size:"tiny",html:t.licenseText}}),n("k-icon",{style:t.iconStyle,attrs:{type:"alert"}})],1):t._e()},J=[],q="";const V={props:{prefix:{type:String,default(){return null}},styling:{type:Object,default(){return{}}}},data(){return{license:null}},computed:{licenseText(){return this.license?`<strong>${this.license.title}</strong><br />${this.license.cta}`:""},containerStyle(){return this.styling&&this.styling.container?this.styling.container:this.styling},textStyle(){var t,e;return(e=(t=this.styling)==null?void 0:t.text)!=null?e:{}},iconStyle(){var t,e;return(e=(t=this.styling)==null?void 0:t.icon)!=null?e:{}}},created(){this.license=window.panel.translation.data&&window.panel.translation.data["plain.licenses."+this.prefix]?window.panel.translation.data["plain.licenses."+this.prefix]:null,window.panel.translation.data["plain.licenses."+this.prefix]=null},methods:{showDialog(){this.license&&this.license.dialog&&this.$dialog(this.license.dialog)}}},p={};var z=d(V,A,J,!1,P,null,null,null);function P(t){for(let e in p)this[e]=p[e]}var X=function(){return z.exports}();window.panel.plugin("plain/formblock",{fields:{mailview:U},components:{"k-mail-list":L,"k-mail-dialog":R,"k-plain-license":X},blocks:{form:w}})})();
+(function() {
+  "use strict";
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
+      options._compiled = true;
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const _sfc_main$4 = {
+    data() {
+      return {
+        migrate: false,
+        loading: true,
+        status: {
+          type: Object,
+          default: {
+            count: "-",
+            read: "-",
+            fail: "-",
+            state: "wait"
+          }
+        }
+      };
+    },
+    destroyed() {
+      window.panel.events.off("form.update", this.updateCount);
+    },
+    created() {
+      window.panel.events.on("content/STATUS", function(mutation) {
+        if (mutation.type == "content/STATUS")
+          window.panel.events.emit("form.update");
+      });
+      this.content.formid = this.id;
+      this.updateCount();
+      window.panel.events.on("form.update", this.updateCount);
+    },
+    methods: {
+      updateCount() {
+        const $this = this;
+        this.$api.get("formblock", {
+          action: "info",
+          form_id: this.id,
+          params: JSON.stringify({ form_name: this.content.name })
+        }).then((data) => {
+          $this.status = data;
+          this.loading = false;
+        });
+      },
+      onInput(value) {
+        this.$emit("update", value);
+      }
+    }
+  };
+  var _sfc_render$4 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", [_c("k-grid", { staticStyle: { "gap": "0.25rem", "--columns": "12" } }, [_c("k-input", _vm._b({ staticStyle: { "--width": "1/3" }, attrs: { "type": "text" }, on: { "input": _vm.onInput }, model: { value: _vm.content.name, callback: function($$v) {
+      _vm.$set(_vm.content, "name", $$v);
+    }, expression: "content.name" } }, "k-input", _vm.field("name"), false)), _vm.loading ? _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-box", { staticStyle: { "--width": "2/3" }, attrs: { "icon": "email", "theme": _vm.status.theme, "text": _vm.$t("form.block.inbox.show") + " (" + _vm.status.text + ")" }, nativeOn: { "click": function($event) {
+      return _vm.open.apply(null, arguments);
+    } } })], 1)], 1);
+  };
+  var _sfc_staticRenderFns$4 = [];
+  _sfc_render$4._withStripped = true;
+  var __component__$4 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$4,
+    _sfc_render$4,
+    _sfc_staticRenderFns$4
+  );
+  __component__$4.options.__file = "/Users/romangsponer/Cloud/_kirby/kdev/site/plugins/kirby-form-block-suite/src/components/blocks/Form.vue";
+  const Form = __component__$4.exports;
+  const _sfc_main$3 = {
+    extends: "k-dialog",
+    props: {
+      current: {
+        type: Object,
+        default() {
+        }
+      }
+    }
+  };
+  var _sfc_render$3 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("k-dialog", _vm._b({ ref: "dialog", staticClass: "k-field-type-page-dialog", on: { "cancel": function($event) {
+      return _vm.$emit("cancel");
+    }, "submit": function($event) {
+      return _vm.$emit("submit");
+    } } }, "k-dialog", _vm.$props, false), [_c("k-headline", [_vm._v(_vm._s(_vm.current.title))]), _vm.current.formfields ? _c("div", [_c("table", { staticClass: "k-field-type-page-dialog-table" }, _vm._l(_vm.current.formfields, function(label, key) {
+      return _c("tr", { key, class: "field_" + key }, [_c("td", [_vm._v(_vm._s(label))]), _vm.current.attachment[key] ? _c("td", [_c("ul", { staticClass: "k-field-type-page-dialog-linklist" }, _vm._l(_vm.current.attachment[key], function(f) {
+        return _c("li", { key: f.tmp_name }, [_c("a", { staticClass: "k-field-type-page-dialog-link", attrs: { "href": f.location, "download": f.name } }, [_c("k-icon", { attrs: { "type": "attachment" } }), _vm._v(" " + _vm._s(f.name) + " ")], 1)]);
+      }), 0)]) : _c("td", [_vm._v(" " + _vm._s(_vm.current.formdata[key]) + " ")])]);
+    }), 0)]) : _c("div", { staticClass: "k-field-type-page-dialog-table" }, [_vm._v(" " + _vm._s(_vm.current.formdata.summary) + " ")]), _vm.current.error ? _c("k-box", { attrs: { "text": _vm.current.error, "theme": "negative" } }) : _vm._e()], 1);
+  };
+  var _sfc_staticRenderFns$3 = [];
+  _sfc_render$3._withStripped = true;
+  var __component__$3 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$3,
+    _sfc_render$3,
+    _sfc_staticRenderFns$3
+  );
+  __component__$3.options.__file = "/Users/romangsponer/Cloud/_kirby/kdev/site/plugins/kirby-form-block-suite/src/components/dialog/Form.vue";
+  const MailDialog = __component__$3.exports;
+  const _sfc_main$2 = {
+    props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      showuuid: Boolean,
+      hideheader: Boolean
+    },
+    data() {
+      return {
+        isOpen: false
+      };
+    },
+    computed: {
+      items() {
+        const a = this.value.content;
+        if (a.length === 0) {
+          return [
+            {
+              text: this.$t("form.block.inbox.empty"),
+              theme: "disabled"
+            }
+          ];
+        }
+        return this.value.content;
+      },
+      headerText() {
+        if (this.showuuid) {
+          return this.value.header.name + " (" + this.value.uuid + ")";
+        }
+        return this.value.header.name;
+      }
+    },
+    created() {
+      this.isOpen = sessionStorage.getItem(
+        `plain.form.showOpen.${this.value.page}.${this.value.uuid}`
+      ) === "on";
+    },
+    methods: {
+      toggleOpen() {
+        this.isOpen = !this.isOpen;
+        sessionStorage.setItem(
+          `plain.form.showOpen.${this.value.page}.${this.value.uuid}`,
+          this.isOpen ? "on" : "off"
+        );
+      }
+    }
+  };
+  var _sfc_render$2 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-mailview-list" }, [!_vm.hideheader ? _c("div", { staticClass: "k-mailview-list-header" }, [_c("k-box", { attrs: { "theme": _vm.value.header.state.theme, "icon": _vm.isOpen ? "angle-up" : "angle-down", "text": _vm.headerText }, nativeOn: { "click": function($event) {
+      return _vm.toggleOpen();
+    } } }), _c("k-button", { attrs: { "icon": "download", "variant": "filled", "link": _vm.value.header.download, "theme": _vm.value.header.state.theme, "download": true } })], 1) : _c("k-button", { staticClass: "k-mailview-export", attrs: { "icon": "download", "link": _vm.value.header.download, "text": this.$t("form.block.inbox.export"), "download": true } }), _vm.isOpen || _vm.hideheader ? _c("k-items", { attrs: { "items": _vm.items } }) : _vm._e()], 1);
+  };
+  var _sfc_staticRenderFns$2 = [];
+  _sfc_render$2._withStripped = true;
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$2,
+    _sfc_render$2,
+    _sfc_staticRenderFns$2
+  );
+  __component__$2.options.__file = "/Users/romangsponer/Cloud/_kirby/kdev/site/plugins/kirby-form-block-suite/src/components/MailList.vue";
+  const MailList = __component__$2.exports;
+  const _sfc_main$1 = {
+    props: {
+      value: {
+        type: String,
+        default: ""
+      },
+      dateformat: {
+        type: String,
+        default: "DD.MM.YYYY HH:mm"
+      },
+      forms: {
+        type: Array,
+        default: () => []
+      },
+      formData: {
+        type: Object,
+        default: () => {
+        }
+      }
+    },
+    data() {
+      return {
+        data: [],
+        filter: [],
+        loading: true,
+        hideheader: false
+      };
+    },
+    computed: {
+      thispage() {
+        return this.$attrs.endpoints.model.replace("/pages/", "").replace(/\+/g, "/");
+      }
+    },
+    created() {
+      if (this.formData.formid) {
+        this.filter = [this.formData.formid];
+        this.hideheader = true;
+      } else {
+        this.filter = this.forms;
+      }
+      this.updateList();
+      window.panel.events.on("form.update", this.updateList);
+    },
+    destroyed() {
+      window.panel.events.off("form.update", this.updateList);
+    },
+    methods: {
+      send(action, params, callback) {
+        this.$api.get("formblock", {
+          action,
+          page_id: this.thispage,
+          request_id: (params == null ? void 0 : params.request) ?? "",
+          form_id: (params == null ? void 0 : params.form) ?? "",
+          params: JSON.stringify(params)
+        }).then((data) => {
+          this.loading = false;
+          callback(data);
+        });
+      },
+      isUnique(a) {
+        return this.data.filter((b) => {
+          return a.header.page === b.header.page && a.header.name === b.header.name;
+        }).length > 1;
+      },
+      updateList() {
+        let $this = this;
+        this.send("requestsArray", { filter: this.filter }, (data) => {
+          this.data = Object.keys(data).map(function(key) {
+            data[key].content = data[key].content.map((req) => {
+              req.formid = key;
+              req.attachment = "attachment" in req ? JSON.parse(req.attachment) : false;
+              req.formdata = JSON.parse(req.formdata);
+              req.formfields = "formfields" in req ? JSON.parse(req.formfields) : false;
+              let thisDate = $this.$library.dayjs(
+                req.received,
+                "YYYY-MM-DD HH:mm:ss"
+              );
+              req.info = thisDate.isValid() ? thisDate.format($this.dateformat) : "";
+              req.text = $this.getLabel(req);
+              req.image = $this.getImage(req);
+              req.buttons = [$this.getButton("info", req)];
+              req.options = [
+                req.read === "" ? $this.getButton("unread", req) : $this.getButton("read", req),
+                $this.getButton("delete", req)
+              ];
+              return req;
+            });
+            return data[key];
+          });
+        });
+      },
+      setRead(state, item) {
+        this.send(
+          "update",
+          {
+            form: item.formid,
+            request: item.slug,
+            read: state == false ? "" : this.$library.dayjs().format("YYYY-MM-DD HH:mm:ss")
+          },
+          () => {
+            window.panel.events.emit("form.update");
+            this.$panel.dialog.close();
+          }
+        );
+      },
+      getLabel(req) {
+        if (req.display) return req.display;
+        if (!this.value) return req.id;
+        return this.$helper.string.template(this.value, req.formdata);
+      },
+      getButton(type, item) {
+        if (type === "delete") {
+          return {
+            icon: "trash",
+            text: this.$t("form.block.inbox.delete"),
+            click: () => this.send(
+              "delete",
+              {
+                form: item.formid,
+                request: item.slug
+              },
+              () => {
+                window.panel.events.emit("form.update");
+              }
+            )
+          };
+        }
+        if (type === "unread") {
+          return {
+            icon: "preview",
+            text: this.$t("form.block.inbox.asread"),
+            click: () => this.setRead(true, item)
+          };
+        }
+        if (type === "read") {
+          return {
+            icon: "hidden",
+            text: this.$t("form.block.inbox.asunread"),
+            click: () => this.setRead(false, item)
+          };
+        }
+        return {
+          icon: "info",
+          click: () => this.$panel.dialog.open({
+            component: "k-mail-dialog",
+            props: {
+              current: item,
+              size: "medium",
+              submitButton: item.read ? {} : this.getButton("unread", item),
+              cancelButton: item.read ? this.getButton("read", item) : {}
+            }
+          })
+        };
+      },
+      getImage(req) {
+        if (req.read)
+          return {
+            icon: "circle",
+            color: "yellow",
+            back: "transparent"
+          };
+        if (req.error)
+          return {
+            icon: "cancel",
+            color: "red",
+            back: "transparent"
+          };
+        return {
+          icon: "circle-filled",
+          color: "green",
+          back: "transparent"
+        };
+      }
+    }
+  };
+  var _sfc_render$1 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "k-field-type-mail-view" }, [_vm.loading ? _c("k-box", { attrs: { "theme": "info", "icon": "loader", "text": _vm.$t("form.block.inbox.loading") } }) : _c("k-grid", { style: { gap: "var(--spacing-2)" }, attrs: { "variant": "fields" } }, [_vm._l(_vm.data, function(group) {
+      return _c("k-mail-list", { key: group.slug, staticClass: "k-table k-field-type-mail-table", staticStyle: { "--width": "1/1" }, attrs: { "hideheader": _vm.hideheader, "value": group, "showuuid": _vm.isUnique(group) }, on: { "setRead": _vm.setRead, "deleteMail": _vm.deleteMail } });
+    }), _vm.data.length === 0 ? _c("k-box", { staticStyle: { "--width": "1/1" }, attrs: { "theme": "info", "text": _vm.$t("form.block.inbox.empty") } }) : _vm._e()], 2), _c("k-plain-license", { attrs: { "prefix": "formblock" } })], 1);
+  };
+  var _sfc_staticRenderFns$1 = [];
+  _sfc_render$1._withStripped = true;
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$1,
+    _sfc_render$1,
+    _sfc_staticRenderFns$1
+  );
+  __component__$1.options.__file = "/Users/romangsponer/Cloud/_kirby/kdev/site/plugins/kirby-form-block-suite/src/components/fields/MailView.vue";
+  const MailView = __component__$1.exports;
+  const _sfc_main = {
+    props: {
+      prefix: {
+        type: String,
+        default() {
+          return null;
+        }
+      },
+      styling: {
+        type: Object,
+        default() {
+          return {};
+        }
+      }
+    },
+    data() {
+      return {
+        license: null
+      };
+    },
+    computed: {
+      licenseText() {
+        if (!this.license) return "";
+        return `<strong>${this.license.title}</strong><br />${this.license.cta}`;
+      },
+      containerStyle() {
+        return this.styling && this.styling.container ? this.styling.container : this.styling;
+      },
+      textStyle() {
+        var _a;
+        return ((_a = this.styling) == null ? void 0 : _a.text) ?? {};
+      },
+      iconStyle() {
+        var _a;
+        return ((_a = this.styling) == null ? void 0 : _a.icon) ?? {};
+      }
+    },
+    created() {
+      this.license = window.panel.translation.data && window.panel.translation.data["plain.licenses." + this.prefix] ? window.panel.translation.data["plain.licenses." + this.prefix] : null;
+      window.panel.translation.data["plain.licenses." + this.prefix] = null;
+    },
+    methods: {
+      showDialog() {
+        if (this.license && this.license.dialog) {
+          this.$dialog(this.license.dialog);
+        }
+      }
+    }
+  };
+  var _sfc_render = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _vm.license !== null ? _c("div", { staticClass: "k-plain-license", style: _vm.containerStyle, on: { "click": _vm.showDialog } }, [_c("k-text", { style: _vm.textStyle, attrs: { "size": "tiny", "html": _vm.licenseText } }), _c("k-icon", { style: _vm.iconStyle, attrs: { "type": "alert" } })], 1) : _vm._e();
+  };
+  var _sfc_staticRenderFns = [];
+  _sfc_render._withStripped = true;
+  var __component__ = /* @__PURE__ */ normalizeComponent(
+    _sfc_main,
+    _sfc_render,
+    _sfc_staticRenderFns
+  );
+  __component__.options.__file = "/Users/romangsponer/Cloud/_kirby/kdev/site/plugins/kirby-form-block-suite/utils/PlainLicense.vue";
+  const PlainLicense = __component__.exports;
+  window.panel.plugin("plain/formblock", {
+    fields: {
+      mailview: MailView
+    },
+    components: {
+      "k-mail-list": MailList,
+      "k-mail-dialog": MailDialog,
+      "k-plain-license": PlainLicense
+    },
+    blocks: {
+      form: Form
+    }
+  });
+})();

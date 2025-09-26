@@ -32,7 +32,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Pre-styled form
 
-⭐️ &nbsp; Full language support for English, German, Italian, French, Lithuanian & Hungarian
+⭐️ &nbsp; Full language support for English, German, Italian, French, Lithuanian, Hungarian & Netherlands
 
 # Table of content
 

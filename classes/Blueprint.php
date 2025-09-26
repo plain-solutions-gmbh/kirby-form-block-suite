@@ -190,7 +190,7 @@ class Blueprint
             return false;
         };
 
-        $text = '** With & #123;&#123; &#125;&#125; you can insert incoming values using placeholder.**';
+        $text = '** With &#123;&#123; &#125;&#125; you can insert incoming values using placeholder.**';
         foreach (static::getPlaceholders() as $key => $value) {
             $text .= "\n**\{\{ $key \}\}**: ".$value['label'];
         }

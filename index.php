@@ -9,4 +9,4 @@ if (option('microman.formblock.from_email')) {
     throw new Exception('Deprecation error: Option prefix microman.formblock changed to plain.formblock in config.php');
 };
 
-Plugin::load('plain/formblock', autoloader: ['classes', 'config', 'snippets', 'translations']);
+Plugin::load('plain/formblock', autoloader: true);

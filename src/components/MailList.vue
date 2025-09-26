@@ -2,6 +2,12 @@
 <template>
   <div class="k-mailview-list">
     <div v-if="!hideheader" class="k-mailview-list-header">
+      <k-box
+        :theme="value.header.state.theme"
+        :icon="isOpen ? 'angle-up' : 'angle-down'"
+        :text="headerText"
+        @click.native="toggleOpen()"
+      />
       <k-button
         icon="download"
         variant="filled"
@@ -9,14 +15,16 @@
         :theme="value.header.state.theme"
         :download="true"
       ></k-button>
-
-      <k-box
-        :theme="value.header.state.theme"
-        :icon="isOpen ? 'angle-up' : 'angle-down'"
-        :text="headerText"
-        @click.native="toggleOpen()"
-      />
     </div>
+
+    <k-button
+      v-else
+      icon="download"
+      class="k-mailview-export"
+      :link="value.header.download"
+      :text="this.$t('form.block.inbox.export')"
+      :download="true"
+    ></k-button>
 
     <k-items v-if="isOpen || hideheader" :items="items" />
   </div>
@@ -78,6 +86,16 @@ export default {
 </script>
 
 <style>
+.k-mailview-list {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  
+}
+.k-mailview-export {
+  display: flex;
+  justify-content: end;
+}
 .k-mailview-list-header {
   position: relative;
 }
