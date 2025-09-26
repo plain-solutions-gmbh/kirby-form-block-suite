@@ -156,7 +156,7 @@ class License
             ],
             'translations' => [
                 $lang => [
-                    "plain.licenses.$prefix" => $this->getLicenseObject($lang)
+                    "plain.licenses.$prefix" => $this->getLicenseObject()
                 ]
             ],
         ]);
