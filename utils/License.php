@@ -73,7 +73,7 @@ class License
     }
 
     public function saveTranslate($key) {
-        return App::instance()->translation()->get($key);
+        return App::instance()->translation()->get($key) ?? App::instance()->translation('en')->get($key);
     }
 
     public function getLicenseObject(): ?array
