@@ -228,6 +228,10 @@ class Request
         return false;
     }
 
+    public function deleteAll() {
+        $this->container->delete(true);
+        return true;
+    }
 
     /**
      * Update container

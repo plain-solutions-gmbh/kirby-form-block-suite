@@ -16,8 +16,8 @@
         style="--width: 1/1"
         :value="group"
         :showuuid="isUnique(group)"
-        @setRead="setRead"
-        @deleteMail="deleteMail"
+        @refresh="updateList"
+        
       />
 
       <k-box
