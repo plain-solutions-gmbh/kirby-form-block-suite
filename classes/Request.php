@@ -10,13 +10,11 @@ namespace Plain\Formblock;
  * @license   https://plain-solutions.net/terms/ 
  */
 
-use Kirby\Cms\App;
 use Kirby\Toolkit\I18n;
 use Kirby\Http\Request\Files;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
-use Kirby\Uuid\Uuid;
 
 class Request
 {
