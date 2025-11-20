@@ -370,16 +370,52 @@ class Request
         ], '/') . '.csv';
     }
 
+    /**
+     * Create a CSV line with proper escaping for delimiters and newlines
+     */
+    private function csvLine(array $columns): string
+    {
+        $normalized = array_map(static function ($value) {
+            if ($value === null) {
+                $value = '';
+            } elseif (is_bool($value)) {
+                $value = $value ? '1' : '0';
+            } elseif (is_array($value)) {
+                $value = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            } elseif (is_object($value)) {
+                if (method_exists($value, 'value')) {
+                    $value = $value->value();
+                } elseif (method_exists($value, '__toString')) {
+                    $value = (string) $value;
+                } else {
+                    $value = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                }
+            }
+
+            $string = (string) $value;
+
+            return str_replace(["\r\n", "\r"], "\n", $string);
+        }, $columns);
+
+        $stream = fopen('php://temp', 'r+');
+        fputcsv($stream, $normalized, ';');
+        rewind($stream);
+        $line = rtrim(stream_get_contents($stream), "\r\n");
+        fclose($stream);
+
+        return $line;
+    }
+
     public function download()
     {
 
         $output = null;
 
-        function parseField($field) {
+        $parseField = static function ($field) {
             $array = json_decode($field->value(), true);
             unset($array['summary']);
             return array_values($array);
-        }
+        };
 
         foreach ($this->container->drafts()->sortBy('received', 'desc') as $b) {
 
@@ -387,11 +423,16 @@ class Request
             $received = $content->received()->toValue();
             $id = $content->slug();
 
-            $output ??= A::join(['ID', ...parseField($content->formfields()), 'Received'], ';') . "\n";
-            $output .= A::join([$id, ...parseField($content->formdata()), $received], ';') . "\n";
-            
+            if ($output === null) {
+                $header = array_merge(['ID'], $parseField($content->formfields()), ['Received']);
+                $output = $this->csvLine($header) . "\n";
+            }
+
+            $row = array_merge([$id], $parseField($content->formdata()), [$received]);
+            $output .= $this->csvLine($row) . "\n";
+
         }
-        
+
         return $output;
     }
 
