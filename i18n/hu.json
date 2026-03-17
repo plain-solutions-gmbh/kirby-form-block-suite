@@ -139,6 +139,8 @@
   "form.block.fromfields.captcha.ask": "Feladat meghatározása",
   "form.block.options.notify_placeholder": "Név <mail@domain.ch>",
   "form.block.inbox.export": "CSV exportálása",
+  "form.block.inbox.storage": "Üzenetek mentése",
+  "form.block.inbox.storage.disabled": "Üzenetek tárolása letiltva",
   "marektplace.api.error": "A kérés sikertelen, kérjük, lépjen kapcsolatba az ügyfélszolgálattal.",
   "marketplace.domain.text.domain": "A licenc a <strong>{host}</strong> domainre lesz aktiválva.",
   "marketplace.login.headline.help": "{{additional}}}Ha először használja a Piacteret, először <a href=\"{{buy}}\" targe=\"_blank\">meg kell vásárolnia egy licencet</a>.",

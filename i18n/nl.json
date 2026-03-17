@@ -139,6 +139,8 @@
   "form.block.license.error.test": "De licentietool is momenteel in testmodus. Probeer het later opnieuw.",
   "form.block.fromfields.captcha.info": "Gebruik slechts één keer per formulier!",
   "form.block.inbox.export": "CSV exporteren",
+  "form.block.inbox.storage": "Berichten opslaan",
+  "form.block.inbox.storage.disabled": "Berichtopslag uitgeschakeld",
   "marektplace.api.error": "Het verzoek is mislukt, neem contact op met ondersteuning.",
   "marketplace.domain.text.domain": "Je licentie wordt geactiveerd voor het domein <strong>{host}</strong>.",
   "marketplace.login.headline.help": "{{additional}}Als u de Marktplaats voor het eerst gebruikt, moet u eerst <a href=\"{{buy}}\" targe=\"_blank\">een licentie kopen</a>.",

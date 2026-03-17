@@ -30,20 +30,34 @@
   box-shadow: none;
   border-radius: 0;
 }
+.k-mailview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
 .k-mailview-buttons {
   display: flex;
-  justify-content: end;
+  align-items: center;
+}
+.k-mailview-storage-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+.k-mailview-storage-label {
+  font-size: var(--text-sm);
+  white-space: nowrap;
 }
 .k-mailview-list-header {
   position: relative;
 }
-.k-mailview-list-header>.k-button {
+.k-mailview-list-header > .k-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: var(--spacing-1);
 }
-
 .k-plain-license {
   cursor: pointer;
   display: flex;

@@ -213,6 +213,16 @@ For a clear overview, name your form blocks.
 
 > ☝️ Be carefull! Deleting form blocks will also deleting all requests of this form block without promting!
 
+## Message storage toggle
+
+For privacy reasons, the storage of form submissions can be disabled per form. A toggle is available in the inbox toolbar next to the "Delete all" and "Export CSV" buttons.
+
+- **Enabled (default):** Submissions are stored as usual and can be viewed in the inbox.
+- **Disabled:** The form works identically (notification and confirmation emails are still sent, including attachments), but no submissions are stored in the panel.
+
+When storage is disabled, the block overview displays an info message instead of the request counter.
+
+> The toggle state is persisted per form. Disabling storage does not delete existing submissions.
 
 # Advanced customizing
 

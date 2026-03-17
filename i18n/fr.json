@@ -139,6 +139,8 @@
   "form.block.fromfields.captcha.ask": "Définition de la tâche",
   "form.block.options.notify_placeholder": "Nom <mail@domain.ch>",
   "form.block.inbox.export": "Exporter CSV",
+  "form.block.inbox.storage": "Sauvegarder les messages",
+  "form.block.inbox.storage.disabled": "Stockage des messages d\u00e9sactiv\u00e9",
   "marektplace.api.error": "La demande a échoué, veuillez contacter l'assistance.",
   "marketplace.domain.text.domain": "Votre licence sera activée pour le domaine <strong>{host}</strong>.",
   "marketplace.login.headline.help": "{{additional}}Si vous utilisez la Marketplace pour la première fois, vous devez d'abord <a href=\"{{buy}}\" targe=\"_blank\">acheter une licence</a>.",

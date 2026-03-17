@@ -1,6 +1,18 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="k-mailview-list">
+    <div v-if="hideheader" class="k-mailview-toolbar">
+      <div class="k-mailview-storage-toggle">
+        <label class="k-mailview-storage-label">{{ $t('form.block.inbox.storage') }}</label>
+        <k-toggle-input :value="storageEnabled" @input="toggleStorage" />
+      </div>
+      <k-button-group v-if="value.content.length > 0" class="k-mailview-buttons">
+        <k-button icon="cancel" theme="red" :text="$t('delete.all')" @click="onDelete"></k-button>
+        <k-button icon="download" :link="value.header.download" :text="$t('form.block.inbox.export')"
+          :download="true"></k-button>
+      </k-button-group>
+    </div>
+
     <div v-if="!hideheader" class="k-mailview-list-header">
       <k-box :theme="value.header.state.theme" :icon="isOpen ? 'angle-up' : 'angle-down'" :text="headerText"
         @click.native="toggleOpen()" />
@@ -8,14 +20,10 @@
         :download="true"></k-button>
     </div>
 
-    <k-button-group v-else class="k-mailview-buttons">
-      <k-button icon="cancel" theme="red" :text="$t('delete.all')" @click="onDelete"></k-button>
-      <k-button icon="download" :link="value.header.download" :text="$t('form.block.inbox.export')"
-        :download="true"></k-button>
-
-    </k-button-group>
-
-    <k-items v-if="isOpen || hideheader" :items="items" />
+    <template v-if="isOpen || hideheader">
+      <k-box v-if="value.content.length === 0" theme="info" :text="$t('form.block.inbox.empty')" />
+      <k-items v-else :items="items" />
+    </template>
   </div>
 </template>
 
@@ -32,21 +40,11 @@ export default {
   data() {
     return {
       isOpen: false,
+      storageEnabled: true,
     };
   },
   computed: {
     items() {
-      const a = this.value.content;
-
-      if (a.length === 0) {
-        return [
-          {
-            text: this.$t("form.block.inbox.empty"),
-            theme: "disabled",
-          },
-        ];
-      }
-
       return this.value.content;
     },
     headerText() {
@@ -61,6 +59,7 @@ export default {
       sessionStorage.getItem(
         `plain.form.showOpen.${this.value.page}.${this.value.uuid}`
       ) === "on";
+    this.storageEnabled = this.value.storageEnabled !== false;
   },
   methods: {
     toggleOpen() {
@@ -69,6 +68,18 @@ export default {
         `plain.form.showOpen.${this.value.page}.${this.value.uuid}`,
         this.isOpen ? "on" : "off"
       );
+    },
+    toggleStorage(newState) {
+      this.$api
+        .get("formblock", {
+          action: 'setStorageEnabled',
+          page_id: this.value.page,
+          form_id: this.value.id,
+          params: JSON.stringify({ enabled: newState })
+        })
+        .then(() => {
+          this.storageEnabled = newState;
+        });
     },
     onDelete() {
       this.$panel.dialog.open({
@@ -105,9 +116,27 @@ export default {
 
 }
 
+.k-mailview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
+
 .k-mailview-buttons {
   display: flex;
-  justify-content: end;
+  align-items: center;
+}
+
+.k-mailview-storage-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.k-mailview-storage-label {
+  font-size: var(--text-sm);
+  white-space: nowrap;
 }
 
 .k-mailview-list-header {

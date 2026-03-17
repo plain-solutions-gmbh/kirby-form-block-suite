@@ -30,6 +30,8 @@ class Request
 
     protected $page_id;
 
+    protected $form_id;
+
     /**
      * Request container
      *
@@ -62,6 +64,7 @@ class Request
     {
         
         $this->page_id = $props['page_id'] ?? 'site';
+        $this->form_id = $props['form_id'] ?? null;
 
         //Get Page
         if ($this->page_id === 'site') {
@@ -232,6 +235,43 @@ class Request
     }
 
     /**
+     * Set storage enabled/disabled for this form
+     *
+     * @param array $params
+     * @return array
+     */
+    public function setStorageEnabled($params = [])
+    {
+        if (is_null($this->container) && $this->form_id) {
+            $this->createContainer([
+                'form_id' => $this->form_id,
+                'form_name' => $this->form_id,
+            ]);
+        }
+        if (is_null($this->container)) {
+            return ['enabled' => true];
+        }
+        $enabled = $params['enabled'] ?? true;
+        $this->updateContainer([
+            'storage_enabled' => $enabled ? 'true' : 'false'
+        ]);
+        return ['enabled' => $enabled];
+    }
+
+    /**
+     * Check if storage is enabled for a container
+     *
+     * @param \Kirby\Cms\Page|null $container
+     * @return bool
+     */
+    public function isStorageEnabled($container = null): bool
+    {
+        $container ??= $this->container;
+        if (is_null($container)) return true;
+        return $container->content()->storage_enabled()->value() !== 'false';
+    }
+
+    /**
      * Update container
      *
      * @param array $input Changes
@@ -275,7 +315,9 @@ class Request
             $this->verifyName($params['form_name']);
         }
 
-        return $this->infoPart('array');
+        $result = $this->infoPart('array');
+        $result['storageEnabled'] = $this->isStorageEnabled();
+        return $result;
 
 
     }
@@ -445,12 +487,12 @@ class Request
     public function requestsArray($props = []) {
         
         $out = array();
+        $filter = $props['filter'] ?? [];
 
         foreach ($this->forms as $a) {
 
             $content = [];
             $read = 0;
-            $filter = $props['filter'];
 
             if (count($filter) > 0 && in_array($a->slug(), $filter) === false) {
                 continue;
@@ -470,6 +512,7 @@ class Request
                 "id" => $a->slug(),
                 "page" => $this->page_id,
                 "uuid" => $a->content()->uuid()->value(),
+                "storageEnabled" => $this->isStorageEnabled($a),
                 "header" => [
                     "page" => $pagetitle,
                     "name" => $formtitle,
@@ -478,6 +521,35 @@ class Request
                 ]
             ] ;
             
+        }
+
+        // Add placeholder entries for filtered forms that have no container yet
+        foreach ($filter as $form_id) {
+            if (!isset($out[$form_id])) {
+                $pagetitle = ($this->page && $this->page->title()) ? $this->page->title()->value() : site()->title()->value();
+                $formtitle = $pagetitle . " - " . $form_id;
+
+                // Check if container exists as draft (without being in forms index)
+                $existingContainer = $this->page->childrenAndDrafts()->findBy('slug', $form_id);
+                $storageEnabled = true;
+                if ($existingContainer && $existingContainer->content()->storage_enabled()->value() === 'false') {
+                    $storageEnabled = false;
+                }
+
+                $out[$form_id] = [
+                    "content" => [],
+                    "id" => $form_id,
+                    "page" => $this->page_id,
+                    "uuid" => $existingContainer ? $existingContainer->content()->uuid()->value() : "",
+                    "storageEnabled" => $storageEnabled,
+                    "header" => [
+                        "page" => $pagetitle,
+                        "name" => $formtitle,
+                        "state" => $this->infoPart('array', $existingContainer),
+                        "download" => ""
+                    ]
+                ];
+            }
         }
 
         return $out;
@@ -544,24 +616,26 @@ class Request
                 //Push File for email upload
                 array_push($attachments, $filename);
 
-                //Save file
-                $localfile = $this->request->createFile([
-                    'source'     => $filename,
-                    'template'   => 'formfile',
-                    'filename'   => $name,
-                    'content'   => [
-                        'filename'   =>  $f['name'],
-                        'field'      => $field_slug
-                    ]
-                ]);
+                //Save file to request page (only if storage is enabled)
+                if (!is_null($this->request)) {
+                    $localfile = $this->request->createFile([
+                        'source'     => $filename,
+                        'template'   => 'formfile',
+                        'filename'   => $name,
+                        'content'   => [
+                            'filename'   =>  $f['name'],
+                            'field'      => $field_slug
+                        ]
+                    ]);
 
-                //Push fileinfos
-                array_push($filearray, [
-                    'name' => F::safeName($f['name']),
-                    'tmp_name' => $name,
-                    'location' => $localfile->url(),
-                    'size' => $f['size']
-                ]);
+                    //Push fileinfos
+                    array_push($filearray, [
+                        'name' => F::safeName($f['name']),
+                        'tmp_name' => $name,
+                        'location' => $localfile->url(),
+                        'size' => $f['size']
+                    ]);
+                }
 
             }
 
@@ -570,7 +644,9 @@ class Request
             
         }
 
-        $this->update(['attachment' => json_encode($fileinfos)]);
+        if (!is_null($this->request)) {
+            $this->update(['attachment' => json_encode($fileinfos)]);
+        }
 
         return $attachments;
         

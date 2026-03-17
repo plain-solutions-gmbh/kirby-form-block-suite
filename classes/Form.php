@@ -740,36 +740,40 @@ static function translate($key, $default, $replace = [], $fallback = null) {
                 'allowCreate'   => true
             ]);    
 
-            $request = $this->request->create( [
-                'received' => date('Y-m-d H:i:s', time()),
-                'formdata' => json_encode($this->fieldsWithPlaceholder()),
-                'formfields' => json_encode($this->fieldsWithPlaceholder('label')),
-                'read' => "",
-                'display' => $this->message('display')
-            ], $this->hash());
+            $storageEnabled = $this->request->isStorageEnabled();
 
-            //Reqeust not already exists
-            if(!is_null($request)) {
+            if ($storageEnabled) {
+                $request = $this->request->create( [
+                    'received' => date('Y-m-d H:i:s', time()),
+                    'formdata' => json_encode($this->fieldsWithPlaceholder()),
+                    'formfields' => json_encode($this->fieldsWithPlaceholder('label')),
+                    'read' => "",
+                    'display' => $this->message('display')
+                ], $this->hash());
 
-                $this->attachments = $this->request->uploadFiles($this->attachmentFields());
-                
-                // Send notification mail
-                if (!option('plain.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
-                    $this->sendNotification();
+                //Reqeust not already exists
+                if(is_null($request)) {
+                    return;
                 }
-                
-                // Send confirmation mail
-                if (!option('plain.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
-                    $this->sendConfirmation();
-                }
-                
-                $this->hash('true');
-
-                kirby()->trigger('formblock.success:after', [
-                    'request' => $this->request,
-                ]);
-
             }
+
+            $this->attachments = $this->request->uploadFiles($this->attachmentFields());
+                
+            // Send notification mail
+            if (!option('plain.formblock.disable_notify') && !$this->isFatal() && $this->enable_notify()->isTrue()) {
+                $this->sendNotification();
+            }
+            
+            // Send confirmation mail
+            if (!option('plain.formblock.disable_confirmation') && !$this->isFatal() && $this->enable_confirm()->isTrue()) {
+                $this->sendConfirmation();
+            }
+            
+            $this->hash('true');
+
+            kirby()->trigger('formblock.success:after', [
+                'request' => $this->request,
+            ]);
 
         }
     }

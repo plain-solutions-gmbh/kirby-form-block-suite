@@ -18,6 +18,15 @@
       />
 
       <k-box
+        v-else-if="!status.storageEnabled"
+        icon="cancel"
+        style="--width: 2/3"
+        theme="info"
+        :text="$t('form.block.inbox.storage.disabled')"
+        @click.native="open"
+      />
+
+      <k-box
         v-else
         icon="email"
         style="--width: 2/3"

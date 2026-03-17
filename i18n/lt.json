@@ -139,6 +139,8 @@
   "form.block.fromfields.captcha.ask": "Užduoties apibrėžimas",
   "form.block.options.notify_placeholder": "Vardas <mail@domain.ch>",
   "form.block.inbox.export": "CSV eksportas",
+  "form.block.inbox.storage": "Išsaugoti žinutes",
+  "form.block.inbox.storage.disabled": "Žinučių saugojimas išjungtas",
   "marektplace.api.error": "Užklausa nepavyko, kreipkitės į palaikymo komandą.",
   "marketplace.domain.text.domain": "Jūsų licencija bus aktyvuota domenui <strong>{host}</strong>.",
   "marketplace.login.headline.help": "{{additional}}Jei \"Marketplace\" naudojatės pirmą kartą, pirmiausia turite <a href=\"{{{buy}}\" targe=\"_blank\">įsigyti bet kokią licenciją</a>.",

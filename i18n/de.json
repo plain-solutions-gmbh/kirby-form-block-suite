@@ -138,5 +138,7 @@
   "form.block.fromfields.captcha.fail": "Meldung bei falscher Eingabe",
   "form.block.fromfields.captcha.ask": "Aufgabendefinition",
   "form.block.options.notify_placeholder": "Name <mail@domain.ch>",
-  "form.block.inbox.export": "CSV exportieren"
+  "form.block.inbox.export": "CSV exportieren",
+  "form.block.inbox.storage": "Nachrichten speichern",
+  "form.block.inbox.storage.disabled": "Speicherung der Nachrichten deaktiviert"
 }
