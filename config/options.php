@@ -12,7 +12,14 @@ return [
     'disable_notify' => false,
     'disable_html' => false,
     'email_field' => 'email',
-    'dynamic_validation' => true
+    'dynamic_validation' => true,
+    'captcha' => [
+        'mode' => 'math',
+        'math' => [
+            'max1' => 99,
+            'max2' => 9,
+        ]
+    ]
 ]
 
 ?>

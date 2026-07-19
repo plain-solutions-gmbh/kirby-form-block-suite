@@ -27,7 +27,6 @@
         :text="$t('form.block.inbox.empty')"
       />
     </k-grid>
-    <k-plain-license prefix="formblock" />
   </div>
 </template>
 

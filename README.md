@@ -28,11 +28,11 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Create a new form field type with ease by added just 2 files (Blueprint & Template).
 
-⭐️ &nbsp; Spam protection with an integrated honeypot.
+⭐️ &nbsp; Spam protection with captcha field: math puzzle, reCaptcha (since v6) or hCaptcha (since v6).
 
 ⭐️ &nbsp; Pre-styled form
 
-⭐️ &nbsp; Full language support for English, German, Italian, French, Lithuanian, Hungarian & Netherlands
+⭐️ &nbsp; Full language support for English, German, Italian, French, Lithuanian, Hungarian, Netherlands, Spanish (Since v6) & Serbian (Since v6)
 
 # Table of content
 
@@ -60,6 +60,7 @@ With the integrated mailview field you can display requests allover the panel.
   - [Placeholders](#placeholders)
   - [Disable Functions](#disable-functions)
   - [Email templating](#email-templating)
+  - [Captcha](#captcha)
   - [Translations](#translations)
   - [Dynamic validation](#dynamic-validation)
   - [Email field](#email-field)
@@ -79,23 +80,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 `composer require plain/kirby-form-block-suite`
 
-**Get a license**
-
-[Klick here to obtain a license](https://plain-solutions.net/?product=801346)
-
 [See also the other plugins](https://plain-solutions.net/)
-
-**Validate your license**
-
-*Important notes: If you’re working in a development environment, please activate the license on the public domain. Licenses are tied to the domain they are first activated on.*
-
-To validate your license key click on this button:
-
-<img src="./.github/license.png" width="200" />
-
-...or go to *System* in the Panel and click on `plain/formblock` in the Plugins section. (Kirby > 5.0.0). You’ll be guided through the validation process from there.
-
-> If you have trouble with your license, check [Troubleshooting](#troubleshooting) at the end of this documentation.
 
 # How to use?
 
@@ -529,6 +514,40 @@ You can set the templates for outgoing emails like this:
 ],
 ```
 
+## Captcha
+
+```php
+'plain.formblock' => [
+   'captcha' => [
+        // choose one of these types: math | hcaptcha | recaptcha_v2 | recaptcha_v3
+        'mode' => 'math', //default
+
+        // If mode is 'math': Existing "calc" captcha settings
+        'math' => [
+            'min' => 1,
+            'max' => 90,
+        ],
+
+        // If mode is 'hcaptcha':
+        'hcaptcha' => [
+            'sitekey' => HCAPTCHA_SITEKEY,
+            'secret'  => HCAPTCHA_SECRET,
+        ],
+
+        // If mode is 'recaptcha_v2' or 'recaptcha_v2':
+        'recaptcha' => [
+            'sitekey' => RECAPTCHA_SITEKEY,
+            'secret'  => RECAPTCHA_SECRET,
+            // v3 only
+            'v3' => [
+                'threshold' => 0.5,
+                'action'    => 'form_submit',
+            ],
+        ]
+    ]
+],
+```
+
 ## Translations
 
 Change custom texts like this:
@@ -657,18 +676,6 @@ If it is impossible to activate symbolic links, copy the content of `site/plugin
 ```
 > This will be ignored for multilingual sites.
 
----
-
-**Problem:** Error to validate license key
-
-**Solutions:**
-- If you haven't got a license yet? Get a [license](https://plain-solutions.net/?product=801346).
-- Your server needs a connection to the license server: [https://plain-solutions.net](https://plain-solutions.net).
-- Your license key was already validated by another host [release the assigment here](https://plain-solutions.net/unlink).
-- Delete the license file `/site/config/.formblock_license` (if present) and try again. 
-
----
-
 **Problem:** Problem with the validation
 
 **Solutions:**
@@ -683,6 +690,6 @@ If you still have any questions or something is not working properly, [make an i
 
 # License
 
-By using this project, you agree to the terms and conditions outlined in our [Terms of Service](https://plain-solutions.net/terms). 
+Starting with version 6, this plugin is available under the MIT license.
 
-To acquire a license for this project, please visit our [Licensing Page](https://plain-solutions.net/801346).
+All customers who purchased this plugin receive support for one year from the date of purchase.

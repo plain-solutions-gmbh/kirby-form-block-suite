@@ -7,7 +7,7 @@ namespace Plain\Formblock;
  * @author    Roman Gsponer <support@plain-solutions.net>
  * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://plain-solutions.net/terms/ 
+ * @license   MIT / 
  */
 
 use Kirby\Cms\Block;

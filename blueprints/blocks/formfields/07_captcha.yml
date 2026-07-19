@@ -2,21 +2,18 @@ name: form.block.fromfields.captcha
 icon: bug
 
 fields:
+  info:
+    text: form.block.fromfields.captcha.info
+  required_fail:
+    type: hidden
   slug:
     type: hidden
     default: captcha-input
+    width: 1/1
   placeholder:
     type: hidden
   required:
     default: true
     type: hidden
-  ask:
-    label: form.block.fromfields.captcha.ask
-    type: text
-    help: form.block.default.help
-  fail:
-    label: form.block.fromfields.captcha.fail
-    type: text
-    help: form.block.default.help
   autofill:
     type: hidden

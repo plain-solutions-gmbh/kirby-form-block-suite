@@ -1,34 +1,21 @@
-Plain Solutions Software License  
-Version 1.1, February 2025  
+MIT License
 
-Copyright (c) 2025 Plain Solutions GmbH  
-All rights reserved.  
+Copyright (c) Plain Solutions GmbH
 
-## 1. Grant of License  
-This software is provided under GPL-3.0-only license. You are granted a non-exclusive, non-transferable, and revocable right to download, install, and use the software **for non-commercial purposes** only.  
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## 2. Permitted Use  
-- You may download and use the software for personal, educational, or research purposes.  
-- You may modify the software **for personal use only** but may not distribute modified versions.  
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## 3. Restrictions  
-- Commercial use, resale, or redistribution of the software in any form is **strictly prohibited**.  
-- You may not sublicense, rent, lease, or sell copies of this software.  
-- Decompiling, reverse engineering, or modifying the software for redistribution is not allowed.  
-
-## 4. No Warranty & Limitation of Liability  
-This software is provided "as is" without any warranties. Plain Solutions GmbH is not responsible for any damages, data loss, or other issues arising from the use of this software.  
-
-## 5. Support & Updates  
-Support and updates may be provided at the sole discretion of Plain Solutions GmbH. There is no guarantee of future updates or bug fixes.  
-
-## 6. Termination  
-Plain Solutions GmbH reserves the right to revoke this license if the terms are violated. Upon termination, you must stop using the software and delete all copies.  
-
-## 7. Governing Law  
-This license is governed by Swiss law. Any disputes shall be settled in the jurisdiction of Plain Solutions GmbH’s registered office in Raron, Switzerland.  
-
-For inquiries, please contact:  
-Plain Solutions GmbH  
-Theaterstrasse 2, 3942 Raron, Switzerland  
-Email: support@plain-solutions.net  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,20 +1,26 @@
 {
-    "name": "plain/kirby-form-block-suite",
-    "description": "Contactform based on Kirby blocks.",
-    "type": "kirby-plugin",
-    "version": "5.1.9",
-    "license": "GPL-3.0-only",
-	"homepage": "https://plain-solutions.net/801346",
-	"authors": [
-		{
-			"name": "Roman Gsponer",
-			"email": "kirby@plain-solutions.net"
-		}
-	],
-	"require": {
-		"getkirby/composer-installer": "^1.1"
-	},
-	"extra": {
-		"title": "Form Block Suite"
-	}
+  "name": "plain/kirby-form-block-suite",
+  "description": "Contactform based on Kirby blocks.",
+  "type": "kirby-plugin",
+  "version": "6.0.0",
+  "license": "MIT",
+  "homepage": "https://plain-solutions.net/801346",
+  "authors": [
+    {
+      "name": "Roman Gsponer",
+      "email": "kirby@plain-solutions.net"
+    }
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.1"
+  },
+  "extra": {
+    "title": "Form Block Suite"
+  },
+  "funding": [
+    {
+      "type": "PayPal",
+      "url": "https://www.paypal.com/donate/?hosted_button_id=ZFMMXSQ67XEX4"
+    }
+  ]
 }

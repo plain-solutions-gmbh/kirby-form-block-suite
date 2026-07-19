@@ -7,7 +7,7 @@ namespace Plain\Formblock;
  * @author    Roman Gsponer <support@plain-solutions.net>
  * @link      https://plain-solutions.net/
  * @copyright Roman Gsponer
- * @license   https://plain-solutions.net/terms/ 
+ * @license   MIT / 
  */
 
 use Kirby\Cms\Block as KirbyBlock;
@@ -330,35 +330,29 @@ class Field extends KirbyBlock
         $messages = [];
 
         if (!$this->isFilled)
-            return [];            
+            return [];
+
+
+        //Validate spam protection (CAPTCHA)
+        if ($this->type(true) === "captcha") {
+            $captchaValidator = new CaptchaValidator($this);
+            $errorKey = $captchaValidator->validate();
+
+            if (!empty($errorKey)) {
+                return ['captcha' => $this->message($errorKey)];
+            }
+        }
 
         //Validate File
         if (!is_null($this->files) )
             return $this->validateFile();
 
-
-
         if ($this->required() && empty($this->value())) {
-
             return ['required' => $this->message('required_fail')];
-
         } 
 
         //Validate Requirement
         $validator = $this->validate()->toStructure()->toArray();
-
-        //Validate spam protection
-        if ($this->type(true) === "captcha" ) {
-
-            $calc = array_sum(explode('_', get('captcha-id')));
-
-            array_push($validator, [
-                'validate' => 'same',
-                'same' => strval($calc),
-                'msg' => $this->fail()->or($this->message('captcha_fail'))
-            ]);
-
-        }
 
 
         foreach ($validator as $v) {
