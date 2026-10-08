@@ -423,7 +423,8 @@ class Request
 
             if ($output === null) {
                 $header = array_merge(['ID'], $parseField($content->formfields()), ['Received']);
-                $output = $this->csvLine($header) . "\n";
+                // UTF-8 BOM, so spreadsheet apps like Excel detect the encoding
+                $output = "\xEF\xBB\xBF" . $this->csvLine($header) . "\n";
             }
 
             $row = array_merge([$id], $parseField($content->formdata()), [$received]);

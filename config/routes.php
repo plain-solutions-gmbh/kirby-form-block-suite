@@ -1,5 +1,6 @@
 <?php
 
+use Kirby\Cms\Response;
 use Kirby\Toolkit\Str;
 use Plain\Formblock\Request;
 
@@ -45,11 +46,18 @@ return [
                 return go('error');
             }
 
-            header('Content-Type: text/csv');
-            header("Content-Disposition: attachment;filename={$filename}");
-            
             $formRequest = new Request(compact('page_id', 'form_id'));
-            return $formRequest->download();
+            $csv = $formRequest->download();
+
+            if ($csv === null) {
+                return null;
+            }
+
+            // Return a Response object, otherwise Kirby overrides the
+            // content type with text/html when sending a string
+            return new Response($csv, 'text/csv', 200, [
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"'
+            ]);
             
         }
     ]
