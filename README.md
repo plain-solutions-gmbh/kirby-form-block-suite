@@ -22,9 +22,11 @@ With the integrated mailview field you can display requests allover the panel.
 
 ⭐️ &nbsp; Multiple forms allowed per page.
 
+⭐️ &nbsp; Enable or disable message storage for forms. (Since 6.0.1)
+
 ⭐️ &nbsp; Templating for outgoing emails.
 
-⭐️ &nbsp; Export forms as CSV (Since 5.1.0).
+⭐️ &nbsp; Export forms as CSV.
 
 ⭐️ &nbsp; Create a new form field type with ease by added just 2 files (Blueprint & Template).
 
