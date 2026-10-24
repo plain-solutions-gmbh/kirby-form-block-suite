@@ -5,7 +5,7 @@ namespace Plain\Formblock;
 /**
  * @package   Kirby Form Block Suite
  * @author    Roman Gsponer <support@plain-solutions.net>
- * @link      https://plain-solutions.net/
+ * @link      https://github.com/plain-solutions-gmbh/
  * @copyright Roman Gsponer
  * @license   MIT / 
  */

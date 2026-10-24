@@ -82,8 +82,6 @@ With the integrated mailview field you can display requests allover the panel.
 
 `composer require plain/kirby-form-block-suite`
 
-[See also the other plugins](https://plain-solutions.net/)
-
 # How to use?
 
 Just create a block field in your blueprint and add `form` to the fieldsets props:
@@ -696,7 +694,7 @@ If it is impossible to activate symbolic links, copy the content of `site/plugin
 
 ---
 
-If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/issues) or send me a [private message](https://plain-solutions.net/support).
+If you still have any questions or something is not working properly, [make an issue request on GitHub](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/issues).
 
 **I hope you will enjoy this plugin.**
 
