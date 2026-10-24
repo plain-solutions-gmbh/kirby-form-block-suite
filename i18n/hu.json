@@ -128,7 +128,7 @@
   "form.block.options.notify_placeholder": "Név <mail@domain.ch>",
   "form.block.inbox.export": "CSV exportálása",
   "form.block.fromfields.captcha": "Apsauga nuo šlamšto",
-  "form.block.fromfields.captcha.ask": "Užduoties aprašymas"
-
-
+  "form.block.fromfields.captcha.ask": "Užduoties aprašymas",
+  "form.block.inbox.storage": "Üzenetek mentése",
+  "form.block.inbox.storage.disabled": "Üzenetek tárolása letiltva"
 }

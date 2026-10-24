@@ -127,5 +127,7 @@
   "form.block.options.notify_placeholder": "Vardas <mail@domain.ch>",
   "form.block.inbox.export": "CSV eksportas",
   "form.block.fromfields.captcha": "Apsauga nuo šlamšto",
-  "form.block.fromfields.captcha.ask": "Užduoties aprašymas"
+  "form.block.fromfields.captcha.ask": "Užduoties aprašymas",
+  "form.block.inbox.storage": "Išsaugoti žinutes",
+  "form.block.inbox.storage.disabled": "Žinučių saugojimas išjungtas"
 }

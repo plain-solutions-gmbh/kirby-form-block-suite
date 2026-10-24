@@ -128,5 +128,7 @@
   "form.block.message.send_button": "Verzenden",
   "form.block.message.loading": "Uploaden ({{percent}})",
   "form.block.message.success_message": "<p>Bedankt {{name}}. We nemen zo snel mogelijk contact met je op.</p>",
-  "form.block.inbox.export": "CSV exporteren"
+  "form.block.inbox.export": "CSV exporteren",
+  "form.block.inbox.storage": "Berichten opslaan",
+  "form.block.inbox.storage.disabled": "Berichtopslag uitgeschakeld"
 }

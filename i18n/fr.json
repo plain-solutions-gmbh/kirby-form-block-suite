@@ -129,5 +129,7 @@
   "form.block.fromfields.captcha": "Protection contre les spams",
   "form.block.fromfields.captcha.info": "À utiliser une seule fois par formulaire !",
   "form.block.fromfields.captcha.ask": "Définition de la tâche",
-  "form.block.options.notify_placeholder": "Nom <mail@domain.ch>"
+  "form.block.options.notify_placeholder": "Nom <mail@domain.ch>",
+  "form.block.inbox.storage": "Sauvegarder les messages",
+  "form.block.inbox.storage.disabled": "Stockage des messages désactivé"
 }
