@@ -460,7 +460,7 @@ class Request
         foreach ($this->container->drafts()->sortBy('received', 'desc') as $b) {
 
             $content = $b->content();
-            $received = $content->received()->toValue();
+            $received = $content->received()->value();
             $id = $content->slug();
 
             if ($output === null) {
