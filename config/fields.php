@@ -1,3 +1,5 @@
 <?php 
 
-return ['mailview' => []];
+use Plain\Formblock\MailViewField;
+
+return ['mailview' => MailViewField::class];

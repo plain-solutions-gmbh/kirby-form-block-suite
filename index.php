@@ -15,6 +15,7 @@ F::loadClasses([
     'Plain\Formblock\Field' => __DIR__ . '/classes/Field.php',
     'Plain\Formblock\Fields' => __DIR__ . '/classes/Fields.php',
     'Plain\Formblock\Form' => __DIR__ . '/classes/Form.php',
+    'Plain\Formblock\MailViewField' => __DIR__ . '/classes/MailViewField.php',
     'Plain\Formblock\Request' => __DIR__ . '/classes/Request.php',
 ]);
 
