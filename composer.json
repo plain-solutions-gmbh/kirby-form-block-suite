@@ -15,6 +15,9 @@
     "getkirby/composer-installer": "^1.1"
   },
   "extra": {
-    "title": "Form Block Suite"
+    "title": "Form Block Suite",
+    "kirby": {
+      "compatible": "^6.0"
+    }
   }
 }
