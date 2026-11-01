@@ -1,4 +1,5 @@
 {
+  "name": "kirby-form-block-suite",
   "private": true,
   "scripts": {
     "dev": "kirbyup src/index.js --watch",
@@ -11,7 +12,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-vue": "^7.18.0",
-    "kirbyup": "^0.11.1",
+    "kirbyup": "^4.0.0-beta.1",
     "prettier": "^2.4.1"
   }
 }

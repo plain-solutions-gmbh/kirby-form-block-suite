@@ -77,7 +77,7 @@ export default {
 
     window.panel.events.on("form.update", this.updateList);
   },
-  destroyed() {
+  unmounted() {
     window.panel.events.off("form.update", this.updateList);
   },
   methods: {
@@ -122,7 +122,7 @@ export default {
             req.info = thisDate.isValid()
               ? thisDate.format($this.dateformat)
               : "";
-            req.text = $this.getLabel(req);
+            req.text = $this.$h($this.getLabel(req));
             req.image = $this.getImage(req);
             req.buttons = [$this.getButton("info", req)];
             req.options = [

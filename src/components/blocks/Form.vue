@@ -2,7 +2,7 @@
   <div>
     <k-grid style="gap: 0.25rem; --columns: 12">
       <k-input
-        v-model="content.name"
+        :value="content.name"
         v-bind="field('name')"
         style="--width: 1/3"
         type="text"
@@ -23,7 +23,7 @@
         style="--width: 2/3"
         theme="info"
         :text="$t('form.block.inbox.storage.disabled')"
-        @click.native="open"
+        @click="open"
       />
 
       <k-box
@@ -32,7 +32,7 @@
         style="--width: 2/3"
         :theme="status.theme"
         :text="$t('form.block.inbox.show') + ' (' + status.text + ')'"
-        @click.native="open"
+        @click="open"
       />
     </k-grid>
   </div>
@@ -55,7 +55,7 @@ export default {
       },
     };
   },
-  destroyed() {
+  unmounted() {
     window.panel.events.off("form.update", this.updateCount);
   },
   created() {
@@ -85,7 +85,7 @@ export default {
         });
     },
     onInput(value) {
-      this.$emit("update", value);
+      this.$emit("update", { name: value });
     },
   },
 };

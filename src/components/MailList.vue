@@ -15,7 +15,7 @@
 
     <div v-if="!hideheader" class="k-mailview-list-header">
       <k-box :theme="value.header.state.theme" :icon="isOpen ? 'angle-up' : 'angle-down'" :text="headerText"
-        @click.native="toggleOpen()" />
+        @click="toggleOpen()" />
       <k-button icon="download" variant="filled" :link="value.header.download" :theme="value.header.state.theme"
         :download="true"></k-button>
     </div>
@@ -37,6 +37,7 @@ export default {
     showuuid: Boolean,
     hideheader: Boolean,
   },
+  emits: ["refresh"],
   data() {
     return {
       isOpen: false,
