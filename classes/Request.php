@@ -63,7 +63,7 @@ class Request
     public function __construct($props)
     {
         
-        $this->page_id = $props['page_id'] ?? 'site';
+        $this->page_id = trim($props['page_id'] ?? '', '/') ?: 'site';
         $this->form_id = $props['form_id'] ?? null;
 
         //Get Page
@@ -71,6 +71,10 @@ class Request
             $this->page = site();
         } else {
             $this->page = site()->index(true)->find($this->page_id);
+        }
+
+        if ($this->page === null) {
+            throw new \Kirby\Exception\NotFoundException("Page '{$this->page_id}' not found");
         }
 
         $this->forms = $this->page->index(true)->filterBy('intendedTemplate', 'formcontainer');

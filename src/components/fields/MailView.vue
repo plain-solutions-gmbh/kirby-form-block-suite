@@ -60,8 +60,10 @@ export default {
   },
   computed: {
     thispage() {
+      // Kirby 6 prefixes the model endpoint with a slash (`/site`, `/pages/…`)
       return this.$attrs.endpoints.model
-        .replace("/pages/", "")
+        .replace(/^\//, "")
+        .replace(/^pages\//, "")
         .replace(/\+/g, "/");
     },
   },

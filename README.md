@@ -40,6 +40,7 @@ With the integrated mailview field you can display requests allover the panel.
 
 - [Overview](#overview)
 - [Table of content](#table-of-content)
+- [Compatibility](#compatibility)
 - [Installation](#installation)
 - [How to use?](#how-to-use)
   - [Using the built-in styling](#using-the-built-in-styling)
@@ -71,6 +72,15 @@ With the integrated mailview field you can display requests allover the panel.
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 
+
+# Compatibility
+
+| Kirby | Plugin version | Branch |
+|-------|----------------|--------|
+| 6     | 7.x | [`kirby-6`](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/tree/kirby-6) |
+| 4 / 5 | 6.x | [`main`](https://github.com/plain-solutions-gmbh/kirby-form-block-suite/tree/main) |
+
+Composer installs the matching version automatically. For a manual installation, download the branch that fits your Kirby version.
 
 # Installation
 
